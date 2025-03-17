@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ram Erlikh - Developer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Your Website with Style Switcher</title>
     <style>
-        /* Basic resets and globals */
+        /* Base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            transition: all 0.3s ease;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            min-height: 100vh;
             overflow-x: hidden;
-            background-color: #0a192f;
+            color: #ccd6f6;
         }
         
-        /* Animated background */
-        .animated-bg {
+        /* Background styles */
+        .bg-animated {
             position: fixed;
             top: 0;
             left: 0;
@@ -48,11 +47,11 @@
             width: 100%;
             height: 100%;
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
             z-index: -1;
         }
-
+        
         .stars {
             position: fixed;
             top: 0;
@@ -61,7 +60,7 @@
             height: 100%;
             z-index: -1;
         }
-
+        
         .star {
             position: absolute;
             background-color: #fff;
@@ -69,7 +68,7 @@
             opacity: 0.5;
             animation: twinkle 4s infinite;
         }
-
+        
         @keyframes twinkle {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.8; }
@@ -111,44 +110,37 @@
             font-size: 1.2rem;
             transition: transform 0.3s ease;
         }
-        
-        .logo:hover .logo-icon {
-            transform: rotate(90deg);
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
         }
         
-        nav ul {
+        .nav-links {
             display: flex;
             list-style: none;
         }
         
-        nav li {
+        .nav-links li {
             margin-left: 2rem;
         }
         
-        nav a {
+        .nav-links a {
             color: #ccd6f6;
             text-decoration: none;
-            font-size: 0.95rem;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: #64ffda;
-        }
-        
-        nav a::before {
-            content: '0' attr(data-num) '.';
-            color: #64ffda;
-            margin-right: 5px;
             font-size: 0.9rem;
+            position: relative;
         }
         
-        nav a::after {
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+        
+        .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
@@ -156,880 +148,1437 @@
             transition: width 0.3s ease;
         }
         
-        nav a:hover::after {
+        .nav-links a:hover::before {
             width: 100%;
         }
         
-        /* Hero section */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-        }
-        
-        .hero-greeting {
-            color: #64ffda;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            font-family: monospace;
-        }
-        
-        .hero-title {
-            color: #ccd6f6;
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.5s ease-out;
-        }
-        
-        .hero-subtitle {
-            color: #8892b0;
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.5s ease-out 0.2s forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .hero-description {
-            color: #8892b0;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.5s ease-out 0.4s forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
+        /* Button styles */
         .btn {
-            display: inline-block;
-            background-color: transparent;
-            color: #64ffda;
+            padding: 0.75rem 1.5rem;
             border: 1px solid #64ffda;
             border-radius: 4px;
-            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: #64ffda;
             font-size: 0.9rem;
-            text-decoration: none;
             cursor: pointer;
+            margin-left: 1.5rem;
             transition: all 0.3s ease;
-            animation: fadeInUp 0.5s ease-out 0.6s forwards;
-            opacity: 0;
-            transform: translateY(20px);
         }
         
         .btn:hover {
-            background-color: rgba(100, 255, 218, 0.1);
-            transform: translateY(-5px);
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
         }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Sections */
-        section {
-            padding: 100px 0;
-        }
-        
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-            color: #ccd6f6;
-        }
-        
-        .section-title::before {
-            content: attr(data-number);
-            font-family: monospace;
-            color: #64ffda;
-            margin-right: 10px;
-            font-size: 1.5rem;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            height: 1px;
-            width: 300px;
-            background-color: #233554;
-            margin-left: 20px;
-        }
-        
-        /* About section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .about-description {
-            color: #8892b0;
-        }
-        
-        .about-description p {
-            margin-bottom: 1rem;
-        }
-        
-        .skills-list {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(140px, 200px));
-            margin-top: 20px;
-        }
-        
-        .skills-list li {
+
+        /* Style Switcher */
+        .style-switcher {
             position: relative;
-            margin-bottom: 10px;
-            padding-left: 20px;
-            color: #8892b0;
-            font-family: monospace;
+            margin-left: 1.5rem;
         }
         
-        .skills-list li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: #64ffda;
-        }
-        
-        .cube-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            perspective: 800px;
-        }
-        
-        .cube {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 150px;
-            height: 150px;
-            transform-style: preserve-3d;
-            transform: translate(-50%, -50%) rotateX(-20deg) rotateY(-20deg);
-            animation: cube-rotate 20s infinite linear;
-            cursor: pointer;
-        }
-        
-        .cube.paused {
-            animation-play-state: paused;
-        }
-        
-        .cube-face {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background-color: rgba(100, 255, 218, 0.1);
+        .style-btn {
+            padding: 0.75rem 1.5rem;
             border: 1px solid #64ffda;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: monospace;
-            color: #64ffda;
-            font-size: 1.5rem;
-            backface-visibility: visible;
-            transition: transform 0.5s ease;
-        }
-        
-        .cube-face.front { transform: translateZ(75px); }
-        .cube-face.back { transform: rotateY(180deg) translateZ(75px); }
-        .cube-face.right { transform: rotateY(90deg) translateZ(75px); }
-        .cube-face.left { transform: rotateY(-90deg) translateZ(75px); }
-        .cube-face.top { transform: rotateX(90deg) translateZ(75px); }
-        .cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
-        
-        .cube-exploded .cube-face.front { transform: translateZ(150px); }
-        .cube-exploded .cube-face.back { transform: rotateY(180deg) translateZ(150px); }
-        .cube-exploded .cube-face.right { transform: rotateY(90deg) translateZ(150px); }
-        .cube-exploded .cube-face.left { transform: rotateY(-90deg) translateZ(150px); }
-        .cube-exploded .cube-face.top { transform: rotateX(90deg) translateZ(150px); }
-        .cube-exploded .cube-face.bottom { transform: rotateX(-90deg) translateZ(150px); }
-        
-        @keyframes cube-rotate {
-            from { transform: translate(-50%, -50%) rotateX(-20deg) rotateY(0deg); }
-            to { transform: translate(-50%, -50%) rotateX(-20deg) rotateY(360deg); }
-        }
-        
-        /* Projects section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .project-card {
-            background-color: #112240;
             border-radius: 4px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
-        }
-        
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 35px;
-        }
-        
-        .folder-icon {
+            background: transparent;
             color: #64ffda;
-            font-size: 2.5rem;
-        }
-        
-        .project-links {
-            display: flex;
-            align-items: center;
-        }
-        
-        .project-links a {
-            color: #ccd6f6;
-            margin-left: 15px;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        
-        .project-links a:hover {
-            color: #64ffda;
-        }
-        
-        .project-title {
-            color: #e6f1ff;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .project-description {
-            color: #8892b0;
             font-size: 0.9rem;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            list-style: none;
-            color: #8892b0;
-            font-family: monospace;
-            font-size: 0.8rem;
-        }
-        
-        .project-tech li {
-            margin-right: 15px;
-            margin-bottom: 5px;
-        }
-        
-        /* Contact section */
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .contact-title {
-            color: #64ffda;
-            font-family: monospace;
-            margin-bottom: 20px;
-        }
-        
-        .contact-description {
-            color: #8892b0;
-            margin-bottom: 50px;
-        }
-        
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            margin: 0 10px;
-            color: #ccd6f6;
-            border: 1px solid #64ffda;
-            border-radius: 50%;
-            font-size: 1.3rem;
+            cursor: pointer;
             transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            background-color: rgba(100, 255, 218, 0.1);
-            transform: translateY(-5px);
-            color: #64ffda;
-        }
-        
-        /* Terminal component */
-        .terminal {
-            background-color: #0a192f;
-            border: 1px solid #233554;
-            border-radius: 5px;
-            font-family: monospace;
-            margin: 2rem 0;
-            overflow: hidden;
-        }
-        
-        .terminal-header {
-            background-color: #112240;
-            padding: 10px;
             display: flex;
             align-items: center;
         }
         
-        .terminal-buttons {
-            display: flex;
+        .style-btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
         }
         
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
+        .style-btn svg {
+            margin-left: 0.5rem;
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
         }
         
-        .terminal-button.red { background-color: #ff5f56; }
-        .terminal-button.yellow { background-color: #ffbd2e; }
-        .terminal-button.green { background-color: #27c93f; }
-        
-        .terminal-title {
-            color: #ccd6f6;
-            margin-left: 10px;
-            font-size: 0.8rem;
+        .style-btn.active svg {
+            transform: rotate(180deg);
         }
         
-        .terminal-body {
-            padding: 15px;
-            height: 300px;
+        .style-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            width: 280px;
+            max-height: 0;
+            overflow: hidden;
+            background: #112240;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(2, 12, 27, 0.7);
+            transition: max-height 0.5s ease;
+            z-index: 100;
+        }
+        
+        .style-dropdown.active {
+            max-height: 400px;
             overflow-y: auto;
-            color: #8892b0;
         }
         
-        .terminal-prompt {
-            color: #64ffda;
-            margin-right: 10px;
+        .style-list {
+            list-style: none;
+            padding: 0.5rem;
         }
         
-        .terminal-command {
-            color: #ccd6f6;
+        .style-item {
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
         }
         
-        .terminal-output {
-            margin: 10px 0;
-            padding-left: 25px;
-            color: #a8b2d1;
+        .style-item:hover {
+            background: rgba(100, 255, 218, 0.1);
         }
         
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            color: #8892b0;
-            font-size: 0.8rem;
+        .style-item.active {
+            background: rgba(100, 255, 218, 0.2);
         }
         
-        footer a {
-            color: #64ffda;
-            text-decoration: none;
-        }
-        
-        .hidden-message {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px;
-            background-color: #112240;
-            color: #64ffda;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .hidden-message.visible {
-            opacity: 1;
-        }
-        
-        /* Matrix mode */
-        body.matrix-mode {
-            background-color: #000;
-        }
-        
-        body.matrix-mode .animated-bg {
-            background: #000;
-        }
-        
-        body.matrix-mode * {
-            color: #00ff00 !important;
-            border-color: #00ff00 !important;
-        }
-        
-        body.matrix-mode .project-card,
-        body.matrix-mode .terminal,
-        body.matrix-mode .cube-face {
-            background-color: rgba(0, 20, 0, 0.8) !important;
-            box-shadow: 0 10px 30px -15px rgba(0, 255, 0, 0.2) !important;
-        }
-        
-        body.matrix-mode .section-title::after,
-        body.matrix-mode .terminal-header {
-            background-color: rgba(0, 255, 0, 0.2) !important;
-        }
-        
-        /* Cursor trail effect */
-        .cursor-trail {
-            position: fixed;
-            width: 10px;
-            height: 10px;
+        .style-color {
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background-color: rgba(100, 255, 218, 0.5);
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: screen;
-            transition: opacity 0.5s;
-            opacity: 0;
+            margin-right: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 2rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title::after {
-                width: 100px;
-            }
-            
-            nav ul {
-                display: none;
-            }
+        .style-name {
+            font-size: 0.9rem;
+        }
+
+        /* Below are the 20 different theme styles */
+        
+        /* Theme 1: Default (Tech) - Already defined above */
+        
+        /* Theme 2: Midnight Purple */
+        .theme-midnight-purple {
+            --bg-primary: linear-gradient(-45deg, #1a0b2e, #281042, #35196b, #281042);
+            --accent: #a176ff;
+            --text-primary: #e2d8ff;
+            --text-secondary: #a79bc3;
+            --grid-color: rgba(161, 118, 255, 0.03);
+        }
+        
+        .theme-midnight-purple .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-midnight-purple .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-midnight-purple .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-midnight-purple header,
+        .theme-midnight-purple .logo {
+            color: var(--accent);
+        }
+        
+        .theme-midnight-purple .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-midnight-purple .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-midnight-purple .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-midnight-purple .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-midnight-purple .btn,
+        .theme-midnight-purple .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-midnight-purple .btn:hover,
+        .theme-midnight-purple .style-btn:hover {
+            background: rgba(161, 118, 255, 0.1);
+        }
+        
+        /* Theme 3: Ocean Blue */
+        .theme-ocean-blue {
+            --bg-primary: linear-gradient(-45deg, #003459, #004e7c, #0077b6, #004e7c);
+            --accent: #00a8e8;
+            --text-primary: #e1f5fe;
+            --text-secondary: #90caf9;
+            --grid-color: rgba(0, 168, 232, 0.03);
+        }
+        
+        .theme-ocean-blue .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-ocean-blue .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-ocean-blue .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-ocean-blue header,
+        .theme-ocean-blue .logo {
+            color: var(--accent);
+        }
+        
+        .theme-ocean-blue .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-ocean-blue .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-ocean-blue .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-ocean-blue .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-ocean-blue .btn,
+        .theme-ocean-blue .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-ocean-blue .btn:hover,
+        .theme-ocean-blue .style-btn:hover {
+            background: rgba(0, 168, 232, 0.1);
+        }
+        
+        /* Theme 4: Forest Green */
+        .theme-forest-green {
+            --bg-primary: linear-gradient(-45deg, #1b2a1b, #2d4a2d, #3a613a, #2d4a2d);
+            --accent: #7fb06b;
+            --text-primary: #e8f5e8;
+            --text-secondary: #b6d7a8;
+            --grid-color: rgba(127, 176, 107, 0.03);
+        }
+        
+        .theme-forest-green .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-forest-green .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-forest-green .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-forest-green header,
+        .theme-forest-green .logo {
+            color: var(--accent);
+        }
+        
+        .theme-forest-green .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-forest-green .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-forest-green .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-forest-green .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-forest-green .btn,
+        .theme-forest-green .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-forest-green .btn:hover,
+        .theme-forest-green .style-btn:hover {
+            background: rgba(127, 176, 107, 0.1);
+        }
+        
+        /* Theme 5: Ruby Red */
+        .theme-ruby-red {
+            --bg-primary: linear-gradient(-45deg, #3a0f14, #5e1920, #7a202a, #5e1920);
+            --accent: #f05454;
+            --text-primary: #fae0e0;
+            --text-secondary: #e7a3a3;
+            --grid-color: rgba(240, 84, 84, 0.03);
+        }
+        
+        .theme-ruby-red .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-ruby-red .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-ruby-red .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-ruby-red header,
+        .theme-ruby-red .logo {
+            color: var(--accent);
+        }
+        
+        .theme-ruby-red .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-ruby-red .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-ruby-red .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-ruby-red .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-ruby-red .btn,
+        .theme-ruby-red .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-ruby-red .btn:hover,
+        .theme-ruby-red .style-btn:hover {
+            background: rgba(240, 84, 84, 0.1);
+        }
+        
+        /* Theme 6: Sunset Orange */
+        .theme-sunset-orange {
+            --bg-primary: linear-gradient(-45deg, #2d1722, #4b253a, #6e334e, #4b253a);
+            --accent: #ff9466;
+            --text-primary: #ffeae0;
+            --text-secondary: #ffcdb2;
+            --grid-color: rgba(255, 148, 102, 0.03);
+        }
+        
+        .theme-sunset-orange .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-sunset-orange .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-sunset-orange .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-sunset-orange header,
+        .theme-sunset-orange .logo {
+            color: var(--accent);
+        }
+        
+        .theme-sunset-orange .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-sunset-orange .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-sunset-orange .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-sunset-orange .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-sunset-orange .btn,
+        .theme-sunset-orange .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-sunset-orange .btn:hover,
+        .theme-sunset-orange .style-btn:hover {
+            background: rgba(255, 148, 102, 0.1);
+        }
+        
+        /* Theme 7: Mint Fresh */
+        .theme-mint-fresh {
+            --bg-primary: linear-gradient(-45deg, #11231e, #1d3d33, #2a5747, #1d3d33);
+            --accent: #7de2d1;
+            --text-primary: #e1faf7;
+            --text-secondary: #aee8df;
+            --grid-color: rgba(125, 226, 209, 0.03);
+        }
+        
+        .theme-mint-fresh .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-mint-fresh .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-mint-fresh .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-mint-fresh header,
+        .theme-mint-fresh .logo {
+            color: var(--accent);
+        }
+        
+        .theme-mint-fresh .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-mint-fresh .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-mint-fresh .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-mint-fresh .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-mint-fresh .btn,
+        .theme-mint-fresh .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-mint-fresh .btn:hover,
+        .theme-mint-fresh .style-btn:hover {
+            background: rgba(125, 226, 209, 0.1);
+        }
+        
+        /* Theme 8: Light Mode */
+        .theme-light-mode {
+            --bg-primary: linear-gradient(-45deg, #e1e6ef, #f0f4f8, #f9fafb, #f0f4f8);
+            --accent: #6200ee;
+            --text-primary: #1a1a2b;
+            --text-secondary: #4a4a6a;
+            --grid-color: rgba(98, 0, 238, 0.03);
+        }
+        
+        .theme-light-mode .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-light-mode .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-light-mode .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-light-mode header,
+        .theme-light-mode .logo {
+            color: var(--accent);
+        }
+        
+        .theme-light-mode .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-light-mode .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-light-mode .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-light-mode .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-light-mode .btn,
+        .theme-light-mode .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-light-mode .btn:hover,
+        .theme-light-mode .style-btn:hover {
+            background: rgba(98, 0, 238, 0.1);
+        }
+        
+        /* Theme 9: Dark Minimal */
+        .theme-dark-minimal {
+            --bg-primary: #121212;
+            --accent: #ffffff;
+            --text-primary: #f5f5f5;
+            --text-secondary: #aaaaaa;
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .theme-dark-minimal .bg-animated {
+            background: var(--bg-primary);
+            animation: none;
+        }
+        
+        .theme-dark-minimal .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-dark-minimal .stars {
+            display: none;
+        }
+        
+        .theme-dark-minimal header,
+        .theme-dark-minimal .logo {
+            color: var(--accent);
+        }
+        
+        .theme-dark-minimal .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-dark-minimal .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-dark-minimal .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-dark-minimal .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-dark-minimal .btn,
+        .theme-dark-minimal .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-dark-minimal .btn:hover,
+        .theme-dark-minimal .style-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Theme 10: Gold Luxury */
+        .theme-gold-luxury {
+            --bg-primary: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #333333, #2a2a2a);
+            --accent: #ffd700;
+            --text-primary: #fff9e5;
+            --text-secondary: #d6c38d;
+            --grid-color: rgba(255, 215, 0, 0.03);
+        }
+        
+        .theme-gold-luxury .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-gold-luxury .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-gold-luxury .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-gold-luxury header,
+        .theme-gold-luxury .logo {
+            color: var(--accent);
+        }
+        
+        .theme-gold-luxury .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-gold-luxury .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-gold-luxury .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-gold-luxury .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-gold-luxury .btn,
+        .theme-gold-luxury .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-gold-luxury .btn:hover,
+        .theme-gold-luxury .style-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        /* Theme 11: Electric Neon */
+        .theme-electric-neon {
+            --bg-primary: linear-gradient(-45deg, #0a0a0a, #151515, #1c1c1c, #151515);
+            --accent: #00ff99;
+            --text-primary: #e0fff2;
+            --text-secondary: #b3ffdb;
+            --grid-color: rgba(0, 255, 153, 0.05);
+        }
+        
+        .theme-electric-neon .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-electric-neon .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-electric-neon .star {
+            background-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+        
+        .theme-electric-neon header,
+        .theme-electric-neon .logo {
+            color: var(--accent);
+            text-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-electric-neon .logo-icon {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+        
+        .theme-electric-neon .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-electric-neon .nav-links a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-electric-neon .nav-links a::before {
+            background-color: var(--accent);
+            box-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-electric-neon .btn,
+        .theme-electric-neon .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-electric-neon .btn:hover,
+        .theme-electric-neon .style-btn:hover {
+            background: rgba(0, 255, 153, 0.1);
+            box-shadow: 0 0 15px var(--accent);
+        }
+        
+        /* Theme 12: Coffee Shop */
+        .theme-coffee-shop {
+            --bg-primary: linear-gradient(-45deg, #2c2218, #3e3022, #4e3c2a, #3e3022);
+            --accent: #c8a27c;
+            --text-primary: #f5e6d8;
+            --text-secondary: #d1b8a0;
+            --grid-color: rgba(200, 162, 124, 0.03);
+        }
+        
+        .theme-coffee-shop .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-coffee-shop .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-coffee-shop .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-coffee-shop header,
+        .theme-coffee-shop .logo {
+            color: var(--accent);
+        }
+        
+        .theme-coffee-shop .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-coffee-shop .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-coffee-shop .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-coffee-shop .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-coffee-shop .btn,
+        .theme-coffee-shop .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-coffee-shop .btn:hover,
+        .theme-coffee-shop .style-btn:hover {
+            background: rgba(200, 162, 124, 0.1);
+        }
+        
+        /* Theme 13: Pastel Dreams */
+        .theme-pastel-dreams {
+            --bg-primary: linear-gradient(-45deg, #daeaf6, #f2f7fc, #ffd6e0, #f2f7fc);
+            --accent: #ffacc7;
+            --text-primary: #2b2024;
+            --text-secondary: #594a51;
+            --grid-color: rgba(255, 172, 199, 0.1);
+        }
+        
+        .theme-pastel-dreams .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-pastel-dreams .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-pastel-dreams .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-pastel-dreams header,
+        .theme-pastel-dreams .logo {
+            color: var(--accent);
+        }
+        
+        .theme-pastel-dreams .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-pastel-dreams .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-pastel-dreams .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-pastel-dreams .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-pastel-dreams .btn,
+        .theme-pastel-dreams .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-pastel-dreams .btn:hover,
+        .theme-pastel-dreams .style-btn:hover {
+            background: rgba(255, 172, 199, 0.1);
+        }
+        
+        /* Theme 14: Cyberpunk */
+        .theme-cyberpunk {
+            --bg-primary: linear-gradient(-45deg, #0d0221, #18033b, #240856, #18033b);
+            --accent: #ff00ff;
+            --text-primary: #f2e6ff;
+            --text-secondary: #c39eff;
+            --grid-color: rgba(255, 0, 255, 0.05);
+        }
+        
+        .theme-cyberpunk .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-cyberpunk .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .theme-cyberpunk .star {
+            background-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+        
+        .theme-cyberpunk header,
+        .theme-cyberpunk .logo {
+            color: var(--accent);
+            text-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-cyberpunk .logo-icon {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+        
+        .theme-cyberpunk .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-cyberpunk .nav-links a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-cyberpunk .nav-links a::before {
+            background-color: var(--accent);
+            box-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-cyberpunk .btn,
+        .theme-cyberpunk .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 5px var(--accent);
+        }
+        
+        .theme-cyberpunk .btn:hover,
+        .theme-cyberpunk .style-btn:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 15px var(--accent);
+        }
+        
+        /* Theme 15: Autumn Vibes */
+        .theme-autumn-vibes {
+            --bg-primary: linear-gradient(-45deg, #2c1c0c, #412a16, #5d392e, #412a16);
+            --accent: #e76f51;
+            --text-primary: #ffede9;
+            --text-secondary: #f7c5b7;
+            --grid-color: rgba(231, 111, 81, 0.03);
+        }
+        
+        .theme-autumn-vibes .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-autumn-vibes .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-autumn-vibes .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-autumn-vibes header,
+        .theme-autumn-vibes .logo {
+            color: var(--accent);
+        }
+        
+        .theme-autumn-vibes .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-autumn-vibes .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-autumn-vibes .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-autumn-vibes .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-autumn-vibes .btn,
+        .theme-autumn-vibes .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-autumn-vibes .btn:hover,
+        .theme-autumn-vibes .style-btn:hover {
+            background: rgba(231, 111, 81, 0.1);
+        }
+        
+        /* Theme 16: Nordic Frost */
+        .theme-nordic-frost {
+            --bg-primary: linear-gradient(-45deg, #2e3440, #3b4252, #434c5e, #3b4252);
+            --accent: #88c0d0;
+            --text-primary: #eceff4;
+            --text-secondary: #d8dee9;
+            --grid-color: rgba(136, 192, 208, 0.03);
+        }
+        
+        .theme-nordic-frost .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-nordic-frost .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-nordic-frost .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-nordic-frost header,
+        .theme-nordic-frost .logo {
+            color: var(--accent);
+        }
+        
+        .theme-nordic-frost .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-nordic-frost .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-nordic-frost .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-nordic-frost .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-nordic-frost .btn,
+        .theme-nordic-frost .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-nordic-frost .btn:hover,
+        .theme-nordic-frost .style-btn:hover {
+            background: rgba(136, 192, 208, 0.1);
+        }
+        
+        /* Theme 17: Vintage Paper */
+        .theme-vintage-paper {
+            --bg-primary: #f8f0d7;
+            --accent: #8d6e63;
+            --text-primary: #3e2723;
+            --text-secondary: #6d4c41;
+            --grid-color: rgba(141, 110, 99, 0.1);
+        }
+        
+        .theme-vintage-paper .bg-animated {
+            background: var(--bg-primary);
+            animation: none;
+        }
+        
+        .theme-vintage-paper .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .theme-vintage-paper .stars {
+            display: none;
+        }
+        
+        .theme-vintage-paper header,
+        .theme-vintage-paper .logo {
+            color: var(--accent);
+        }
+        
+        .theme-vintage-paper .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-vintage-paper .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-vintage-paper .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-vintage-paper .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-vintage-paper .btn,
+        .theme-vintage-paper .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-vintage-paper .btn:hover,
+        .theme-vintage-paper .style-btn:hover {
+            background: rgba(141, 110, 99, 0.1);
+        }
+        
+        /* Theme 18: Cherry Blossom */
+        .theme-cherry-blossom {
+            --bg-primary: linear-gradient(-45deg, #fce4ec, #f8bbd0, #f48fb1, #f8bbd0);
+            --accent: #ec407a;
+            --text-primary: #4a2c35;
+            --text-secondary: #7d4955;
+            --grid-color: rgba(236, 64, 122, 0.05);
+        }
+        
+        .theme-cherry-blossom .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-cherry-blossom .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-cherry-blossom .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-cherry-blossom header,
+        .theme-cherry-blossom .logo {
+            color: var(--accent);
+        }
+        
+        .theme-cherry-blossom .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-cherry-blossom .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-cherry-blossom .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-cherry-blossom .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-cherry-blossom .btn,
+        .theme-cherry-blossom .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-cherry-blossom .btn:hover,
+        .theme-cherry-blossom .style-btn:hover {
+            background: rgba(236, 64, 122, 0.1);
+        }
+        
+        /* Theme 19: Space Odyssey */
+        .theme-space-odyssey {
+            --bg-primary: linear-gradient(-45deg, #0a0d11, #121920, #1b2430, #121920);
+            --accent: #49beb7;
+            --text-primary: #e1f5f3;
+            --text-secondary: #a0ded9;
+            --grid-color: rgba(73, 190, 183, 0.03);
+        }
+        
+        .theme-space-odyssey .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-space-odyssey .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-space-odyssey .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-space-odyssey header,
+        .theme-space-odyssey .logo {
+            color: var(--accent);
+        }
+        
+        .theme-space-odyssey .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-space-odyssey .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-space-odyssey .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-space-odyssey .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-space-odyssey .btn,
+        .theme-space-odyssey .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-space-odyssey .btn:hover,
+        .theme-space-odyssey .style-btn:hover {
+            background: rgba(73, 190, 183, 0.1);
+        }
+        
+        /* Theme 20: Monochrome */
+        .theme-monochrome {
+            --bg-primary: linear-gradient(-45deg, #111111, #222222, #333333, #222222);
+            --accent: #f5f5f5;
+            --text-primary: #e0e0e0;
+            --text-secondary: #aaaaaa;
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .theme-monochrome .bg-animated {
+            background: var(--bg-primary);
+            filter: grayscale(100%);
+        }
+        
+        .theme-monochrome .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-monochrome .star {
+            background-color: var(--accent);
+            filter: grayscale(100%);
+        }
+        
+        .theme-monochrome header,
+        .theme-monochrome .logo {
+            color: var(--accent);
+        }
+        
+        .theme-monochrome .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-monochrome .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-monochrome .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-monochrome .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-monochrome .btn,
+        .theme-monochrome .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-monochrome .btn:hover,
+        .theme-monochrome .style-btn:hover {
+            background: rgba(245, 245, 245, 0.1);
+        }
+        
+        /* Theme 21: Default - Reference for other themes */ 
+        .theme-default {
+            --bg-primary: linear-gradient(-45deg, #0a192f, #112240, #233554, #112240);
+            --accent: #64ffda;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .theme-default .bg-animated {
+            background: var(--bg-primary);
+        }
+        
+        .theme-default .bg-grid {
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        }
+        
+        .theme-default .star {
+            background-color: var(--accent);
+        }
+        
+        .theme-default header,
+        .theme-default .logo {
+            color: var(--accent);
+        }
+        
+        .theme-default .logo-icon {
+            border-color: var(--accent);
+        }
+        
+        .theme-default .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-default .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-default .nav-links a::before {
+            background-color: var(--accent);
+        }
+        
+        .theme-default .btn,
+        .theme-default .style-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .theme-default .btn:hover,
+        .theme-default .style-btn:hover {
+            background: rgba(100, 255, 218, 0.1);
         }
     </style>
 </head>
-<body>
-    <div class="animated-bg"></div>
+<body class="theme-default">
+    <div class="bg-animated"></div>
     <div class="bg-grid"></div>
     <div class="stars" id="stars"></div>
-    <div id="cursor-container"></div>
     
     <div class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon">R</div>
-                <span>Ram Erlikh</span>
+                <span class="logo-icon">M</span>
+                <span>MyPortfolio</span>
             </div>
+            
             <nav>
-                <ul>
-                    <li><a href="#about" data-num="1">About</a></li>
-                    <li><a href="#projects" data-num="2">Projects</a></li>
-                    <li><a href="#contact" data-num="3">Contact</a></li>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
+                
+                <div class="style-switcher">
+                    <button id="style-btn" class="style-btn">
+                        Switch Style
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    
+                    <div id="style-dropdown" class="style-dropdown">
+                        <ul class="style-list">
+                            <li class="style-item active" data-theme="theme-default">
+                                <span class="style-color" style="background-color: #64ffda;"></span>
+                                <span class="style-name">Default Tech</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-midnight-purple">
+                                <span class="style-color" style="background-color: #a176ff;"></span>
+                                <span class="style-name">Midnight Purple</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-ocean-blue">
+                                <span class="style-color" style="background-color: #00a8e8;"></span>
+                                <span class="style-name">Ocean Blue</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-forest-green">
+                                <span class="style-color" style="background-color: #7fb06b;"></span>
+                                <span class="style-name">Forest Green</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-ruby-red">
+                                <span class="style-color" style="background-color: #f05454;"></span>
+                                <span class="style-name">Ruby Red</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-sunset-orange">
+                                <span class="style-color" style="background-color: #ff9466;"></span>
+                                <span class="style-name">Sunset Orange</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-mint-fresh">
+                                <span class="style-color" style="background-color: #7de2d1;"></span>
+                                <span class="style-name">Mint Fresh</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-light-mode">
+                                <span class="style-color" style="background-color: #6200ee;"></span>
+                                <span class="style-name">Light Mode</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-dark-minimal">
+                                <span class="style-color" style="background-color: #ffffff;"></span>
+                                <span class="style-name">Dark Minimal</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-gold-luxury">
+                                <span class="style-color" style="background-color: #ffd700;"></span>
+                                <span class="style-name">Gold Luxury</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-electric-neon">
+                                <span class="style-color" style="background-color: #00ff99;"></span>
+                                <span class="style-name">Electric Neon</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-coffee-shop">
+                                <span class="style-color" style="background-color: #c8a27c;"></span>
+                                <span class="style-name">Coffee Shop</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-pastel-dreams">
+                                <span class="style-color" style="background-color: #ffacc7;"></span>
+                                <span class="style-name">Pastel Dreams</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-cyberpunk">
+                                <span class="style-color" style="background-color: #ff00ff;"></span>
+                                <span class="style-name">Cyberpunk</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-autumn-vibes">
+                                <span class="style-color" style="background-color: #e76f51;"></span>
+                                <span class="style-name">Autumn Vibes</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-nordic-frost">
+                                <span class="style-color" style="background-color: #88c0d0;"></span>
+                                <span class="style-name">Nordic Frost</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-vintage-paper">
+                                <span class="style-color" style="background-color: #8d6e63;"></span>
+                                <span class="style-name">Vintage Paper</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-cherry-blossom">
+                                <span class="style-color" style="background-color: #ec407a;"></span>
+                                <span class="style-name">Cherry Blossom</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-space-odyssey">
+                                <span class="style-color" style="background-color: #49beb7;"></span>
+                                <span class="style-name">Space Odyssey</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-monochrome">
+                                <span class="style-color" style="background-color: #f5f5f5;"></span>
+                                <span class="style-name">Monochrome</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn">Get in Touch</button>
             </nav>
         </header>
         
-        <main>
-            <section class="hero">
-                <div class="hero-content">
-                    <p class="hero-greeting">Hi, my name is</p>
-                    <h1 class="hero-title">Ram Erlikh.</h1>
-                    <h2 class="hero-subtitle">I build things for the web.</h2>
-                    <p class="hero-description">I'm a developer focused on creating innovative solutions. With a blend of technical expertise and creative thinking, I bring ideas to life through elegant and efficient code.</p>
-                    <a href="#contact" class="btn">Get In Touch</a>
-                </div>
-            </section>
-            
-            <section id="about" class="about">
-                <h2 class="section-title" data-number="01.">About Me</h2>
-                <div class="about-content">
-                    <div class="about-description">
-                        <p>I'm a passionate developer who loves creating beautiful, functional, and user-friendly applications. With expertise in both front-end and back-end technologies, I enjoy tackling complex problems and turning them into simple, elegant solutions.</p>
-                        <p>My journey in development has led me to work on various projects, from web applications to software solutions. I'm constantly learning and expanding my skillset to stay at the forefront of technology trends.</p>
-                        <p>Here are a few technologies I've been working with recently:</p>
-                        <ul class="skills-list">
-                            <li>JavaScript (ES6+)</li>
-                            <li>React</li>
-                            <li>Node.js</li>
-                            <li>HTML & CSS</li>
-                            <li>TypeScript</li>
-                            <li>Python</li>
-                            <li>SQL</li>
-                            <li>Git</li>
-                        </ul>
-                    </div>
-                    <div class="cube-container">
-                        <div class="cube" id="cube">
-                            <div class="cube-face front">R</div>
-                            <div class="cube-face back">E</div>
-                            <div class="cube-face right">WEB</div>
-                            <div class="cube-face left">DEV</div>
-                            <div class="cube-face top">2025</div>
-                            <div class="cube-face bottom">🚀</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="projects" class="projects">
-                <h2 class="section-title" data-number="02.">Projects</h2>
-                
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <div class="terminal-button red"></div>
-                            <div class="terminal-button yellow"></div>
-                            <div class="terminal-button green"></div>
-                        </div>
-                        <div class="terminal-title">ram@dev: ~/projects</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div>
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">ls -la</span>
-                        </div>
-                        <div class="terminal-output">
-                            total 48<br>
-                            drwxr-xr-x  12 ram  staff  384 Mar 16 10:42 .<br>
-                            drwxr-xr-x   8 ram  staff  256 Mar 16 09:21 ..<br>
-                            -rw-r--r--   1 ram  staff   74 Mar 16 09:33 .gitignore<br>
-                            drwxr-xr-x  14 ram  staff  448 Mar 16 10:27 .git<br>
-                            drwxr-xr-x   8 ram  staff  256 Mar 16 09:41 web-portfolio<br>
-                            drwxr-xr-x  10 ram  staff  320 Mar 16 09:52 mobile-app<br>
-                            drwxr-xr-x   9 ram  staff  288 Mar 16 10:01 data-visualization<br>
-                            drwxr-xr-x  11 ram  staff  352 Mar 16 10:15 bellettyarts
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">cd bellettyarts && npm start</span>
-                        </div>
-                        <div class="terminal-output">
-                            > bellettyarts@1.0.0 start<br>
-                            > react-scripts start<br><br>
-                            Compiled successfully!<br><br>
-                            You can now view bellettyarts in the browser.<br><br>
-                            Local:            http://localhost:3000<br>
-                            On Your Network:  http://192.168.1.5:3000<br><br>
-                            Note that the development build is not optimized.<br>
-                            To create a production build, use npm run build.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="folder-icon">
-                                <i class="far fa-folder-open"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/RamErlikh" target="_blank"><i class="fab fa-github"></i></a>
-                                <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Personal Portfolio</h3>
-                        <p class="project-description">A stylish, modern personal portfolio website designed to showcase my skills and projects. Features interactive elements and responsive design.</p>
-                        <ul class="project-tech">
-                            <li>HTML5</li>
-                            <li>CSS3</li>
-                            <li>JavaScript</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="folder-icon">
-                                <i class="far fa-folder-open"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/RamErlikh" target="_blank"><i class="fab fa-github"></i></a>
-                                <a href="https://bellettyarts.com" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Belletty Arts</h3>
-                        <p class="project-description">A comprehensive website for showcasing artistic works, with galleries, artist profiles, and e-commerce capabilities.</p>
-                        <ul class="project-tech">
-                            <li>React</li>
-                            <li>Node.js</li>
-                            <li>MongoDB</li>
-                            <li>Express</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="folder-icon">
-                                <i class="far fa-folder-open"></i>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/RamErlikh" target="_blank"><i class="fab fa-github"></i></a>
-                                <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Data Visualization Tool</h3>
-                        <p class="project-description">An interactive dashboard for visualizing complex datasets, enabling users to gain insights through customizable charts and graphs.</p>
-                        <ul class="project-tech">
-                            <li>D3.js</li>
-                            <li>React</li>
-                            <li>Python</li>
-                            <li>Flask</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="contact" class="contact">
-                <h2 class="section-title" data-number="03.">Contact</h2>
-                <div class="contact-content">
-                    <h3 class="contact-title">Get In Touch</h3>
-                    <p class="contact-description">I'm currently open to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
-                    <a href="mailto:businessuniquryrn@gmail.com" class="btn">Say Hello</a>
-                    
-                    <div class="contact-links">
-                        <a href="https://github.com/RamErlikh" class="social-link" target="_blank">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/ram-erlikh/" class="social-link" target="_blank">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="mailto:businessuniquryrn@gmail.com" class="social-link">
-                            <i class="far fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </main>
+        <!-- Add your main content here -->
         
-        <footer>
-            <p>Designed & Built by Ram Erlikh</p>
-            <p>Press "K" for a surprise!</p>
-        </footer>
-    </div>
-    
-    <div class="hidden-message" id="hidden-message">
-        Try the Konami Code: ↑ ↑ ↓ ↓ ← → ← → B A Enter
     </div>
     
     <script>
-        // Simple script with minimal dynamic JS
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create stars
-            createStars();
+        // Create stars for background
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const starCount = 100;
             
-            // Cube interaction
-            setupCube();
-            
-            // Cursor trail
-            setupCursorTrail();
-            
-            // Easter eggs
-            setupEasterEggs();
-            
-            // Functions
-            function createStars() {
-                const starsContainer = document.getElementById('stars');
-                const starCount = 150;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
                 
-                for (let i = 0; i < starCount; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    
-                    // Random size
-                    const size = Math.random() * 2 + 1;
-                    star.style.width = size + 'px';
-                    star.style.height = size + 'px';
-                    
-                    // Random position
-                    star.style.left = Math.random() * 100 + '%';
-                    star.style.top = Math.random() * 100 + '%';
-                    
-                    // Random animation delay
-                    star.style.animationDelay = Math.random() * 4 + 's';
-                    
-                    starsContainer.appendChild(star);
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                
+                // Random animation delay
+                const delay = Math.random() * 4;
+                
+                star.style.top = `${y}%`;
+                star.style.left = `${x}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Style switcher functionality
+        function initStyleSwitcher() {
+            const styleBtn = document.getElementById('style-btn');
+            const styleDropdown = document.getElementById('style-dropdown');
+            const styleItems = document.querySelectorAll('.style-item');
+            
+            // Toggle dropdown
+            styleBtn.addEventListener('click', () => {
+                styleBtn.classList.toggle('active');
+                styleDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!styleBtn.contains(e.target) && !styleDropdown.contains(e.target)) {
+                    styleBtn.classList.remove('active');
+                    styleDropdown.classList.remove('active');
                 }
-            }
+            });
             
-            function setupCube() {
-                const cube = document.getElementById('cube');
-                
-                cube.addEventListener('click', function() {
-                    this.classList.toggle('cube-exploded');
+            // Theme switching
+            styleItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Get theme class
+                    const themeClass = item.getAttribute('data-theme');
                     
-                    if (this.classList.contains('cube-exploded')) {
-                        this.classList.add('paused');
-                    } else {
-                        this.classList.remove('paused');
-                    }
-                });
-                
-                // Hover effect
-                const cubeFaces = cube.querySelectorAll('.cube-face');
-                cubeFaces.forEach(function(face) {
-                    face.addEventListener('mouseenter', function() {
-                        if (!cube.classList.contains('cube-exploded')) {
-                            cube.classList.add('paused');
-                        }
-                    });
+                    // Remove active class from all items
+                    styleItems.forEach(i => i.classList.remove('active'));
                     
-                    face.addEventListener('mouseleave', function() {
-                        if (!cube.classList.contains('cube-exploded')) {
-                            cube.classList.remove('paused');
-                        }
-                    });
-                });
-            }
-            
-            function setupCursorTrail() {
-                const cursorContainer = document.getElementById('cursor-container');
-                const trailCount = 10;
-                const trails = [];
-                
-                // Create trail elements
-                for (let i = 0; i < trailCount; i++) {
-                    const trail = document.createElement('div');
-                    trail.classList.add('cursor-trail');
-                    cursorContainer.appendChild(trail);
-                    trails.push(trail);
-                }
-                
-                // Track mouse position
-                let mouseX = 0;
-                let mouseY = 0;
-                
-                document.addEventListener('mousemove', function(e) {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
+                    // Add active class to clicked item
+                    item.classList.add('active');
                     
-                    // Show the first trail immediately
-                    trails[0].style.left = mouseX + 'px';
-                    trails[0].style.top = mouseY + 'px';
-                    trails[0].style.opacity = '1';
-                });
-                
-                // Animate trails
-                function animateTrails() {
-                    for (let i = trails.length - 1; i > 0; i--) {
-                        setTimeout(function() {
-                            trails[i].style.left = trails[i-1].style.left;
-                            trails[i].style.top = trails[i-1].style.top;
-                            trails[i].style.opacity = '1';
-                            
-                            setTimeout(function() {
-                                trails[i].style.opacity = '0';
-                            }, 100);
-                        }, i * 40);
-                    }
+                    // Apply theme to body
+                    document.body.className = themeClass;
                     
-                    requestAnimationFrame(animateTrails);
-                }
-                
-                animateTrails();
-            }
-            
-            function setupEasterEggs() {
-                // Konami code sequence
-                const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
-                let konamiIndex = 0;
-                
-                // Matrix mode with K key
-                document.addEventListener('keydown', function(e) {
-                    // K key for Matrix mode
-                    if (e.key === 'k' || e.key === 'K') {
-                        document.body.classList.toggle('matrix-mode');
-                    }
+                    // Save theme preference
+                    localStorage.setItem('selectedTheme', themeClass);
                     
-                    // Konami code
-                    if (e.key === konamiCode[konamiIndex]) {
-                        konamiIndex++;
-                        
-                        if (konamiIndex === konamiCode.length) {
-                            // Activate rainbow mode
-                            document.body.style.animation = 'none';
-                            
-                            // Add rainbow animation
-                            const rainbowStyle = document.createElement('style');
-                            rainbowStyle.textContent = `
-                                @keyframes rainbowBackground {
-                                    0% { background-color: red; }
-                                    14% { background-color: orange; }
-                                    28% { background-color: yellow; }
-                                    42% { background-color: green; }
-                                    56% { background-color: blue; }
-                                    70% { background-color: indigo; }
-                                    84% { background-color: violet; }
-                                    100% { background-color: red; }
-                                }
-                                body {
-                                    animation: rainbowBackground 5s linear infinite !important;
-                                }
-                            `;
-                            document.head.appendChild(rainbowStyle);
-                            
-                            alert('Konami Code Activated! Rainbow mode engaged!');
-                            
-                            // Reset after 5 seconds
-                            setTimeout(function() {
-                                document.head.removeChild(rainbowStyle);
-                                document.body.style.animation = '';
-                            }, 5000);
-                            
-                            konamiIndex = 0;
-                        }
-                    } else {
-                        konamiIndex = 0;
-                    }
-                });
-                
-                // Show hidden message after some time
-                setTimeout(function() {
-                    const hiddenMessage = document.getElementById('hidden-message');
-                    hiddenMessage.classList.add('visible');
-                    
-                    setTimeout(function() {
-                        hiddenMessage.classList.remove('visible');
-                    }, 5000);
-                }, 30000);
-            }
-            
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    // Close dropdown
+                    styleBtn.classList.remove('active');
+                    styleDropdown.classList.remove('active');
                 });
             });
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                
+                // Update active class in dropdown
+                styleItems.forEach(item => {
+                    if (item.getAttribute('data-theme') === savedTheme) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            initStyleSwitcher();
         });
     </script>
 </body>
