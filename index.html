@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website with Style Switcher</title>
+    <title>Your Landing Page</title>
     <style>
-        /* Base styles */
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-            transition: all 0.3s ease;
+            font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
         }
         
         body {
+            color: #ccd6f6;
             min-height: 100vh;
             overflow-x: hidden;
-            color: #ccd6f6;
         }
         
-        /* Background styles */
+        /* Default Theme - Using your original code */
         .bg-animated {
             position: fixed;
             top: 0;
@@ -110,7 +109,7 @@
             font-size: 1.2rem;
             transition: transform 0.3s ease;
         }
-
+        
         /* Navigation */
         nav {
             display: flex;
@@ -169,7 +168,163 @@
             background: rgba(100, 255, 218, 0.1);
             transform: translateY(-2px);
         }
-
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .hero-subtitle {
+            color: #64ffda;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #e6f1ff;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #8892b0;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #e6f1ff;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: #64ffda;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(17, 34, 64, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #e6f1ff;
+        }
+        
+        .feature-description {
+            color: #8892b0;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #e6f1ff;
+        }
+        
+        .cta-description {
+            color: #8892b0;
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            background: rgba(10, 25, 47, 0.8);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            color: #64ffda;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .footer-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-left: 2rem;
+        }
+        
+        .footer-links a {
+            color: #ccd6f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: #64ffda;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #8892b0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
         /* Style Switcher */
         .style-switcher {
             position: relative;
@@ -185,8 +340,6 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
         }
         
         .style-btn:hover {
@@ -194,22 +347,11 @@
             transform: translateY(-2px);
         }
         
-        .style-btn svg {
-            margin-left: 0.5rem;
-            width: 16px;
-            height: 16px;
-            transition: transform 0.3s ease;
-        }
-        
-        .style-btn.active svg {
-            transform: rotate(180deg);
-        }
-        
         .style-dropdown {
             position: absolute;
             right: 0;
             top: calc(100% + 10px);
-            width: 280px;
+            width: 250px;
             max-height: 0;
             overflow: hidden;
             background: #112240;
@@ -230,7 +372,7 @@
         }
         
         .style-item {
-            padding: 0.6rem 1rem;
+            padding: 0.75rem 1rem;
             cursor: pointer;
             border-radius: 4px;
             display: flex;
@@ -257,94 +399,158 @@
         .style-name {
             font-size: 0.9rem;
         }
-
-        /* Below are the 20 different theme styles */
         
-        /* Theme 1: Default (Tech) - Already defined above */
-        
-        /* Theme 2: Midnight Purple */
-        .theme-midnight-purple {
-            --bg-primary: linear-gradient(-45deg, #1a0b2e, #281042, #35196b, #281042);
-            --accent: #a176ff;
-            --text-primary: #e2d8ff;
-            --text-secondary: #a79bc3;
-            --grid-color: rgba(161, 118, 255, 0.03);
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                margin-top: 1.5rem;
+                justify-content: center;
+            }
+            
+            .footer-links li:first-child {
+                margin-left: 0;
+            }
         }
         
-        .theme-midnight-purple .bg-animated {
-            background: var(--bg-primary);
+        /* ADDITIONAL THEMES */
+        
+        /* Theme 2: Purple Haze */
+        .theme-purple-haze {
+            --bg-color-1: #1a103c;
+            --bg-color-2: #2a1b63;
+            --bg-color-3: #3d2b85;
+            --bg-color-4: #2a1b63;
+            --accent-color: #b27cff;
+            --text-primary: #e9dfff;
+            --text-secondary: #a594d0;
         }
         
-        .theme-midnight-purple .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        .theme-purple-haze .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
-        .theme-midnight-purple .star {
-            background-color: var(--accent);
+        .theme-purple-haze .star {
+            background-color: var(--accent-color);
         }
         
-        .theme-midnight-purple header,
-        .theme-midnight-purple .logo {
-            color: var(--accent);
+        .theme-purple-haze .logo,
+        .theme-purple-haze header {
+            color: var(--accent-color);
         }
         
-        .theme-midnight-purple .logo-icon {
-            border-color: var(--accent);
+        .theme-purple-haze .logo-icon {
+            border-color: var(--accent-color);
         }
         
-        .theme-midnight-purple .nav-links a {
+        .theme-purple-haze .nav-links a {
             color: var(--text-primary);
         }
         
-        .theme-midnight-purple .nav-links a:hover {
-            color: var(--accent);
+        .theme-purple-haze .nav-links a:hover {
+            color: var(--accent-color);
         }
         
-        .theme-midnight-purple .nav-links a::before {
-            background-color: var(--accent);
+        .theme-purple-haze .nav-links a::before {
+            background-color: var(--accent-color);
         }
         
-        .theme-midnight-purple .btn,
-        .theme-midnight-purple .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-purple-haze .btn,
+        .theme-purple-haze .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
-        .theme-midnight-purple .btn:hover,
-        .theme-midnight-purple .style-btn:hover {
-            background: rgba(161, 118, 255, 0.1);
+        .theme-purple-haze .btn:hover,
+        .theme-purple-haze .style-btn:hover {
+            background: rgba(178, 124, 255, 0.1);
+        }
+        
+        .theme-purple-haze .hero-subtitle,
+        .theme-purple-haze .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-purple-haze .hero-title,
+        .theme-purple-haze .section-title,
+        .theme-purple-haze .feature-title,
+        .theme-purple-haze .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-purple-haze .hero-description,
+        .theme-purple-haze .feature-description,
+        .theme-purple-haze .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-purple-haze .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-purple-haze .feature-card {
+            background: rgba(42, 27, 99, 0.5);
+            border: 1px solid rgba(178, 124, 255, 0.1);
+        }
+        
+        .theme-purple-haze .feature-card:hover {
+            border-color: rgba(178, 124, 255, 0.3);
+        }
+        
+        .theme-purple-haze .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-purple-haze .footer-links a:hover {
+            color: var(--accent-color);
         }
         
         /* Theme 3: Ocean Blue */
         .theme-ocean-blue {
-            --bg-primary: linear-gradient(-45deg, #003459, #004e7c, #0077b6, #004e7c);
-            --accent: #00a8e8;
-            --text-primary: #e1f5fe;
-            --text-secondary: #90caf9;
-            --grid-color: rgba(0, 168, 232, 0.03);
+            --bg-color-1: #002046;
+            --bg-color-2: #003366;
+            --bg-color-3: #004080;
+            --bg-color-4: #003366;
+            --accent-color: #00d2ff;
+            --text-primary: #e6f7ff;
+            --text-secondary: #a8d8ea;
         }
         
         .theme-ocean-blue .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-ocean-blue .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-ocean-blue .star {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
-        .theme-ocean-blue header,
-        .theme-ocean-blue .logo {
-            color: var(--accent);
+        .theme-ocean-blue .logo,
+        .theme-ocean-blue header {
+            color: var(--accent-color);
         }
         
         .theme-ocean-blue .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-ocean-blue .nav-links a {
@@ -352,53 +558,93 @@
         }
         
         .theme-ocean-blue .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-ocean-blue .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-ocean-blue .btn,
         .theme-ocean-blue .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-ocean-blue .btn:hover,
         .theme-ocean-blue .style-btn:hover {
-            background: rgba(0, 168, 232, 0.1);
+            background: rgba(0, 210, 255, 0.1);
+        }
+        
+        .theme-ocean-blue .hero-subtitle,
+        .theme-ocean-blue .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-ocean-blue .hero-title,
+        .theme-ocean-blue .section-title,
+        .theme-ocean-blue .feature-title,
+        .theme-ocean-blue .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-ocean-blue .hero-description,
+        .theme-ocean-blue .feature-description,
+        .theme-ocean-blue .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-ocean-blue .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-ocean-blue .feature-card {
+            background: rgba(0, 51, 102, 0.5);
+            border: 1px solid rgba(0, 210, 255, 0.1);
+        }
+        
+        .theme-ocean-blue .feature-card:hover {
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+        
+        .theme-ocean-blue .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-ocean-blue .footer-links a:hover {
+            color: var(--accent-color);
         }
         
         /* Theme 4: Forest Green */
         .theme-forest-green {
-            --bg-primary: linear-gradient(-45deg, #1b2a1b, #2d4a2d, #3a613a, #2d4a2d);
-            --accent: #7fb06b;
-            --text-primary: #e8f5e8;
-            --text-secondary: #b6d7a8;
-            --grid-color: rgba(127, 176, 107, 0.03);
+            --bg-color-1: #1b2a1b;
+            --bg-color-2: #263d25;
+            --bg-color-3: #345634;
+            --bg-color-4: #263d25;
+            --accent-color: #7cdf85;
+            --text-primary: #e8f5e9;
+            --text-secondary: #b6dbba;
         }
         
         .theme-forest-green .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-forest-green .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-forest-green .star {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
-        .theme-forest-green header,
-        .theme-forest-green .logo {
-            color: var(--accent);
+        .theme-forest-green .logo,
+        .theme-forest-green header {
+            color: var(--accent-color);
         }
         
         .theme-forest-green .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-forest-green .nav-links a {
@@ -406,53 +652,93 @@
         }
         
         .theme-forest-green .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-forest-green .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-forest-green .btn,
         .theme-forest-green .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-forest-green .btn:hover,
         .theme-forest-green .style-btn:hover {
-            background: rgba(127, 176, 107, 0.1);
+            background: rgba(124, 223, 133, 0.1);
+        }
+        
+        .theme-forest-green .hero-subtitle,
+        .theme-forest-green .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-forest-green .hero-title,
+        .theme-forest-green .section-title,
+        .theme-forest-green .feature-title,
+        .theme-forest-green .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-forest-green .hero-description,
+        .theme-forest-green .feature-description,
+        .theme-forest-green .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-forest-green .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-forest-green .feature-card {
+            background: rgba(38, 61, 37, 0.5);
+            border: 1px solid rgba(124, 223, 133, 0.1);
+        }
+        
+        .theme-forest-green .feature-card:hover {
+            border-color: rgba(124, 223, 133, 0.3);
+        }
+        
+        .theme-forest-green .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-forest-green .footer-links a:hover {
+            color: var(--accent-color);
         }
         
         /* Theme 5: Ruby Red */
         .theme-ruby-red {
-            --bg-primary: linear-gradient(-45deg, #3a0f14, #5e1920, #7a202a, #5e1920);
-            --accent: #f05454;
-            --text-primary: #fae0e0;
-            --text-secondary: #e7a3a3;
-            --grid-color: rgba(240, 84, 84, 0.03);
+            --bg-color-1: #2d0b0e;
+            --bg-color-2: #4c171b;
+            --bg-color-3: #69232a;
+            --bg-color-4: #4c171b;
+            --accent-color: #ff5c75;
+            --text-primary: #ffe6e9;
+            --text-secondary: #ffb3bb;
         }
         
         .theme-ruby-red .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-ruby-red .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-ruby-red .star {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
-        .theme-ruby-red header,
-        .theme-ruby-red .logo {
-            color: var(--accent);
+        .theme-ruby-red .logo,
+        .theme-ruby-red header {
+            color: var(--accent-color);
         }
         
         .theme-ruby-red .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-ruby-red .nav-links a {
@@ -460,161 +746,486 @@
         }
         
         .theme-ruby-red .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-ruby-red .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-ruby-red .btn,
         .theme-ruby-red .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-ruby-red .btn:hover,
         .theme-ruby-red .style-btn:hover {
-            background: rgba(240, 84, 84, 0.1);
+            background: rgba(255, 92, 117, 0.1);
         }
         
-        /* Theme 6: Sunset Orange */
-        .theme-sunset-orange {
-            --bg-primary: linear-gradient(-45deg, #2d1722, #4b253a, #6e334e, #4b253a);
-            --accent: #ff9466;
-            --text-primary: #ffeae0;
-            --text-secondary: #ffcdb2;
-            --grid-color: rgba(255, 148, 102, 0.03);
+        .theme-ruby-red .hero-subtitle,
+        .theme-ruby-red .feature-icon {
+            color: var(--accent-color);
         }
         
-        .theme-sunset-orange .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-sunset-orange .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-sunset-orange .star {
-            background-color: var(--accent);
-        }
-        
-        .theme-sunset-orange header,
-        .theme-sunset-orange .logo {
-            color: var(--accent);
-        }
-        
-        .theme-sunset-orange .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-sunset-orange .nav-links a {
+        .theme-ruby-red .hero-title,
+        .theme-ruby-red .section-title,
+        .theme-ruby-red .feature-title,
+        .theme-ruby-red .cta-title {
             color: var(--text-primary);
         }
         
-        .theme-sunset-orange .nav-links a:hover {
-            color: var(--accent);
+        .theme-ruby-red .hero-description,
+        .theme-ruby-red .feature-description,
+        .theme-ruby-red .cta-description {
+            color: var(--text-secondary);
         }
         
-        .theme-sunset-orange .nav-links a::before {
-            background-color: var(--accent);
+        .theme-ruby-red .section-title::after {
+            background-color: var(--accent-color);
         }
         
-        .theme-sunset-orange .btn,
-        .theme-sunset-orange .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-ruby-red .feature-card {
+            background: rgba(76, 23, 27, 0.5);
+            border: 1px solid rgba(255, 92, 117, 0.1);
         }
         
-        .theme-sunset-orange .btn:hover,
-        .theme-sunset-orange .style-btn:hover {
-            background: rgba(255, 148, 102, 0.1);
+        .theme-ruby-red .feature-card:hover {
+            border-color: rgba(255, 92, 117, 0.3);
         }
         
-        /* Theme 7: Mint Fresh */
-        .theme-mint-fresh {
-            --bg-primary: linear-gradient(-45deg, #11231e, #1d3d33, #2a5747, #1d3d33);
-            --accent: #7de2d1;
-            --text-primary: #e1faf7;
-            --text-secondary: #aee8df;
-            --grid-color: rgba(125, 226, 209, 0.03);
+        .theme-ruby-red .footer-logo {
+            color: var(--accent-color);
         }
         
-        .theme-mint-fresh .bg-animated {
-            background: var(--bg-primary);
+        .theme-ruby-red .footer-links a:hover {
+            color: var(--accent-color);
         }
         
-        .theme-mint-fresh .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        /* Theme 6: Golden Sunset */
+        .theme-golden-sunset {
+            --bg-color-1: #2d1b0c;
+            --bg-color-2: #4c2f16;
+            --bg-color-3: #6b4421;
+            --bg-color-4: #4c2f16;
+            --accent-color: #ffa344;
+            --text-primary: #fff0e0;
+            --text-secondary: #ffd8b0;
         }
         
-        .theme-mint-fresh .star {
-            background-color: var(--accent);
+        .theme-golden-sunset .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
-        .theme-mint-fresh header,
-        .theme-mint-fresh .logo {
-            color: var(--accent);
+        .theme-golden-sunset .star {
+            background-color: var(--accent-color);
         }
         
-        .theme-mint-fresh .logo-icon {
-            border-color: var(--accent);
+        .theme-golden-sunset .logo,
+        .theme-golden-sunset header {
+            color: var(--accent-color);
         }
         
-        .theme-mint-fresh .nav-links a {
+        .theme-golden-sunset .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-golden-sunset .nav-links a {
             color: var(--text-primary);
         }
         
-        .theme-mint-fresh .nav-links a:hover {
-            color: var(--accent);
+        .theme-golden-sunset .nav-links a:hover {
+            color: var(--accent-color);
         }
         
-        .theme-mint-fresh .nav-links a::before {
-            background-color: var(--accent);
+        .theme-golden-sunset .nav-links a::before {
+            background-color: var(--accent-color);
         }
         
-        .theme-mint-fresh .btn,
-        .theme-mint-fresh .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-golden-sunset .btn,
+        .theme-golden-sunset .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
-        .theme-mint-fresh .btn:hover,
-        .theme-mint-fresh .style-btn:hover {
-            background: rgba(125, 226, 209, 0.1);
+        .theme-golden-sunset .btn:hover,
+        .theme-golden-sunset .style-btn:hover {
+            background: rgba(255, 163, 68, 0.1);
         }
         
-        /* Theme 8: Light Mode */
+        .theme-golden-sunset .hero-subtitle,
+        .theme-golden-sunset .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-golden-sunset .hero-title,
+        .theme-golden-sunset .section-title,
+        .theme-golden-sunset .feature-title,
+        .theme-golden-sunset .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-golden-sunset .hero-description,
+        .theme-golden-sunset .feature-description,
+        .theme-golden-sunset .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-golden-sunset .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-golden-sunset .feature-card {
+            background: rgba(76, 47, 22, 0.5);
+            border: 1px solid rgba(255, 163, 68, 0.1);
+        }
+        
+        .theme-golden-sunset .feature-card:hover {
+            border-color: rgba(255, 163, 68, 0.3);
+        }
+        
+        .theme-golden-sunset .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-golden-sunset .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 7: Electric Cyan */
+        .theme-electric-cyan {
+            --bg-color-1: #002b2b;
+            --bg-color-2: #004545;
+            --bg-color-3: #006060;
+            --bg-color-4: #004545;
+            --accent-color: #00ffff;
+            --text-primary: #e0ffff;
+            --text-secondary: #a8e6e6;
+        }
+        
+        .theme-electric-cyan .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-electric-cyan .star {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .logo,
+        .theme-electric-cyan header {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .logo-icon {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-electric-cyan .nav-links a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .nav-links a::before {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .btn,
+        .theme-electric-cyan .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .btn:hover,
+        .theme-electric-cyan .style-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .hero-subtitle,
+        .theme-electric-cyan .feature-icon {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .hero-title,
+        .theme-electric-cyan .section-title,
+        .theme-electric-cyan .feature-title,
+        .theme-electric-cyan .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-electric-cyan .hero-description,
+        .theme-electric-cyan .feature-description,
+        .theme-electric-cyan .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-electric-cyan .section-title::after {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .feature-card {
+            background: rgba(0, 69, 69, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .theme-electric-cyan .feature-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        
+        .theme-electric-cyan .footer-logo {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-electric-cyan .footer-links a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        /* Theme 8: Pink Paradise */
+        .theme-pink-paradise {
+            --bg-color-1: #2b1624;
+            --bg-color-2: #45233b;
+            --bg-color-3: #5f3051;
+            --bg-color-4: #45233b;
+            --accent-color: #ff79c6;
+            --text-primary: #ffe9f6;
+            --text-secondary: #ffb3dc;
+        }
+        
+        .theme-pink-paradise .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-pink-paradise .star {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .logo,
+        .theme-pink-paradise header {
+            color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-pink-paradise .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .btn,
+        .theme-pink-paradise .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .btn:hover,
+        .theme-pink-paradise .style-btn:hover {
+            background: rgba(255, 121, 198, 0.1);
+        }
+        
+        .theme-pink-paradise .hero-subtitle,
+        .theme-pink-paradise .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .hero-title,
+        .theme-pink-paradise .section-title,
+        .theme-pink-paradise .feature-title,
+        .theme-pink-paradise .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-pink-paradise .hero-description,
+        .theme-pink-paradise .feature-description,
+        .theme-pink-paradise .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-pink-paradise .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .feature-card {
+            background: rgba(69, 35, 59, 0.5);
+            border: 1px solid rgba(255, 121, 198, 0.1);
+        }
+        
+        .theme-pink-paradise .feature-card:hover {
+            border-color: rgba(255, 121, 198, 0.3);
+        }
+        
+        .theme-pink-paradise .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-pink-paradise .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 9: Emerald Elegance */
+        .theme-emerald-elegance {
+            --bg-color-1: #0f271f;
+            --bg-color-2: #183c30;
+            --bg-color-3: #225042;
+            --bg-color-4: #183c30;
+            --accent-color: #4ecca3;
+            --text-primary: #e6fff5;
+            --text-secondary: #b6e6d4;
+        }
+        
+        .theme-emerald-elegance .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-emerald-elegance .star {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .logo,
+        .theme-emerald-elegance header {
+            color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-emerald-elegance .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .btn,
+        .theme-emerald-elegance .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .btn:hover,
+        .theme-emerald-elegance .style-btn:hover {
+            background: rgba(78, 204, 163, 0.1);
+        }
+        
+        .theme-emerald-elegance .hero-subtitle,
+        .theme-emerald-elegance .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .hero-title,
+        .theme-emerald-elegance .section-title,
+        .theme-emerald-elegance .feature-title,
+        .theme-emerald-elegance .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-emerald-elegance .hero-description,
+        .theme-emerald-elegance .feature-description,
+        .theme-emerald-elegance .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-emerald-elegance .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .feature-card {
+            background: rgba(24, 60, 48, 0.5);
+            border: 1px solid rgba(78, 204, 163, 0.1);
+        }
+        
+        .theme-emerald-elegance .feature-card:hover {
+            border-color: rgba(78, 204, 163, 0.3);
+        }
+        
+        .theme-emerald-elegance .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-emerald-elegance .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 10: Light Mode */
         .theme-light-mode {
-            --bg-primary: linear-gradient(-45deg, #e1e6ef, #f0f4f8, #f9fafb, #f0f4f8);
-            --accent: #6200ee;
-            --text-primary: #1a1a2b;
-            --text-secondary: #4a4a6a;
-            --grid-color: rgba(98, 0, 238, 0.03);
+            --bg-color-1: #f0f4f8;
+            --bg-color-2: #e6edf5;
+            --bg-color-3: #dae4f0;
+            --bg-color-4: #e6edf5;
+            --accent-color: #5a67d8;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
         }
         
         .theme-light-mode .bg-animated {
-            background: var(--bg-primary);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-light-mode .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
         }
         
         .theme-light-mode .star {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
-        .theme-light-mode header,
-        .theme-light-mode .logo {
-            color: var(--accent);
+        .theme-light-mode .logo,
+        .theme-light-mode header {
+            color: var(--accent-color);
         }
         
         .theme-light-mode .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-light-mode .nav-links a {
@@ -622,335 +1233,116 @@
         }
         
         .theme-light-mode .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-light-mode .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-light-mode .btn,
         .theme-light-mode .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-light-mode .btn:hover,
         .theme-light-mode .style-btn:hover {
-            background: rgba(98, 0, 238, 0.1);
+            background: rgba(90, 103, 216, 0.1);
         }
         
-        /* Theme 9: Dark Minimal */
-        .theme-dark-minimal {
-            --bg-primary: #121212;
-            --accent: #ffffff;
-            --text-primary: #f5f5f5;
-            --text-secondary: #aaaaaa;
-            --grid-color: rgba(255, 255, 255, 0.03);
+        .theme-light-mode .hero-subtitle,
+        .theme-light-mode .feature-icon {
+            color: var(--accent-color);
         }
         
-        .theme-dark-minimal .bg-animated {
-            background: var(--bg-primary);
-            animation: none;
-        }
-        
-        .theme-dark-minimal .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-dark-minimal .stars {
-            display: none;
-        }
-        
-        .theme-dark-minimal header,
-        .theme-dark-minimal .logo {
-            color: var(--accent);
-        }
-        
-        .theme-dark-minimal .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-dark-minimal .nav-links a {
+        .theme-light-mode .hero-title,
+        .theme-light-mode .section-title,
+        .theme-light-mode .feature-title,
+        .theme-light-mode .cta-title {
             color: var(--text-primary);
         }
         
-        .theme-dark-minimal .nav-links a:hover {
-            color: var(--accent);
+        .theme-light-mode .hero-description,
+        .theme-light-mode .feature-description,
+        .theme-light-mode .cta-description {
+            color: var(--text-secondary);
         }
         
-        .theme-dark-minimal .nav-links a::before {
-            background-color: var(--accent);
+        .theme-light-mode .section-title::after {
+            background-color: var(--accent-color);
         }
         
-        .theme-dark-minimal .btn,
-        .theme-dark-minimal .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-light-mode .feature-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(90, 103, 216, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
         
-        .theme-dark-minimal .btn:hover,
-        .theme-dark-minimal .style-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .theme-light-mode .feature-card:hover {
+            border-color: rgba(90, 103, 216, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
-        /* Theme 10: Gold Luxury */
-        .theme-gold-luxury {
-            --bg-primary: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #333333, #2a2a2a);
-            --accent: #ffd700;
-            --text-primary: #fff9e5;
-            --text-secondary: #d6c38d;
-            --grid-color: rgba(255, 215, 0, 0.03);
+        .theme-light-mode footer {
+            background: rgba(240, 244, 248, 0.8);
         }
         
-        .theme-gold-luxury .bg-animated {
-            background: var(--bg-primary);
+        .theme-light-mode .footer-logo {
+            color: var(--accent-color);
         }
         
-        .theme-gold-luxury .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-gold-luxury .star {
-            background-color: var(--accent);
-        }
-        
-        .theme-gold-luxury header,
-        .theme-gold-luxury .logo {
-            color: var(--accent);
-        }
-        
-        .theme-gold-luxury .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-gold-luxury .nav-links a {
+        .theme-light-mode .footer-links a {
             color: var(--text-primary);
         }
         
-        .theme-gold-luxury .nav-links a:hover {
-            color: var(--accent);
+        .theme-light-mode .footer-links a:hover {
+            color: var(--accent-color);
         }
         
-        .theme-gold-luxury .nav-links a::before {
-            background-color: var(--accent);
+        .theme-light-mode .copyright {
+            color: var(--text-secondary);
         }
         
-        .theme-gold-luxury .btn,
-        .theme-gold-luxury .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .theme-gold-luxury .btn:hover,
-        .theme-gold-luxury .style-btn:hover {
-            background: rgba(255, 215, 0, 0.1);
-        }
-        
-        /* Theme 11: Electric Neon */
-        .theme-electric-neon {
-            --bg-primary: linear-gradient(-45deg, #0a0a0a, #151515, #1c1c1c, #151515);
-            --accent: #00ff99;
-            --text-primary: #e0fff2;
-            --text-secondary: #b3ffdb;
-            --grid-color: rgba(0, 255, 153, 0.05);
-        }
-        
-        .theme-electric-neon .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-electric-neon .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-electric-neon .star {
-            background-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
-        }
-        
-        .theme-electric-neon header,
-        .theme-electric-neon .logo {
-            color: var(--accent);
-            text-shadow: 0 0 5px var(--accent);
-        }
-        
-        .theme-electric-neon .logo-icon {
-            border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
-        }
-        
-        .theme-electric-neon .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-electric-neon .nav-links a:hover {
-            color: var(--accent);
-            text-shadow: 0 0 5px var(--accent);
-        }
-        
-        .theme-electric-neon .nav-links a::before {
-            background-color: var(--accent);
-            box-shadow: 0 0 5px var(--accent);
-        }
-        
-        .theme-electric-neon .btn,
-        .theme-electric-neon .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: 0 0 5px var(--accent);
-        }
-        
-        .theme-electric-neon .btn:hover,
-        .theme-electric-neon .style-btn:hover {
-            background: rgba(0, 255, 153, 0.1);
-            box-shadow: 0 0 15px var(--accent);
-        }
-        
-        /* Theme 12: Coffee Shop */
-        .theme-coffee-shop {
-            --bg-primary: linear-gradient(-45deg, #2c2218, #3e3022, #4e3c2a, #3e3022);
-            --accent: #c8a27c;
-            --text-primary: #f5e6d8;
-            --text-secondary: #d1b8a0;
-            --grid-color: rgba(200, 162, 124, 0.03);
-        }
-        
-        .theme-coffee-shop .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-coffee-shop .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-coffee-shop .star {
-            background-color: var(--accent);
-        }
-        
-        .theme-coffee-shop header,
-        .theme-coffee-shop .logo {
-            color: var(--accent);
-        }
-        
-        .theme-coffee-shop .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-coffee-shop .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-coffee-shop .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .theme-coffee-shop .nav-links a::before {
-            background-color: var(--accent);
-        }
-        
-        .theme-coffee-shop .btn,
-        .theme-coffee-shop .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .theme-coffee-shop .btn:hover,
-        .theme-coffee-shop .style-btn:hover {
-            background: rgba(200, 162, 124, 0.1);
-        }
-        
-        /* Theme 13: Pastel Dreams */
-        .theme-pastel-dreams {
-            --bg-primary: linear-gradient(-45deg, #daeaf6, #f2f7fc, #ffd6e0, #f2f7fc);
-            --accent: #ffacc7;
-            --text-primary: #2b2024;
-            --text-secondary: #594a51;
-            --grid-color: rgba(255, 172, 199, 0.1);
-        }
-        
-        .theme-pastel-dreams .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-pastel-dreams .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-pastel-dreams .star {
-            background-color: var(--accent);
-        }
-        
-        .theme-pastel-dreams header,
-        .theme-pastel-dreams .logo {
-            color: var(--accent);
-        }
-        
-        .theme-pastel-dreams .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-pastel-dreams .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-pastel-dreams .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .theme-pastel-dreams .nav-links a::before {
-            background-color: var(--accent);
-        }
-        
-        .theme-pastel-dreams .btn,
-        .theme-pastel-dreams .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .theme-pastel-dreams .btn:hover,
-        .theme-pastel-dreams .style-btn:hover {
-            background: rgba(255, 172, 199, 0.1);
-        }
-        
-        /* Theme 14: Cyberpunk */
+        /* Theme 11: Cyberpunk */
         .theme-cyberpunk {
-            --bg-primary: linear-gradient(-45deg, #0d0221, #18033b, #240856, #18033b);
-            --accent: #ff00ff;
-            --text-primary: #f2e6ff;
-            --text-secondary: #c39eff;
-            --grid-color: rgba(255, 0, 255, 0.05);
+            --bg-color-1: #0d001a;
+            --bg-color-2: #190036;
+            --bg-color-3: #240046;
+            --bg-color-4: #190036;
+            --accent-color: #ff00ff;
+            --text-primary: #f5e1ff;
+            --text-secondary: #c77dff;
         }
         
         .theme-cyberpunk .bg-animated {
-            background: var(--bg-primary);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-cyberpunk .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-image: linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
         
         .theme-cyberpunk .star {
-            background-color: var(--accent);
-            box-shadow: 0 0 8px var(--accent);
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
-        .theme-cyberpunk header,
-        .theme-cyberpunk .logo {
-            color: var(--accent);
-            text-shadow: 0 0 5px var(--accent);
+        .theme-cyberpunk .logo,
+        .theme-cyberpunk header {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
         }
         
         .theme-cyberpunk .logo-icon {
-            border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
         .theme-cyberpunk .nav-links a {
@@ -958,111 +1350,401 @@
         }
         
         .theme-cyberpunk .nav-links a:hover {
-            color: var(--accent);
-            text-shadow: 0 0 5px var(--accent);
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
         }
         
         .theme-cyberpunk .nav-links a::before {
-            background-color: var(--accent);
-            box-shadow: 0 0 5px var(--accent);
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
         .theme-cyberpunk .btn,
         .theme-cyberpunk .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: 0 0 5px var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
         .theme-cyberpunk .btn:hover,
         .theme-cyberpunk .style-btn:hover {
-            background: rgba(255, 0, 255, 0.1);
-            box-shadow: 0 0 15px var(--accent);
+            background: rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 20px var(--accent-color);
         }
         
-        /* Theme 15: Autumn Vibes */
-        .theme-autumn-vibes {
-            --bg-primary: linear-gradient(-45deg, #2c1c0c, #412a16, #5d392e, #412a16);
-            --accent: #e76f51;
-            --text-primary: #ffede9;
-            --text-secondary: #f7c5b7;
-            --grid-color: rgba(231, 111, 81, 0.03);
+        .theme-cyberpunk .hero-subtitle,
+        .theme-cyberpunk .feature-icon {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
         }
         
-        .theme-autumn-vibes .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-autumn-vibes .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-autumn-vibes .star {
-            background-color: var(--accent);
-        }
-        
-        .theme-autumn-vibes header,
-        .theme-autumn-vibes .logo {
-            color: var(--accent);
-        }
-        
-        .theme-autumn-vibes .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-autumn-vibes .nav-links a {
+        .theme-cyberpunk .hero-title,
+        .theme-cyberpunk .section-title,
+        .theme-cyberpunk .feature-title,
+        .theme-cyberpunk .cta-title {
             color: var(--text-primary);
         }
         
-        .theme-autumn-vibes .nav-links a:hover {
-            color: var(--accent);
+        .theme-cyberpunk .hero-description,
+        .theme-cyberpunk .feature-description,
+        .theme-cyberpunk .cta-description {
+            color: var(--text-secondary);
         }
         
-        .theme-autumn-vibes .nav-links a::before {
-            background-color: var(--accent);
+        .theme-cyberpunk .section-title::after {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
-        .theme-autumn-vibes .btn,
-        .theme-autumn-vibes .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-cyberpunk .feature-card {
+            background: rgba(25, 0, 54, 0.5);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.1);
         }
         
-        .theme-autumn-vibes .btn:hover,
-        .theme-autumn-vibes .style-btn:hover {
-            background: rgba(231, 111, 81, 0.1);
+        .theme-cyberpunk .feature-card:hover {
+            border-color: rgba(255, 0, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
         }
         
-        /* Theme 16: Nordic Frost */
+        .theme-cyberpunk .footer-logo {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        .theme-cyberpunk .footer-links a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        /* Theme 12: Minimalist */
+        .theme-minimalist {
+            --bg-color: #111111;
+            --accent-color: #ffffff;
+            --text-primary: #f5f5f5;
+            --text-secondary: #aaaaaa;
+        }
+        
+        .theme-minimalist .bg-animated {
+            background: var(--bg-color);
+            animation: none;
+        }
+        
+        .theme-minimalist .bg-grid {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        
+        .theme-minimalist .stars {
+            display: none;
+        }
+        
+        .theme-minimalist .logo,
+        .theme-minimalist header {
+            color: var(--accent-color);
+        }
+        
+        .theme-minimalist .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-minimalist .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-minimalist .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-minimalist .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-minimalist .btn,
+        .theme-minimalist .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-minimalist .btn:hover,
+        .theme-minimalist .style-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-minimalist .hero-subtitle,
+        .theme-minimalist .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-minimalist .hero-title,
+        .theme-minimalist .section-title,
+        .theme-minimalist .feature-title,
+        .theme-minimalist .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-minimalist .hero-description,
+        .theme-minimalist .feature-description,
+        .theme-minimalist .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-minimalist .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-minimalist .feature-card {
+            background: rgba(34, 34, 34, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-minimalist .feature-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .theme-minimalist .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-minimalist .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 13: Coffee Shop */
+        .theme-coffee-shop {
+            --bg-color-1: #241811;
+            --bg-color-2: #382819;
+            --bg-color-3: #4d3a27;
+            --bg-color-4: #382819;
+            --accent-color: #c8a27c;
+            --text-primary: #f5efe8;
+            --text-secondary: #d4c3b2;
+        }
+        
+        .theme-coffee-shop .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-coffee-shop .star {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .logo,
+        .theme-coffee-shop header {
+            color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-coffee-shop .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .btn,
+        .theme-coffee-shop .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .btn:hover,
+        .theme-coffee-shop .style-btn:hover {
+            background: rgba(200, 162, 124, 0.1);
+        }
+        
+        .theme-coffee-shop .hero-subtitle,
+        .theme-coffee-shop .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .hero-title,
+        .theme-coffee-shop .section-title,
+        .theme-coffee-shop .feature-title,
+        .theme-coffee-shop .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-coffee-shop .hero-description,
+        .theme-coffee-shop .feature-description,
+        .theme-coffee-shop .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-coffee-shop .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .feature-card {
+            background: rgba(56, 40, 25, 0.5);
+            border: 1px solid rgba(200, 162, 124, 0.1);
+        }
+        
+        .theme-coffee-shop .feature-card:hover {
+            border-color: rgba(200, 162, 124, 0.3);
+        }
+        
+        .theme-coffee-shop .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-coffee-shop .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 14: Pastel Dreams */
+        .theme-pastel-dreams {
+            --bg-color-1: #f2e3f9;
+            --bg-color-2: #e9d5f9;
+            --bg-color-3: #dfc8f8;
+            --bg-color-4: #e9d5f9;
+            --accent-color: #b392ac;
+            --text-primary: #4d3b48;
+            --text-secondary: #7d6377;
+        }
+        
+        .theme-pastel-dreams .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-pastel-dreams .bg-grid {
+            background-image: linear-gradient(rgba(179, 146, 172, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(179, 146, 172, 0.1) 1px, transparent 1px);
+        }
+        
+        .theme-pastel-dreams .star {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .logo,
+        .theme-pastel-dreams header {
+            color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-pastel-dreams .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .btn,
+        .theme-pastel-dreams .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .btn:hover,
+        .theme-pastel-dreams .style-btn:hover {
+            background: rgba(179, 146, 172, 0.1);
+        }
+        
+        .theme-pastel-dreams .hero-subtitle,
+        .theme-pastel-dreams .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .hero-title,
+        .theme-pastel-dreams .section-title,
+        .theme-pastel-dreams .feature-title,
+        .theme-pastel-dreams .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-pastel-dreams .hero-description,
+        .theme-pastel-dreams .feature-description,
+        .theme-pastel-dreams .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-pastel-dreams .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .feature-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(179, 146, 172, 0.1);
+        }
+        
+        .theme-pastel-dreams .feature-card:hover {
+            border-color: rgba(179, 146, 172, 0.3);
+        }
+        
+        .theme-pastel-dreams footer {
+            background: rgba(242, 227, 249, 0.8);
+        }
+        
+        .theme-pastel-dreams .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .footer-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-pastel-dreams .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-pastel-dreams .copyright {
+            color: var(--text-secondary);
+        }
+        
+        /* Theme 15: Nordic Frost */
         .theme-nordic-frost {
-            --bg-primary: linear-gradient(-45deg, #2e3440, #3b4252, #434c5e, #3b4252);
-            --accent: #88c0d0;
+            --bg-color-1: #2e3440;
+            --bg-color-2: #3b4252;
+            --bg-color-3: #434c5e;
+            --bg-color-4: #3b4252;
+            --accent-color: #88c0d0;
             --text-primary: #eceff4;
             --text-secondary: #d8dee9;
-            --grid-color: rgba(136, 192, 208, 0.03);
         }
         
         .theme-nordic-frost .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-nordic-frost .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-nordic-frost .star {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
-        .theme-nordic-frost header,
-        .theme-nordic-frost .logo {
-            color: var(--accent);
+        .theme-nordic-frost .logo,
+        .theme-nordic-frost header {
+            color: var(--accent-color);
         }
         
         .theme-nordic-frost .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-nordic-frost .nav-links a {
@@ -1070,17 +1752,17 @@
         }
         
         .theme-nordic-frost .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-nordic-frost .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-nordic-frost .btn,
         .theme-nordic-frost .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-nordic-frost .btn:hover,
@@ -1088,23 +1770,61 @@
             background: rgba(136, 192, 208, 0.1);
         }
         
-        /* Theme 17: Vintage Paper */
+        .theme-nordic-frost .hero-subtitle,
+        .theme-nordic-frost .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-nordic-frost .hero-title,
+        .theme-nordic-frost .section-title,
+        .theme-nordic-frost .feature-title,
+        .theme-nordic-frost .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-nordic-frost .hero-description,
+        .theme-nordic-frost .feature-description,
+        .theme-nordic-frost .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-nordic-frost .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-nordic-frost .feature-card {
+            background: rgba(59, 66, 82, 0.5);
+            border: 1px solid rgba(136, 192, 208, 0.1);
+        }
+        
+        .theme-nordic-frost .feature-card:hover {
+            border-color: rgba(136, 192, 208, 0.3);
+        }
+        
+        .theme-nordic-frost .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-nordic-frost .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 16: Vintage Paper */
         .theme-vintage-paper {
-            --bg-primary: #f8f0d7;
-            --accent: #8d6e63;
+            --bg-color: #f8f0d7;
+            --accent-color: #8d6e63;
             --text-primary: #3e2723;
             --text-secondary: #6d4c41;
-            --grid-color: rgba(141, 110, 99, 0.1);
         }
         
         .theme-vintage-paper .bg-animated {
-            background: var(--bg-primary);
+            background: var(--bg-color);
             animation: none;
         }
         
         .theme-vintage-paper .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(141, 110, 99, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(141, 110, 99, 0.1) 1px, transparent 1px);
             background-size: 30px 30px;
         }
         
@@ -1112,13 +1832,13 @@
             display: none;
         }
         
-        .theme-vintage-paper header,
-        .theme-vintage-paper .logo {
-            color: var(--accent);
+        .theme-vintage-paper .logo,
+        .theme-vintage-paper header {
+            color: var(--accent-color);
         }
         
         .theme-vintage-paper .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-vintage-paper .nav-links a {
@@ -1126,17 +1846,17 @@
         }
         
         .theme-vintage-paper .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-vintage-paper .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-vintage-paper .btn,
         .theme-vintage-paper .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-vintage-paper .btn:hover,
@@ -1144,89 +1864,87 @@
             background: rgba(141, 110, 99, 0.1);
         }
         
-        /* Theme 18: Cherry Blossom */
-        .theme-cherry-blossom {
-            --bg-primary: linear-gradient(-45deg, #fce4ec, #f8bbd0, #f48fb1, #f8bbd0);
-            --accent: #ec407a;
-            --text-primary: #4a2c35;
-            --text-secondary: #7d4955;
-            --grid-color: rgba(236, 64, 122, 0.05);
+        .theme-vintage-paper .hero-subtitle,
+        .theme-vintage-paper .feature-icon {
+            color: var(--accent-color);
         }
         
-        .theme-cherry-blossom .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-cherry-blossom .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-cherry-blossom .star {
-            background-color: var(--accent);
-        }
-        
-        .theme-cherry-blossom header,
-        .theme-cherry-blossom .logo {
-            color: var(--accent);
-        }
-        
-        .theme-cherry-blossom .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-cherry-blossom .nav-links a {
+        .theme-vintage-paper .hero-title,
+        .theme-vintage-paper .section-title,
+        .theme-vintage-paper .feature-title,
+        .theme-vintage-paper .cta-title {
             color: var(--text-primary);
         }
         
-        .theme-cherry-blossom .nav-links a:hover {
-            color: var(--accent);
+        .theme-vintage-paper .hero-description,
+        .theme-vintage-paper .feature-description,
+        .theme-vintage-paper .cta-description {
+            color: var(--text-secondary);
         }
         
-        .theme-cherry-blossom .nav-links a::before {
-            background-color: var(--accent);
+        .theme-vintage-paper .section-title::after {
+            background-color: var(--accent-color);
         }
         
-        .theme-cherry-blossom .btn,
-        .theme-cherry-blossom .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-vintage-paper .feature-card {
+            background: rgba(255, 245, 230, 0.5);
+            border: 1px solid rgba(141, 110, 99, 0.1);
         }
         
-        .theme-cherry-blossom .btn:hover,
-        .theme-cherry-blossom .style-btn:hover {
-            background: rgba(236, 64, 122, 0.1);
+        .theme-vintage-paper .feature-card:hover {
+            border-color: rgba(141, 110, 99, 0.3);
         }
         
-        /* Theme 19: Space Odyssey */
+        .theme-vintage-paper footer {
+            background: rgba(248, 240, 215, 0.8);
+        }
+        
+        .theme-vintage-paper .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-vintage-paper .footer-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-vintage-paper .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-vintage-paper .copyright {
+            color: var(--text-secondary);
+        }
+        
+        /* Theme 17: Space Odyssey */
         .theme-space-odyssey {
-            --bg-primary: linear-gradient(-45deg, #0a0d11, #121920, #1b2430, #121920);
-            --accent: #49beb7;
+            --bg-color-1: #0a0d11;
+            --bg-color-2: #121920;
+            --bg-color-3: #1b2430;
+            --bg-color-4: #121920;
+            --accent-color: #49beb7;
             --text-primary: #e1f5f3;
             --text-secondary: #a0ded9;
-            --grid-color: rgba(73, 190, 183, 0.03);
         }
         
         .theme-space-odyssey .bg-animated {
-            background: var(--bg-primary);
-        }
-        
-        .theme-space-odyssey .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
         .theme-space-odyssey .star {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
-        .theme-space-odyssey header,
-        .theme-space-odyssey .logo {
-            color: var(--accent);
+        .theme-space-odyssey .logo,
+        .theme-space-odyssey header {
+            color: var(--accent-color);
         }
         
         .theme-space-odyssey .logo-icon {
-            border-color: var(--accent);
+            border-color: var(--accent-color);
         }
         
         .theme-space-odyssey .nav-links a {
@@ -1234,17 +1952,17 @@
         }
         
         .theme-space-odyssey .nav-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .theme-space-odyssey .nav-links a::before {
-            background-color: var(--accent);
+            background-color: var(--accent-color);
         }
         
         .theme-space-odyssey .btn,
         .theme-space-odyssey .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
         .theme-space-odyssey .btn:hover,
@@ -1252,123 +1970,355 @@
             background: rgba(73, 190, 183, 0.1);
         }
         
-        /* Theme 20: Monochrome */
-        .theme-monochrome {
-            --bg-primary: linear-gradient(-45deg, #111111, #222222, #333333, #222222);
-            --accent: #f5f5f5;
-            --text-primary: #e0e0e0;
-            --text-secondary: #aaaaaa;
-            --grid-color: rgba(255, 255, 255, 0.03);
+        .theme-space-odyssey .hero-subtitle,
+        .theme-space-odyssey .feature-icon {
+            color: var(--accent-color);
         }
         
-        .theme-monochrome .bg-animated {
-            background: var(--bg-primary);
-            filter: grayscale(100%);
-        }
-        
-        .theme-monochrome .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        }
-        
-        .theme-monochrome .star {
-            background-color: var(--accent);
-            filter: grayscale(100%);
-        }
-        
-        .theme-monochrome header,
-        .theme-monochrome .logo {
-            color: var(--accent);
-        }
-        
-        .theme-monochrome .logo-icon {
-            border-color: var(--accent);
-        }
-        
-        .theme-monochrome .nav-links a {
+        .theme-space-odyssey .hero-title,
+        .theme-space-odyssey .section-title,
+        .theme-space-odyssey .feature-title,
+        .theme-space-odyssey .cta-title {
             color: var(--text-primary);
         }
         
-        .theme-monochrome .nav-links a:hover {
-            color: var(--accent);
+        .theme-space-odyssey .hero-description,
+        .theme-space-odyssey .feature-description,
+        .theme-space-odyssey .cta-description {
+            color: var(--text-secondary);
         }
         
-        .theme-monochrome .nav-links a::before {
-            background-color: var(--accent);
+        .theme-space-odyssey .section-title::after {
+            background-color: var(--accent-color);
         }
         
-        .theme-monochrome .btn,
-        .theme-monochrome .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-space-odyssey .feature-card {
+            background: rgba(18, 25, 32, 0.5);
+            border: 1px solid rgba(73, 190, 183, 0.1);
         }
         
-        .theme-monochrome .btn:hover,
-        .theme-monochrome .style-btn:hover {
-            background: rgba(245, 245, 245, 0.1);
+        .theme-space-odyssey .feature-card:hover {
+            border-color: rgba(73, 190, 183, 0.3);
         }
         
-        /* Theme 21: Default - Reference for other themes */ 
-        .theme-default {
-            --bg-primary: linear-gradient(-45deg, #0a192f, #112240, #233554, #112240);
-            --accent: #64ffda;
-            --text-primary: #ccd6f6;
-            --text-secondary: #8892b0;
-            --grid-color: rgba(255, 255, 255, 0.03);
+        .theme-space-odyssey .footer-logo {
+            color: var(--accent-color);
         }
         
-        .theme-default .bg-animated {
-            background: var(--bg-primary);
+        .theme-space-odyssey .footer-links a:hover {
+            color: var(--accent-color);
         }
         
-        .theme-default .bg-grid {
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        /* Theme 18: Cherry Blossom */
+        .theme-cherry-blossom {
+            --bg-color-1: #fef2f6;
+            --bg-color-2: #fde5ee;
+            --bg-color-3: #fcd8e5;
+            --bg-color-4: #fde5ee;
+            --accent-color: #e84a7f;
+            --text-primary: #4f2a3b;
+            --text-secondary: #7e4560;
         }
         
-        .theme-default .star {
-            background-color: var(--accent);
+        .theme-cherry-blossom .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
         }
         
-        .theme-default header,
-        .theme-default .logo {
-            color: var(--accent);
+        .theme-cherry-blossom .bg-grid {
+            background-image: linear-gradient(rgba(232, 74, 127, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(232, 74, 127, 0.05) 1px, transparent 1px);
         }
         
-        .theme-default .logo-icon {
-            border-color: var(--accent);
+        .theme-cherry-blossom .star {
+            background-color: var(--accent-color);
         }
         
-        .theme-default .nav-links a {
+        .theme-cherry-blossom .logo,
+        .theme-cherry-blossom header {
+            color: var(--accent-color);
+        }
+        
+        .theme-cherry-blossom .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-cherry-blossom .nav-links a {
             color: var(--text-primary);
         }
         
-        .theme-default .nav-links a:hover {
-            color: var(--accent);
+        .theme-cherry-blossom .nav-links a:hover {
+            color: var(--accent-color);
         }
         
-        .theme-default .nav-links a::before {
-            background-color: var(--accent);
+        .theme-cherry-blossom .nav-links a::before {
+            background-color: var(--accent-color);
         }
         
-        .theme-default .btn,
-        .theme-default .style-btn {
-            border-color: var(--accent);
-            color: var(--accent);
+        .theme-cherry-blossom .btn,
+        .theme-cherry-blossom .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
         
-        .theme-default .btn:hover,
-        .theme-default .style-btn:hover {
-            background: rgba(100, 255, 218, 0.1);
+        .theme-cherry-blossom .btn:hover,
+        .theme-cherry-blossom .style-btn:hover {
+            background: rgba(232, 74, 127, 0.1);
+        }
+        
+        .theme-cherry-blossom .hero-subtitle,
+        .theme-cherry-blossom .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-cherry-blossom .hero-title,
+        .theme-cherry-blossom .section-title,
+        .theme-cherry-blossom .feature-title,
+        .theme-cherry-blossom .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-cherry-blossom .hero-description,
+        .theme-cherry-blossom .feature-description,
+        .theme-cherry-blossom .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-cherry-blossom .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-cherry-blossom .feature-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(232, 74, 127, 0.1);
+        }
+        
+        .theme-cherry-blossom .feature-card:hover {
+            border-color: rgba(232, 74, 127, 0.3);
+        }
+        
+        .theme-cherry-blossom footer {
+            background: rgba(254, 242, 246, 0.8);
+        }
+        
+        .theme-cherry-blossom .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-cherry-blossom .footer-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-cherry-blossom .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-cherry-blossom .copyright {
+            color: var(--text-secondary);
+        }
+        
+        /* Theme 19: Vibrant Coral */
+        .theme-vibrant-coral {
+            --bg-color-1: #251e20;
+            --bg-color-2: #3a2e31;
+            --bg-color-3: #4e3d41;
+            --bg-color-4: #3a2e31;
+            --accent-color: #ff7268;
+            --text-primary: #ffe9e7;
+            --text-secondary: #ffb8b3;
+        }
+        
+        .theme-vibrant-coral .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-vibrant-coral .star {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .logo,
+        .theme-vibrant-coral header {
+            color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-vibrant-coral .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .btn,
+        .theme-vibrant-coral .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .btn:hover,
+        .theme-vibrant-coral .style-btn:hover {
+            background: rgba(255, 114, 104, 0.1);
+        }
+        
+        .theme-vibrant-coral .hero-subtitle,
+        .theme-vibrant-coral .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .hero-title,
+        .theme-vibrant-coral .section-title,
+        .theme-vibrant-coral .feature-title,
+        .theme-vibrant-coral .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-vibrant-coral .hero-description,
+        .theme-vibrant-coral .feature-description,
+        .theme-vibrant-coral .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-vibrant-coral .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .feature-card {
+            background: rgba(58, 46, 49, 0.5);
+            border: 1px solid rgba(255, 114, 104, 0.1);
+        }
+        
+        .theme-vibrant-coral .feature-card:hover {
+            border-color: rgba(255, 114, 104, 0.3);
+        }
+        
+        .theme-vibrant-coral .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-vibrant-coral .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme 20: Crystal Teal */
+        .theme-crystal-teal {
+            --bg-color-1: #0a3336;
+            --bg-color-2: #0e4b4f;
+            --bg-color-3: #136468;
+            --bg-color-4: #0e4b4f;
+            --accent-color: #3ef4ff;
+            --text-primary: #e0fcff;
+            --text-secondary: #8cecf4;
+        }
+        
+        .theme-crystal-teal .bg-animated {
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1), 
+                var(--bg-color-2), 
+                var(--bg-color-3), 
+                var(--bg-color-4));
+        }
+        
+        .theme-crystal-teal .star {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .theme-crystal-teal .logo,
+        .theme-crystal-teal header {
+            color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .logo-icon {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .nav-links a {
+            color: var(--text-primary);
+        }
+        
+        .theme-crystal-teal .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .nav-links a::before {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .btn,
+        .theme-crystal-teal .style-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .btn:hover,
+        .theme-crystal-teal .style-btn:hover {
+            background: rgba(62, 244, 255, 0.1);
+        }
+        
+        .theme-crystal-teal .hero-subtitle,
+        .theme-crystal-teal .feature-icon {
+            color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .hero-title,
+        .theme-crystal-teal .section-title,
+        .theme-crystal-teal .feature-title,
+        .theme-crystal-teal .cta-title {
+            color: var(--text-primary);
+        }
+        
+        .theme-crystal-teal .hero-description,
+        .theme-crystal-teal .feature-description,
+        .theme-crystal-teal .cta-description {
+            color: var(--text-secondary);
+        }
+        
+        .theme-crystal-teal .section-title::after {
+            background-color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .feature-card {
+            background: rgba(14, 75, 79, 0.5);
+            border: 1px solid rgba(62, 244, 255, 0.1);
+        }
+        
+        .theme-crystal-teal .feature-card:hover {
+            border-color: rgba(62, 244, 255, 0.3);
+        }
+        
+        .theme-crystal-teal .footer-logo {
+            color: var(--accent-color);
+        }
+        
+        .theme-crystal-teal .footer-links a:hover {
+            color: var(--accent-color);
         }
     </style>
 </head>
 <body class="theme-default">
+    <!-- Background elements -->
     <div class="bg-animated"></div>
     <div class="bg-grid"></div>
     <div class="stars" id="stars"></div>
     
+    <!-- Main content -->
     <div class="container">
+        <!-- Header -->
         <header>
             <div class="logo">
                 <span class="logo-icon">M</span>
@@ -1383,13 +2333,9 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 
+                <!-- Style switcher button -->
                 <div class="style-switcher">
-                    <button id="style-btn" class="style-btn">
-                        Switch Style
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
+                    <button id="style-btn" class="style-btn">Change Style</button>
                     
                     <div id="style-dropdown" class="style-dropdown">
                         <ul class="style-list">
@@ -1397,61 +2343,57 @@
                                 <span class="style-color" style="background-color: #64ffda;"></span>
                                 <span class="style-name">Default Tech</span>
                             </li>
-                            <li class="style-item" data-theme="theme-midnight-purple">
-                                <span class="style-color" style="background-color: #a176ff;"></span>
-                                <span class="style-name">Midnight Purple</span>
+                            <li class="style-item" data-theme="theme-purple-haze">
+                                <span class="style-color" style="background-color: #b27cff;"></span>
+                                <span class="style-name">Purple Haze</span>
                             </li>
                             <li class="style-item" data-theme="theme-ocean-blue">
-                                <span class="style-color" style="background-color: #00a8e8;"></span>
+                                <span class="style-color" style="background-color: #00d2ff;"></span>
                                 <span class="style-name">Ocean Blue</span>
                             </li>
                             <li class="style-item" data-theme="theme-forest-green">
-                                <span class="style-color" style="background-color: #7fb06b;"></span>
+                                <span class="style-color" style="background-color: #7cdf85;"></span>
                                 <span class="style-name">Forest Green</span>
                             </li>
                             <li class="style-item" data-theme="theme-ruby-red">
-                                <span class="style-color" style="background-color: #f05454;"></span>
+                                <span class="style-color" style="background-color: #ff5c75;"></span>
                                 <span class="style-name">Ruby Red</span>
                             </li>
-                            <li class="style-item" data-theme="theme-sunset-orange">
-                                <span class="style-color" style="background-color: #ff9466;"></span>
-                                <span class="style-name">Sunset Orange</span>
+                            <li class="style-item" data-theme="theme-golden-sunset">
+                                <span class="style-color" style="background-color: #ffa344;"></span>
+                                <span class="style-name">Golden Sunset</span>
                             </li>
-                            <li class="style-item" data-theme="theme-mint-fresh">
-                                <span class="style-color" style="background-color: #7de2d1;"></span>
-                                <span class="style-name">Mint Fresh</span>
+                            <li class="style-item" data-theme="theme-electric-cyan">
+                                <span class="style-color" style="background-color: #00ffff;"></span>
+                                <span class="style-name">Electric Cyan</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-pink-paradise">
+                                <span class="style-color" style="background-color: #ff79c6;"></span>
+                                <span class="style-name">Pink Paradise</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-emerald-elegance">
+                                <span class="style-color" style="background-color: #4ecca3;"></span>
+                                <span class="style-name">Emerald Elegance</span>
                             </li>
                             <li class="style-item" data-theme="theme-light-mode">
-                                <span class="style-color" style="background-color: #6200ee;"></span>
+                                <span class="style-color" style="background-color: #5a67d8;"></span>
                                 <span class="style-name">Light Mode</span>
                             </li>
-                            <li class="style-item" data-theme="theme-dark-minimal">
+                            <li class="style-item" data-theme="theme-cyberpunk">
+                                <span class="style-color" style="background-color: #ff00ff;"></span>
+                                <span class="style-name">Cyberpunk</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-minimalist">
                                 <span class="style-color" style="background-color: #ffffff;"></span>
-                                <span class="style-name">Dark Minimal</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-gold-luxury">
-                                <span class="style-color" style="background-color: #ffd700;"></span>
-                                <span class="style-name">Gold Luxury</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-electric-neon">
-                                <span class="style-color" style="background-color: #00ff99;"></span>
-                                <span class="style-name">Electric Neon</span>
+                                <span class="style-name">Minimalist</span>
                             </li>
                             <li class="style-item" data-theme="theme-coffee-shop">
                                 <span class="style-color" style="background-color: #c8a27c;"></span>
                                 <span class="style-name">Coffee Shop</span>
                             </li>
                             <li class="style-item" data-theme="theme-pastel-dreams">
-                                <span class="style-color" style="background-color: #ffacc7;"></span>
+                                <span class="style-color" style="background-color: #b392ac;"></span>
                                 <span class="style-name">Pastel Dreams</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-cyberpunk">
-                                <span class="style-color" style="background-color: #ff00ff;"></span>
-                                <span class="style-name">Cyberpunk</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-autumn-vibes">
-                                <span class="style-color" style="background-color: #e76f51;"></span>
-                                <span class="style-name">Autumn Vibes</span>
                             </li>
                             <li class="style-item" data-theme="theme-nordic-frost">
                                 <span class="style-color" style="background-color: #88c0d0;"></span>
@@ -1462,16 +2404,20 @@
                                 <span class="style-name">Vintage Paper</span>
                             </li>
                             <li class="style-item" data-theme="theme-cherry-blossom">
-                                <span class="style-color" style="background-color: #ec407a;"></span>
+                                <span class="style-color" style="background-color: #e84a7f;"></span>
                                 <span class="style-name">Cherry Blossom</span>
                             </li>
                             <li class="style-item" data-theme="theme-space-odyssey">
                                 <span class="style-color" style="background-color: #49beb7;"></span>
                                 <span class="style-name">Space Odyssey</span>
                             </li>
-                            <li class="style-item" data-theme="theme-monochrome">
-                                <span class="style-color" style="background-color: #f5f5f5;"></span>
-                                <span class="style-name">Monochrome</span>
+                            <li class="style-item" data-theme="theme-vibrant-coral">
+                                <span class="style-color" style="background-color: #ff7268;"></span>
+                                <span class="style-name">Vibrant Coral</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-crystal-teal">
+                                <span class="style-color" style="background-color: #3ef4ff;"></span>
+                                <span class="style-name">Crystal Teal</span>
                             </li>
                         </ul>
                     </div>
@@ -1481,10 +2427,75 @@
             </nav>
         </header>
         
-        <!-- Add your main content here -->
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <h3 class="hero-subtitle">Hi, my name is</h3>
+            <h1 class="hero-title">John Doe.<br>I build things for the web.</h1>
+            <p class="hero-description">
+                I'm a web developer specializing in building exceptional digital experiences. Currently, I'm focused on creating accessible, human-centered products at a startup.
+            </p>
+            <a href="#projects" class="btn">View My Work</a>
+        </section>
         
+        <!-- Features Section -->
+        <section class="features" id="about">
+            <h2 class="section-title">What I Do</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">Web Development</h3>
+                    <p class="feature-description">
+                        I create responsive websites that work across all devices, focusing on performance and accessibility.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">UI/UX Design</h3>
+                    <p class="feature-description">
+                        I design intuitive user interfaces and experiences that are both functional and visually appealing.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Mobile Apps</h3>
+                    <p class="feature-description">
+                        I develop cross-platform mobile applications using modern frameworks like React Native.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <h2 class="cta-title">Let's Work Together</h2>
+            <p class="cta-description">
+                Whether you have a project in mind or just want to say hello, feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            </p>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </section>
     </div>
     
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">MyPortfolio</div>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; 2025 John Doe. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
     <script>
         // Create stars for background
         function createStars() {
@@ -1523,14 +2534,12 @@
             
             // Toggle dropdown
             styleBtn.addEventListener('click', () => {
-                styleBtn.classList.toggle('active');
                 styleDropdown.classList.toggle('active');
             });
             
             // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
                 if (!styleBtn.contains(e.target) && !styleDropdown.contains(e.target)) {
-                    styleBtn.classList.remove('active');
                     styleDropdown.classList.remove('active');
                 }
             });
@@ -1554,7 +2563,6 @@
                     localStorage.setItem('selectedTheme', themeClass);
                     
                     // Close dropdown
-                    styleBtn.classList.remove('active');
                     styleDropdown.classList.remove('active');
                 });
             });
@@ -1580,6 +2588,3 @@
             createStars();
             initStyleSwitcher();
         });
-    </script>
-</body>
-</html>
