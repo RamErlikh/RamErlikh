@@ -11,16 +11,26 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
-            transition: all 0.3s ease;
         }
         
         body {
             color: #ccd6f6;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: all 0.5s ease;
         }
         
         /* Default Theme - Using your original code */
+        .theme-default {
+            --bg-color-1: #0a192f;
+            --bg-color-2: #112240;
+            --bg-color-3: #233554;
+            --bg-color-4: #112240;
+            --accent-color: #64ffda;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+        }
+        
         .bg-animated {
             position: fixed;
             top: 0;
@@ -28,7 +38,11 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(-45deg, #0a192f, #112240, #233554, #112240);
+            background: linear-gradient(-45deg, 
+                var(--bg-color-1, #0a192f), 
+                var(--bg-color-2, #112240), 
+                var(--bg-color-3, #233554), 
+                var(--bg-color-4, #112240));
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
@@ -46,11 +60,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
             z-index: -1;
         }
         
+        /* Enhanced Background particles */
         .stars {
             position: fixed;
             top: 0;
@@ -69,8 +85,26 @@
         }
         
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: var(--accent-color, #64ffda);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
         }
         
         /* Main container */
@@ -87,7 +121,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 1rem 0;
+            background-color: rgba(10, 25, 47, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .logo {
@@ -95,6 +140,11 @@
             font-weight: bold;
             display: flex;
             align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
         }
         
         .logo-icon {
@@ -102,12 +152,17 @@
             width: 40px;
             height: 40px;
             margin-right: 10px;
-            border: 2px solid #64ffda;
+            border: 2px solid var(--accent-color, #64ffda);
             border-radius: 5px;
             text-align: center;
             line-height: 36px;
             font-size: 1.2rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .logo:hover .logo-icon {
+            transform: rotate(10deg);
+            box-shadow: 0 0 10px var(--accent-color, #64ffda);
         }
         
         /* Navigation */
@@ -126,14 +181,17 @@
         }
         
         .nav-links a {
-            color: #ccd6f6;
+            color: var(--text-primary, #ccd6f6);
             text-decoration: none;
             font-size: 0.9rem;
             position: relative;
+            transition: color 0.3s ease;
+            display: inline-block;
         }
         
         .nav-links a:hover {
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
+            transform: translateY(-2px);
         }
         
         .nav-links a::before {
@@ -143,7 +201,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #64ffda;
+            background-color: var(--accent-color, #64ffda);
             transition: width 0.3s ease;
         }
         
@@ -154,86 +212,61 @@
         /* Button styles */
         .btn {
             padding: 0.75rem 1.5rem;
-            border: 1px solid #64ffda;
+            border: 1px solid var(--accent-color, #64ffda);
             border-radius: 4px;
             background: transparent;
-            color: #64ffda;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-left: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        /* Cycle button */
-        .cycle-btn {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid #64ffda;
-            border-radius: 4px;
-            background: transparent;
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
             font-size: 0.9rem;
             cursor: pointer;
             margin-left: 1.5rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         
-        .cycle-btn::before {
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.2), transparent);
-            transition: all 0.5s ease;
-        }
-        
-        .cycle-btn:hover::before {
-            left: 100%;
-        }
-        
-        .cycle-btn:hover {
             background: rgba(100, 255, 218, 0.1);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 0;
+        }
+        
+        .btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
         }
         
         /* Hero Section */
         .hero {
-            padding: 6rem 0;
+            padding: 8rem 0 6rem;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            min-height: calc(100vh - 100px);
+            position: relative;
         }
         
         .hero-subtitle {
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-subtitle::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 100%;
-            height: 2px;
-            background-color: #64ffda;
-            transform: translateX(-100%);
-            animation: slideIn 1s forwards 0.2s;
-        }
-        
-        @keyframes slideIn {
-            to { transform: translateX(0); }
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.3s;
         }
         
         .hero-title {
@@ -241,79 +274,72 @@
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            color: #e6f1ff;
+            color: var(--text-primary, #e6f1ff);
             opacity: 0;
-            animation: fadeUp 0.8s forwards 0.5s;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.6s;
         }
         
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+        .hero-title .highlight {
+            color: var(--accent-color, #64ffda);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .hero-title .typewriter::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% {opacity: 1;}
+            50% {opacity: 0;}
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-secondary, #8892b0);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 0.9s;
+        }
+        
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
         
-        .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #8892b0;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
+        .hero .btn {
             opacity: 0;
-            animation: fadeUp 0.8s forwards 0.8s;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            opacity: 0;
-            animation: fadeUp 0.8s forwards 1.1s;
-        }
-        
-        .primary-btn {
-            background: transparent;
-        }
-        
-        .secondary-btn {
-            background: rgba(100, 255, 218, 0.1);
-            border-color: rgba(100, 255, 218, 0.5);
-        }
-        
-        .theme-indicator {
-            margin-top: 2rem;
-            padding: 0.5rem 1rem;
-            background: rgba(17, 34, 64, 0.6);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            opacity: 0;
-            animation: fadeUp 0.8s forwards 1.4s;
-        }
-        
-        .theme-indicator p {
-            margin: 0;
-            color: #8892b0;
-        }
-        
-        .theme-indicator span {
-            color: #64ffda;
-            font-weight: bold;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards 1.2s;
         }
         
         /* Features Section */
         .features {
             padding: 6rem 0;
+            position: relative;
         }
         
         .section-title {
             font-size: 2rem;
             margin-bottom: 3rem;
-            color: #e6f1ff;
+            color: var(--text-primary, #e6f1ff);
             text-align: center;
             position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-title::after {
@@ -324,13 +350,14 @@
             transform: translateX(-50%);
             width: 60px;
             height: 4px;
-            background-color: #64ffda;
+            background-color: var(--accent-color, #64ffda);
         }
         
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            position: relative;
         }
         
         .feature-card {
@@ -338,57 +365,342 @@
             padding: 2rem;
             border-radius: 8px;
             border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(100, 255, 218, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .feature-card:hover::before {
+            transform: translateX(100%);
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             border-color: rgba(100, 255, 218, 0.3);
         }
         
         .feature-icon {
-            font-size: 2rem;
-            color: #64ffda;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            color: var(--accent-color, #64ffda);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
         }
         
         .feature-title {
             font-size: 1.2rem;
             margin-bottom: 1rem;
-            color: #e6f1ff;
+            color: var(--text-primary, #e6f1ff);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .feature-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color, #64ffda);
+            transition: width 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-title::after {
+            width: 50px;
         }
         
         .feature-description {
-            color: #8892b0;
+            color: var(--text-secondary, #8892b0);
             line-height: 1.6;
+        }
+        
+        /* Progress bars for skills */
+        .skills {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .skill-bars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-item {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .skill-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-name {
+            color: var(--text-primary, #e6f1ff);
+            font-weight: 500;
+        }
+        
+        .skill-percent {
+            color: var(--accent-color, #64ffda);
+        }
+        
+        .skill-progress {
+            height: 8px;
+            background-color: rgba(100, 255, 218, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-bar {
+            height: 100%;
+            background-color: var(--accent-color, #64ffda);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: rgba(17, 34, 64, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-color: #1e2a45;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(100, 255, 218, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-image::before {
+            opacity: 1;
+        }
+        
+        .project-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 2rem;
+            color: var(--accent-color, #64ffda);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary, #e6f1ff);
+        }
+        
+        .project-description {
+            color: var(--text-secondary, #8892b0);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-tag {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-color, #64ffda);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-link {
+            color: var(--text-primary, #e6f1ff);
+            transition: color 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--accent-color, #64ffda);
         }
         
         /* CTA Section */
         .cta {
-            padding: 6rem 0;
+            padding: 8rem 0;
             text-align: center;
+            position: relative;
         }
         
         .cta-title {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
-            color: #e6f1ff;
+            color: var(--text-primary, #e6f1ff);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .cta-title.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .cta-description {
-            color: #8892b0;
+            color: var(--text-secondary, #8892b0);
             font-size: 1.2rem;
             margin-bottom: 2.5rem;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .cta-description.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cta .btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .cta .btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Contact form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .contact-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary, #e6f1ff);
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 4px;
+            background-color: rgba(17, 34, 64, 0.5);
+            color: var(--text-primary, #e6f1ff);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color, #64ffda);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
         }
         
         /* Footer */
         footer {
             padding: 3rem 0;
             background: rgba(10, 25, 47, 0.8);
+            position: relative;
+            z-index: 10;
         }
         
         .footer-content {
@@ -398,7 +710,7 @@
         }
         
         .footer-logo {
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
             font-size: 1.5rem;
             font-weight: bold;
         }
@@ -413,31 +725,79 @@
         }
         
         .footer-links a {
-            color: #ccd6f6;
+            color: var(--text-primary, #ccd6f6);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            color: var(--text-primary, #ccd6f6);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-link:hover {
+            color: var(--accent-color, #64ffda);
+            border-color: var(--accent-color, #64ffda);
+            transform: translateY(-3px);
         }
         
         .copyright {
             text-align: center;
-            color: #8892b0;
+            color: var(--text-secondary, #8892b0);
             margin-top: 2rem;
             font-size: 0.9rem;
         }
         
-        /* Theme transition effect */
-        body.theme-transition {
-            animation: themeTransition 0.5s ease;
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color, #64ffda);
+            color: #0a192f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 99;
         }
         
-        @keyframes themeTransition {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 10px var(--accent-color, #64ffda);
         }
         
         /* Style Switcher */
@@ -448,18 +808,37 @@
         
         .style-btn {
             padding: 0.75rem 1.5rem;
-            border: 1px solid #64ffda;
+            border: 1px solid var(--accent-color, #64ffda);
             border-radius: 4px;
             background: transparent;
-            color: #64ffda;
+            color: var(--accent-color, #64ffda);
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .style-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(100, 255, 218, 0.1);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .style-btn:hover::before {
+            left: 0;
         }
         
         .style-btn:hover {
-            background: rgba(100, 255, 218, 0.1);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .style-dropdown {
@@ -469,16 +848,20 @@
             width: 250px;
             max-height: 0;
             overflow: hidden;
-            background: #112240;
-            border-radius: 4px;
+            background: var(--bg-color-2, #112240);
+            border-radius: 8px;
             box-shadow: 0 10px 30px rgba(2, 12, 27, 0.7);
-            transition: max-height 0.5s ease;
+            transition: max-height 0.5s ease, transform 0.3s ease, opacity 0.3s ease;
             z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px);
         }
         
         .style-dropdown.active {
             max-height: 400px;
             overflow-y: auto;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .style-list {
@@ -493,10 +876,12 @@
             display: flex;
             align-items: center;
             margin-bottom: 0.25rem;
+            transition: all 0.3s ease;
         }
         
         .style-item:hover {
             background: rgba(100, 255, 218, 0.1);
+            transform: translateX(5px);
         }
         
         .style-item.active {
@@ -509,10 +894,48 @@
             border-radius: 50%;
             margin-right: 10px;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .style-item:hover .style-color {
+            transform: scale(1.2);
         }
         
         .style-name {
             font-size: 0.9rem;
+            color: var(--text-primary, #e6f1ff);
+        }
+        
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color, #64ffda);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
         }
         
         /* Responsive styles */
@@ -521,8 +944,53 @@
                 font-size: 3rem;
             }
             
+            .menu-toggle {
+                display: flex;
+            }
+            
             .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 60%;
+                height: 100vh;
+                flex-direction: column;
+                background-color: var(--bg-color-2, #112240);
+                padding: 6rem 2rem 2rem;
+                z-index: 150;
+                transition: right 0.4s ease;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .nav-links.active {
+                right: 0;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .style-switcher {
                 display: none;
+            }
+            
+            .btn {
+                display: none;
+            }
+            
+            .mobile-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .mobile-buttons .btn,
+            .mobile-buttons .style-btn {
+                display: inline-block;
+                margin: 0;
             }
             
             .footer-content {
@@ -540,7 +1008,49 @@
             }
         }
         
-        /* ADDITIONAL THEMES */
+        @media (min-width: 769px) {
+            .mobile-buttons {
+                display: none;
+            }
+        }
+        
+        /* Animation classes */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .animate-float {
+            animation: floatUp 0.6s forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-5 {
+            animation-delay: 0.5s;
+        }
+        
+        /* Include all the original themes */
         /* Theme 2: Purple Haze */
         .theme-purple-haze {
             --bg-color-1: #1a103c;
@@ -550,80 +1060,6 @@
             --accent-color: #b27cff;
             --text-primary: #e9dfff;
             --text-secondary: #a594d0;
-        }
-        
-        .theme-purple-haze .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-purple-haze .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .logo, .theme-purple-haze header {
-            color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-purple-haze .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .btn, .theme-purple-haze .style-btn, .theme-purple-haze .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .btn:hover, .theme-purple-haze .style-btn:hover, .theme-purple-haze .cycle-btn:hover {
-            background: rgba(178, 124, 255, 0.1);
-        }
-        
-        .theme-purple-haze .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(178, 124, 255, 0.2), transparent);
-        }
-        
-        .theme-purple-haze .hero-subtitle, .theme-purple-haze .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .hero-title, .theme-purple-haze .section-title, .theme-purple-haze .feature-title, .theme-purple-haze .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-purple-haze .hero-description, .theme-purple-haze .feature-description, .theme-purple-haze .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-purple-haze .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .feature-card {
-            background: rgba(42, 27, 99, 0.5);
-            border: 1px solid rgba(178, 124, 255, 0.1);
-        }
-        
-        .theme-purple-haze .feature-card:hover {
-            border-color: rgba(178, 124, 255, 0.3);
-        }
-        
-        .theme-purple-haze .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-purple-haze .footer-links a:hover {
-            color: var(--accent-color);
         }
         
         /* Theme 3: Ocean Blue */
@@ -637,80 +1073,6 @@
             --text-secondary: #a8d8ea;
         }
         
-        .theme-ocean-blue .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-ocean-blue .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .logo, .theme-ocean-blue header {
-            color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-ocean-blue .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .btn, .theme-ocean-blue .style-btn, .theme-ocean-blue .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .btn:hover, .theme-ocean-blue .style-btn:hover, .theme-ocean-blue .cycle-btn:hover {
-            background: rgba(0, 210, 255, 0.1);
-        }
-        
-        .theme-ocean-blue .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.2), transparent);
-        }
-        
-        .theme-ocean-blue .hero-subtitle, .theme-ocean-blue .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .hero-title, .theme-ocean-blue .section-title, .theme-ocean-blue .feature-title, .theme-ocean-blue .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-ocean-blue .hero-description, .theme-ocean-blue .feature-description, .theme-ocean-blue .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-ocean-blue .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .feature-card {
-            background: rgba(0, 51, 102, 0.5);
-            border: 1px solid rgba(0, 210, 255, 0.1);
-        }
-        
-        .theme-ocean-blue .feature-card:hover {
-            border-color: rgba(0, 210, 255, 0.3);
-        }
-        
-        .theme-ocean-blue .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-ocean-blue .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 4: Forest Green */
         .theme-forest-green {
             --bg-color-1: #1b2a1b;
@@ -720,80 +1082,6 @@
             --accent-color: #7cdf85;
             --text-primary: #e8f5e9;
             --text-secondary: #b6dbba;
-        }
-        
-        .theme-forest-green .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-forest-green .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-forest-green .logo, .theme-forest-green header {
-            color: var(--accent-color);
-        }
-        
-        .theme-forest-green .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-forest-green .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-forest-green .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-forest-green .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-forest-green .btn, .theme-forest-green .style-btn, .theme-forest-green .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-forest-green .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(124, 223, 133, 0.2), transparent);
-        }
-        
-        .theme-forest-green .btn:hover, .theme-forest-green .style-btn:hover, .theme-forest-green .cycle-btn:hover {
-            background: rgba(124, 223, 133, 0.1);
-        }
-        
-        .theme-forest-green .hero-subtitle, .theme-forest-green .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-forest-green .hero-title, .theme-forest-green .section-title, .theme-forest-green .feature-title, .theme-forest-green .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-forest-green .hero-description, .theme-forest-green .feature-description, .theme-forest-green .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-forest-green .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-forest-green .feature-card {
-            background: rgba(38, 61, 37, 0.5);
-            border: 1px solid rgba(124, 223, 133, 0.1);
-        }
-        
-        .theme-forest-green .feature-card:hover {
-            border-color: rgba(124, 223, 133, 0.3);
-        }
-        
-        .theme-forest-green .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-forest-green .footer-links a:hover {
-            color: var(--accent-color);
         }
         
         /* Theme 5: Ruby Red */
@@ -807,80 +1095,6 @@
             --text-secondary: #ffb3bb;
         }
         
-        .theme-ruby-red .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-ruby-red .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .logo, .theme-ruby-red header {
-            color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-ruby-red .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .btn, .theme-ruby-red .style-btn, .theme-ruby-red .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .btn:hover, .theme-ruby-red .style-btn:hover, .theme-ruby-red .cycle-btn:hover {
-            background: rgba(255, 92, 117, 0.1);
-        }
-        
-        .theme-ruby-red .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 92, 117, 0.2), transparent);
-        }
-        
-        .theme-ruby-red .hero-subtitle, .theme-ruby-red .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .hero-title, .theme-ruby-red .section-title, .theme-ruby-red .feature-title, .theme-ruby-red .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-ruby-red .hero-description, .theme-ruby-red .feature-description, .theme-ruby-red .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-ruby-red .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .feature-card {
-            background: rgba(76, 23, 27, 0.5);
-            border: 1px solid rgba(255, 92, 117, 0.1);
-        }
-        
-        .theme-ruby-red .feature-card:hover {
-            border-color: rgba(255, 92, 117, 0.3);
-        }
-        
-        .theme-ruby-red .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-ruby-red .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 6: Golden Sunset */
         .theme-golden-sunset {
             --bg-color-1: #2d1b0c;
@@ -890,80 +1104,6 @@
             --accent-color: #ffa344;
             --text-primary: #fff0e0;
             --text-secondary: #ffd8b0;
-        }
-        
-        .theme-golden-sunset .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-golden-sunset .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .logo, .theme-golden-sunset header {
-            color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-golden-sunset .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .btn, .theme-golden-sunset .style-btn, .theme-golden-sunset .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .btn:hover, .theme-golden-sunset .style-btn:hover, .theme-golden-sunset .cycle-btn:hover {
-            background: rgba(255, 163, 68, 0.1);
-        }
-        
-        .theme-golden-sunset .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 163, 68, 0.2), transparent);
-        }
-        
-        .theme-golden-sunset .hero-subtitle, .theme-golden-sunset .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .hero-title, .theme-golden-sunset .section-title, .theme-golden-sunset .feature-title, .theme-golden-sunset .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-golden-sunset .hero-description, .theme-golden-sunset .feature-description, .theme-golden-sunset .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-golden-sunset .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .feature-card {
-            background: rgba(76, 47, 22, 0.5);
-            border: 1px solid rgba(255, 163, 68, 0.1);
-        }
-        
-        .theme-golden-sunset .feature-card:hover {
-            border-color: rgba(255, 163, 68, 0.3);
-        }
-        
-        .theme-golden-sunset .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-golden-sunset .footer-links a:hover {
-            color: var(--accent-color);
         }
         
         /* Theme 7: Electric Cyan */
@@ -977,92 +1117,6 @@
             --text-secondary: #a8e6e6;
         }
         
-        .theme-electric-cyan .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-electric-cyan .star {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .logo, .theme-electric-cyan header {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .logo-icon {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-electric-cyan .nav-links a:hover {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .nav-links a::before {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .btn, .theme-electric-cyan .style-btn, .theme-electric-cyan .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            box-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .btn:hover, .theme-electric-cyan .style-btn:hover, .theme-electric-cyan .cycle-btn:hover {
-            background: rgba(0, 255, 255, 0.1);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
-        }
-        
-        .theme-electric-cyan .hero-subtitle, .theme-electric-cyan .feature-icon {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .hero-title, .theme-electric-cyan .section-title, .theme-electric-cyan .feature-title, .theme-electric-cyan .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-electric-cyan .hero-description, .theme-electric-cyan .feature-description, .theme-electric-cyan .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-electric-cyan .section-title::after {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .feature-card {
-            background: rgba(0, 69, 69, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.1);
-        }
-        
-        .theme-electric-cyan .feature-card:hover {
-            border-color: rgba(0, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 255, 0.2);
-        }
-        
-        .theme-electric-cyan .footer-logo {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-electric-cyan .footer-links a:hover {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
-        }
-        
         /* Theme 8: Pink Paradise */
         .theme-pink-paradise {
             --bg-color-1: #2b1624;
@@ -1072,80 +1126,6 @@
             --accent-color: #ff79c6;
             --text-primary: #ffe9f6;
             --text-secondary: #ffb3dc;
-        }
-        
-        .theme-pink-paradise .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-pink-paradise .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .logo, .theme-pink-paradise header {
-            color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-pink-paradise .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .btn, .theme-pink-paradise .style-btn, .theme-pink-paradise .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .btn:hover, .theme-pink-paradise .style-btn:hover, .theme-pink-paradise .cycle-btn:hover {
-            background: rgba(255, 121, 198, 0.1);
-        }
-        
-        .theme-pink-paradise .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 121, 198, 0.2), transparent);
-        }
-        
-        .theme-pink-paradise .hero-subtitle, .theme-pink-paradise .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .hero-title, .theme-pink-paradise .section-title, .theme-pink-paradise .feature-title, .theme-pink-paradise .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-pink-paradise .hero-description, .theme-pink-paradise .feature-description, .theme-pink-paradise .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-pink-paradise .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .feature-card {
-            background: rgba(69, 35, 59, 0.5);
-            border: 1px solid rgba(255, 121, 198, 0.1);
-        }
-        
-        .theme-pink-paradise .feature-card:hover {
-            border-color: rgba(255, 121, 198, 0.3);
-        }
-        
-        .theme-pink-paradise .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-pink-paradise .footer-links a:hover {
-            color: var(--accent-color);
         }
         
         /* Theme 9: Emerald Elegance */
@@ -1159,80 +1139,6 @@
             --text-secondary: #b6e6d4;
         }
         
-        .theme-emerald-elegance .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-emerald-elegance .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .logo, .theme-emerald-elegance header {
-            color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-emerald-elegance .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .btn, .theme-emerald-elegance .style-btn, .theme-emerald-elegance .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .btn:hover, .theme-emerald-elegance .style-btn:hover, .theme-emerald-elegance .cycle-btn:hover {
-            background: rgba(78, 204, 163, 0.1);
-        }
-        
-        .theme-emerald-elegance .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(78, 204, 163, 0.2), transparent);
-        }
-        
-        .theme-emerald-elegance .hero-subtitle, .theme-emerald-elegance .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .hero-title, .theme-emerald-elegance .section-title, .theme-emerald-elegance .feature-title, .theme-emerald-elegance .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-emerald-elegance .hero-description, .theme-emerald-elegance .feature-description, .theme-emerald-elegance .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-emerald-elegance .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .feature-card {
-            background: rgba(24, 60, 48, 0.5);
-            border: 1px solid rgba(78, 204, 163, 0.1);
-        }
-        
-        .theme-emerald-elegance .feature-card:hover {
-            border-color: rgba(78, 204, 163, 0.3);
-        }
-        
-        .theme-emerald-elegance .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-emerald-elegance .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 10: Light Mode */
         .theme-light-mode {
             --bg-color-1: #f0f4f8;
@@ -1242,98 +1148,6 @@
             --accent-color: #5a67d8;
             --text-primary: #2d3748;
             --text-secondary: #4a5568;
-        }
-        
-        .theme-light-mode .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-light-mode .bg-grid {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-        }
-        
-        .theme-light-mode .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-light-mode .logo, .theme-light-mode header {
-            color: var(--accent-color);
-        }
-        
-        .theme-light-mode .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-light-mode .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-light-mode .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-light-mode .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-light-mode .btn, .theme-light-mode .style-btn, .theme-light-mode .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-light-mode .btn:hover, .theme-light-mode .style-btn:hover, .theme-light-mode .cycle-btn:hover {
-            background: rgba(90, 103, 216, 0.1);
-        }
-        
-        .theme-light-mode .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(90, 103, 216, 0.2), transparent);
-        }
-        
-        .theme-light-mode .hero-subtitle, .theme-light-mode .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-light-mode .hero-title, .theme-light-mode .section-title, .theme-light-mode .feature-title, .theme-light-mode .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-light-mode .hero-description, .theme-light-mode .feature-description, .theme-light-mode .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-light-mode .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-light-mode .feature-card {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(90, 103, 216, 0.1);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .theme-light-mode .feature-card:hover {
-            border-color: rgba(90, 103, 216, 0.3);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .theme-light-mode footer {
-            background: rgba(240, 244, 248, 0.8);
-        }
-        
-        .theme-light-mode .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-light-mode .footer-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-light-mode .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-light-mode .copyright {
-            color: var(--text-secondary);
         }
         
         /* Theme 11: Cyberpunk */
@@ -1347,183 +1161,15 @@
             --text-secondary: #c77dff;
         }
         
-        .theme-cyberpunk .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-cyberpunk .bg-grid {
-            background-image: linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-        
-        .theme-cyberpunk .star {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .logo, .theme-cyberpunk header {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .logo-icon {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-cyberpunk .nav-links a:hover {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .nav-links a::before {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .btn, .theme-cyberpunk .style-btn, .theme-cyberpunk .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .btn:hover, .theme-cyberpunk .style-btn:hover, .theme-cyberpunk .cycle-btn:hover {
-            background: rgba(255, 0, 255, 0.2);
-            box-shadow: 0 0 20px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.2), transparent);
-        }
-        
-        .theme-cyberpunk .hero-subtitle, .theme-cyberpunk .feature-icon {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .hero-title, .theme-cyberpunk .section-title, .theme-cyberpunk .feature-title, .theme-cyberpunk .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-cyberpunk .hero-description, .theme-cyberpunk .feature-description, .theme-cyberpunk .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-cyberpunk .section-title::after {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .feature-card {
-            background: rgba(25, 0, 54, 0.5);
-            border: 1px solid rgba(255, 0, 255, 0.2);
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.1);
-        }
-        
-        .theme-cyberpunk .feature-card:hover {
-            border-color: rgba(255, 0, 255, 0.5);
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
-        }
-        
-        .theme-cyberpunk .footer-logo {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .theme-cyberpunk .footer-links a:hover {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        
         /* Theme 12: Minimalist */
         .theme-minimalist {
-            --bg-color: #111111;
+            --bg-color-1: #111111;
+            --bg-color-2: #111111;
+            --bg-color-3: #111111;
+            --bg-color-4: #111111;
             --accent-color: #ffffff;
             --text-primary: #f5f5f5;
             --text-secondary: #aaaaaa;
-        }
-        
-        .theme-minimalist .bg-animated {
-            background: var(--bg-color);
-            animation: none;
-        }
-        
-        .theme-minimalist .bg-grid {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
-        
-        .theme-minimalist .stars {
-            display: none;
-        }
-        
-        .theme-minimalist .logo, .theme-minimalist header {
-            color: var(--accent-color);
-        }
-        
-        .theme-minimalist .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-minimalist .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-minimalist .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-minimalist .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-minimalist .btn, .theme-minimalist .style-btn, .theme-minimalist .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-minimalist .btn:hover, .theme-minimalist .style-btn:hover, .theme-minimalist .cycle-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .theme-minimalist .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        }
-        
-        .theme-minimalist .hero-subtitle, .theme-minimalist .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-minimalist .hero-title, .theme-minimalist .section-title, .theme-minimalist .feature-title, .theme-minimalist .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-minimalist .hero-description, .theme-minimalist .feature-description, .theme-minimalist .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-minimalist .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-minimalist .feature-card {
-            background: rgba(34, 34, 34, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .theme-minimalist .feature-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .theme-minimalist .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-minimalist .footer-links a:hover {
-            color: var(--accent-color);
         }
         
         /* Theme 13: Coffee Shop */
@@ -1537,80 +1183,6 @@
             --text-secondary: #d4c3b2;
         }
         
-        .theme-coffee-shop .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-coffee-shop .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .logo, .theme-coffee-shop header {
-            color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-coffee-shop .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .btn, .theme-coffee-shop .style-btn, .theme-coffee-shop .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .btn:hover, .theme-coffee-shop .style-btn:hover, .theme-coffee-shop .cycle-btn:hover {
-            background: rgba(200, 162, 124, 0.1);
-        }
-        
-        .theme-coffee-shop .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(200, 162, 124, 0.2), transparent);
-        }
-        
-        .theme-coffee-shop .hero-subtitle, .theme-coffee-shop .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .hero-title, .theme-coffee-shop .section-title, .theme-coffee-shop .feature-title, .theme-coffee-shop .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-coffee-shop .hero-description, .theme-coffee-shop .feature-description, .theme-coffee-shop .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-coffee-shop .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .feature-card {
-            background: rgba(56, 40, 25, 0.5);
-            border: 1px solid rgba(200, 162, 124, 0.1);
-        }
-        
-        .theme-coffee-shop .feature-card:hover {
-            border-color: rgba(200, 162, 124, 0.3);
-        }
-        
-        .theme-coffee-shop .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-coffee-shop .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 14: Pastel Dreams */
         .theme-pastel-dreams {
             --bg-color-1: #f2e3f9;
@@ -1620,96 +1192,6 @@
             --accent-color: #b392ac;
             --text-primary: #4d3b48;
             --text-secondary: #7d6377;
-        }
-        
-        .theme-pastel-dreams .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-pastel-dreams .bg-grid {
-            background-image: linear-gradient(rgba(179, 146, 172, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(179, 146, 172, 0.1) 1px, transparent 1px);
-        }
-        
-        .theme-pastel-dreams .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .logo, .theme-pastel-dreams header {
-            color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-pastel-dreams .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .btn, .theme-pastel-dreams .style-btn, .theme-pastel-dreams .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .btn:hover, .theme-pastel-dreams .style-btn:hover, .theme-pastel-dreams .cycle-btn:hover {
-            background: rgba(179, 146, 172, 0.1);
-        }
-        
-        .theme-pastel-dreams .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(179, 146, 172, 0.2), transparent);
-        }
-        
-        .theme-pastel-dreams .hero-subtitle, .theme-pastel-dreams .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .hero-title, .theme-pastel-dreams .section-title, .theme-pastel-dreams .feature-title, .theme-pastel-dreams .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-pastel-dreams .hero-description, .theme-pastel-dreams .feature-description, .theme-pastel-dreams .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-pastel-dreams .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .feature-card {
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(179, 146, 172, 0.1);
-        }
-        
-        .theme-pastel-dreams .feature-card:hover {
-            border-color: rgba(179, 146, 172, 0.3);
-        }
-        
-        .theme-pastel-dreams footer {
-            background: rgba(242, 227, 249, 0.8);
-        }
-        
-        .theme-pastel-dreams .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .footer-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-pastel-dreams .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-pastel-dreams .copyright {
-            color: var(--text-secondary);
         }
         
         /* Theme 15: Nordic Frost */
@@ -1723,178 +1205,15 @@
             --text-secondary: #d8dee9;
         }
         
-        .theme-nordic-frost .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-nordic-frost .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .logo, .theme-nordic-frost header {
-            color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-nordic-frost .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .btn, .theme-nordic-frost .style-btn, .theme-nordic-frost .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .btn:hover, .theme-nordic-frost .style-btn:hover, .theme-nordic-frost .cycle-btn:hover {
-            background: rgba(136, 192, 208, 0.1);
-        }
-        
-        .theme-nordic-frost .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(136, 192, 208, 0.2), transparent);
-        }
-        
-        .theme-nordic-frost .hero-subtitle, .theme-nordic-frost .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .hero-title, .theme-nordic-frost .section-title, .theme-nordic-frost .feature-title, .theme-nordic-frost .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-nordic-frost .hero-description, .theme-nordic-frost .feature-description, .theme-nordic-frost .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-nordic-frost .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .feature-card {
-            background: rgba(59, 66, 82, 0.5);
-            border: 1px solid rgba(136, 192, 208, 0.1);
-        }
-        
-        .theme-nordic-frost .feature-card:hover {
-            border-color: rgba(136, 192, 208, 0.3);
-        }
-        
-        .theme-nordic-frost .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-nordic-frost .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 16: Vintage Paper */
         .theme-vintage-paper {
-            --bg-color: #f8f0d7;
+            --bg-color-1: #f8f0d7;
+            --bg-color-2: #f8f0d7;
+            --bg-color-3: #f8f0d7;
+            --bg-color-4: #f8f0d7;
             --accent-color: #8d6e63;
             --text-primary: #3e2723;
             --text-secondary: #6d4c41;
-        }
-        
-        .theme-vintage-paper .bg-animated {
-            background: var(--bg-color);
-            animation: none;
-        }
-        
-        .theme-vintage-paper .bg-grid {
-            background-image: linear-gradient(rgba(141, 110, 99, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(141, 110, 99, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-        
-        .theme-vintage-paper .stars {
-            display: none;
-        }
-        
-        .theme-vintage-paper .logo, .theme-vintage-paper header {
-            color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-vintage-paper .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .btn, .theme-vintage-paper .style-btn, .theme-vintage-paper .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .btn:hover, .theme-vintage-paper .style-btn:hover, .theme-vintage-paper .cycle-btn:hover {
-            background: rgba(141, 110, 99, 0.1);
-        }
-        
-        .theme-vintage-paper .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(141, 110, 99, 0.2), transparent);
-        }
-        
-        .theme-vintage-paper .hero-subtitle, .theme-vintage-paper .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .hero-title, .theme-vintage-paper .section-title, .theme-vintage-paper .feature-title, .theme-vintage-paper .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-vintage-paper .hero-description, .theme-vintage-paper .feature-description, .theme-vintage-paper .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-vintage-paper .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .feature-card {
-            background: rgba(255, 245, 230, 0.5);
-            border: 1px solid rgba(141, 110, 99, 0.1);
-        }
-        
-        .theme-vintage-paper .feature-card:hover {
-            border-color: rgba(141, 110, 99, 0.3);
-        }
-        
-        .theme-vintage-paper footer {
-            background: rgba(248, 240, 215, 0.8);
-        }
-        
-        .theme-vintage-paper .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .footer-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-vintage-paper .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-vintage-paper .copyright {
-            color: var(--text-secondary);
         }
         
         /* Theme 17: Space Odyssey */
@@ -1908,80 +1227,6 @@
             --text-secondary: #a0ded9;
         }
         
-        .theme-space-odyssey .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-space-odyssey .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .logo, .theme-space-odyssey header {
-            color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-space-odyssey .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .btn, .theme-space-odyssey .style-btn, .theme-space-odyssey .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .btn:hover, .theme-space-odyssey .style-btn:hover, .theme-space-odyssey .cycle-btn:hover {
-            background: rgba(73, 190, 183, 0.1);
-        }
-        
-        .theme-space-odyssey .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(73, 190, 183, 0.2), transparent);
-        }
-        
-        .theme-space-odyssey .hero-subtitle, .theme-space-odyssey .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .hero-title, .theme-space-odyssey .section-title, .theme-space-odyssey .feature-title, .theme-space-odyssey .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-space-odyssey .hero-description, .theme-space-odyssey .feature-description, .theme-space-odyssey .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-space-odyssey .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .feature-card {
-            background: rgba(18, 25, 32, 0.5);
-            border: 1px solid rgba(73, 190, 183, 0.1);
-        }
-        
-        .theme-space-odyssey .feature-card:hover {
-            border-color: rgba(73, 190, 183, 0.3);
-        }
-        
-        .theme-space-odyssey .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-space-odyssey .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 18: Cherry Blossom */
         .theme-cherry-blossom {
             --bg-color-1: #fef2f6;
@@ -1991,96 +1236,6 @@
             --accent-color: #e84a7f;
             --text-primary: #4f2a3b;
             --text-secondary: #7e4560;
-        }
-        
-        .theme-cherry-blossom .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-cherry-blossom .bg-grid {
-            background-image: linear-gradient(rgba(232, 74, 127, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 74, 127, 0.05) 1px, transparent 1px);
-        }
-        
-        .theme-cherry-blossom .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .logo, .theme-cherry-blossom header {
-            color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-cherry-blossom .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .btn, .theme-cherry-blossom .style-btn, .theme-cherry-blossom .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .btn:hover, .theme-cherry-blossom .style-btn:hover, .theme-cherry-blossom .cycle-btn:hover {
-            background: rgba(232, 74, 127, 0.1);
-        }
-        
-        .theme-cherry-blossom .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(232, 74, 127, 0.2), transparent);
-        }
-        
-        .theme-cherry-blossom .hero-subtitle, .theme-cherry-blossom .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .hero-title, .theme-cherry-blossom .section-title, .theme-cherry-blossom .feature-title, .theme-cherry-blossom .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-cherry-blossom .hero-description, .theme-cherry-blossom .feature-description, .theme-cherry-blossom .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-cherry-blossom .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .feature-card {
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(232, 74, 127, 0.1);
-        }
-        
-        .theme-cherry-blossom .feature-card:hover {
-            border-color: rgba(232, 74, 127, 0.3);
-        }
-        
-        .theme-cherry-blossom footer {
-            background: rgba(254, 242, 246, 0.8);
-        }
-        
-        .theme-cherry-blossom .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .footer-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-cherry-blossom .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-cherry-blossom .copyright {
-            color: var(--text-secondary);
         }
         
         /* Theme 19: Vibrant Coral */
@@ -2094,80 +1249,6 @@
             --text-secondary: #ffb8b3;
         }
         
-        .theme-vibrant-coral .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-vibrant-coral .star {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .logo, .theme-vibrant-coral header {
-            color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-vibrant-coral .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .btn, .theme-vibrant-coral .style-btn, .theme-vibrant-coral .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .btn:hover, .theme-vibrant-coral .style-btn:hover, .theme-vibrant-coral .cycle-btn:hover {
-            background: rgba(255, 114, 104, 0.1);
-        }
-        
-        .theme-vibrant-coral .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 114, 104, 0.2), transparent);
-        }
-        
-        .theme-vibrant-coral .hero-subtitle, .theme-vibrant-coral .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .hero-title, .theme-vibrant-coral .section-title, .theme-vibrant-coral .feature-title, .theme-vibrant-coral .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-vibrant-coral .hero-description, .theme-vibrant-coral .feature-description, .theme-vibrant-coral .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-vibrant-coral .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .feature-card {
-            background: rgba(58, 46, 49, 0.5);
-            border: 1px solid rgba(255, 114, 104, 0.1);
-        }
-        
-        .theme-vibrant-coral .feature-card:hover {
-            border-color: rgba(255, 114, 104, 0.3);
-        }
-        
-        .theme-vibrant-coral .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-vibrant-coral .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
         /* Theme 20: Crystal Teal */
         .theme-crystal-teal {
             --bg-color-1: #0a3336;
@@ -2178,266 +1259,6 @@
             --text-primary: #e0fcff;
             --text-secondary: #8cecf4;
         }
-        
-        .theme-crystal-teal .bg-animated {
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
-        }
-        
-        .theme-crystal-teal .star {
-            background-color: var(--accent-color);
-            box-shadow: 0 0 5px var(--accent-color);
-        }
-        
-        .theme-crystal-teal .logo, .theme-crystal-teal header {
-            color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .logo-icon {
-            border-color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .nav-links a {
-            color: var(--text-primary);
-        }
-        
-        .theme-crystal-teal .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .nav-links a::before {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .btn, .theme-crystal-teal .style-btn, .theme-crystal-teal .cycle-btn {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .btn:hover, .theme-crystal-teal .style-btn:hover, .theme-crystal-teal .cycle-btn:hover {
-            background: rgba(62, 244, 255, 0.1);
-        }
-        
-        .theme-crystal-teal .cycle-btn::before {
-            background: linear-gradient(90deg, transparent, rgba(62, 244, 255, 0.2), transparent);
-        }
-        
-        .theme-crystal-teal .hero-subtitle, .theme-crystal-teal .feature-icon {
-            color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .hero-title, .theme-crystal-teal .section-title, .theme-crystal-teal .feature-title, .theme-crystal-teal .cta-title {
-            color: var(--text-primary);
-        }
-        
-        .theme-crystal-teal .hero-description, .theme-crystal-teal .feature-description, .theme-crystal-teal .cta-description {
-            color: var(--text-secondary);
-        }
-        
-        .theme-crystal-teal .section-title::after {
-            background-color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .feature-card {
-            background: rgba(14, 75, 79, 0.5);
-            border: 1px solid rgba(62, 244, 255, 0.1);
-        }
-        
-        .theme-crystal-teal .feature-card:hover {
-            border-color: rgba(62, 244, 255, 0.3);
-        }
-        
-        .theme-crystal-teal .footer-logo {
-            color: var(--accent-color);
-        }
-        
-        .theme-crystal-teal .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        /* Theme Showcase Section */
-        .theme-showcase {
-            padding: 6rem 0;
-        }
-        
-        .showcase-description {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            color: #8892b0;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .theme-preview {
-            background: rgba(17, 34, 64, 0.5);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .theme-preview::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.5), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-        
-        .theme-preview:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(100, 255, 218, 0.3);
-        }
-        
-        .theme-preview:hover::before {
-            transform: translateX(100%);
-        }
-        
-        .preview-color {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .preview-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: #e6f1ff;
-        }
-        
-        .preview-description {
-            color: #8892b0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .showcase-actions {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-        
-        /* Theme-specific styles for preview cards */
-        .theme-purple-haze .theme-preview {
-            background: rgba(42, 27, 99, 0.5);
-            border-color: rgba(178, 124, 255, 0.1);
-        }
-        
-        .theme-purple-haze .theme-preview:hover {
-            border-color: rgba(178, 124, 255, 0.3);
-        }
-        
-        .theme-purple-haze .theme-preview::before {
-            background: linear-gradient(90deg, transparent, rgba(178, 124, 255, 0.5), transparent);
-        }
-        
-        .theme-ocean-blue .theme-preview {
-            background: rgba(0, 51, 102, 0.5);
-            border-color: rgba(0, 210, 255, 0.1);
-        }
-        
-        .theme-ocean-blue .theme-preview:hover {
-            border-color: rgba(0, 210, 255, 0.3);
-        }
-        
-        .theme-ocean-blue .theme-preview::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.5), transparent);
-        }
-        
-        /* 3D Transformations and Advanced Animations */
-        .theme-3d-transform .feature-card {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-        
-        .theme-3d-transform .feature-card:hover {
-            transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
-        }
-        
-        .theme-3d-transform .logo-icon {
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-        
-        .theme-3d-transform .logo-icon:hover {
-            transform: rotateY(180deg);
-        }
-        
-        /* Particle Effects */
-        .theme-particles .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .theme-particles .particle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        
-        /* Floating Elements */
-        .theme-floating .logo-icon,
-        .theme-floating .feature-icon {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        /* Glassmorphism */
-        .theme-glass .feature-card,
-        .theme-glass .style-dropdown,
-        .theme-glass nav {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Neumorphism */
-        .theme-neomorphic .btn,
-        .theme-neomorphic .style-btn,
-        .theme-neomorphic .cycle-btn,
-        .theme-neomorphic .feature-card {
-            background: var(--bg-color-2);
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
-                        -5px -5px 10px rgba(255, 255, 255, 0.05);
-            border: none;
-        }
-        
-        .theme-neomorphic .btn:hover,
-        .theme-neomorphic .style-btn:hover,
-        .theme-neomorphic .cycle-btn:hover,
-        .theme-neomorphic .feature-card:hover {
-            box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.2),
-                        inset -5px -5px 10px rgba(255, 255, 255, 0.05);
-        }
     </style>
 </head>
 <body class="theme-default">
@@ -2445,27 +1266,41 @@
     <div class="bg-animated"></div>
     <div class="bg-grid"></div>
     <div class="stars" id="stars"></div>
+    <div class="particles" id="particles"></div>
     
     <!-- Main content -->
     <div class="container">
         <!-- Header -->
-        <header>
+        <header id="header">
             <div class="logo">
                 <span class="logo-icon">M</span>
                 <span>MyPortfolio</span>
             </div>
             
             <nav>
-                <ul class="nav-links">
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <ul class="nav-links" id="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    
+                    <!-- Mobile buttons (only visible on small screens) -->
+                    <div class="mobile-buttons">
+                        <button id="mobile-style-btn" class="style-btn">Change Style</button>
+                        <button class="btn">Get in Touch</button>
+                    </div>
                 </ul>
                 
                 <!-- Style switcher button -->
                 <div class="style-switcher">
-                    <button id="style-btn" class="style-btn">Change Theme</button>
+                    <button id="style-btn" class="style-btn">Change Style</button>
                     
                     <div id="style-dropdown" class="style-dropdown">
                         <ul class="style-list">
@@ -2533,13 +1368,13 @@
                                 <span class="style-color" style="background-color: #8d6e63;"></span>
                                 <span class="style-name">Vintage Paper</span>
                             </li>
-                            <li class="style-item" data-theme="theme-space-odyssey">
-                                <span class="style-color" style="background-color: #49beb7;"></span>
-                                <span class="style-name">Space Odyssey</span>
-                            </li>
                             <li class="style-item" data-theme="theme-cherry-blossom">
                                 <span class="style-color" style="background-color: #e84a7f;"></span>
                                 <span class="style-name">Cherry Blossom</span>
+                            </li>
+                            <li class="style-item" data-theme="theme-space-odyssey">
+                                <span class="style-color" style="background-color: #49beb7;"></span>
+                                <span class="style-name">Space Odyssey</span>
                             </li>
                             <li class="style-item" data-theme="theme-vibrant-coral">
                                 <span class="style-color" style="background-color: #ff7268;"></span>
@@ -2549,619 +1384,626 @@
                                 <span class="style-color" style="background-color: #3ef4ff;"></span>
                                 <span class="style-name">Crystal Teal</span>
                             </li>
-							<!-- This picks up exactly where your code left off -->
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Cycle style button -->
-                    <button id="cycle-btn" class="cycle-btn">Change Style</button>
-                    
-                    <button class="btn">Get in Touch</button>
-                </nav>
-            </header>
-            
-            <!-- Hero Section -->
-            <section class="hero" id="home">
-                <h3 class="hero-subtitle">Hi, my name is</h3>
-                <h1 class="hero-title">Ram Erlikh.<br>I build things for the web.</h1>
-                <p class="hero-description">
-                    I'm a web developer specializing in building exceptional digital experiences. Currently, I'm focused on creating accessible, human-centered products at a startup.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn primary-btn">View My Work</a>
-                    <button id="random-style-btn" class="btn secondary-btn">Random Style</button>
-                </div>
-                
-                <!-- Theme preview indicator -->
-                <div class="theme-indicator">
-                    <p>Current Theme: <span id="current-theme-name">Default Tech</span></p>
-                </div>
-            </section>
-            
-            <!-- Features Section -->
-            <section class="features" id="about">
-                <h2 class="section-title">What I Do</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">💻</div>
-                        <h3 class="feature-title">Web Development</h3>
-                        <p class="feature-description">
-                            I create responsive websites that work across all devices, focusing on performance and accessibility.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h3 class="feature-title">UI/UX Design</h3>
-                        <p class="feature-description">
-                            I design intuitive user interfaces and experiences that are both functional and visually appealing.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3 class="feature-title">Mobile Apps</h3>
-                        <p class="feature-description">
-                            I develop cross-platform mobile applications using modern frameworks like React Native.
-                        </p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Theme Showcase Section -->
-            <section class="theme-showcase" id="themes">
-                <h2 class="section-title">Style Showcase</h2>
-                <p class="showcase-description">Explore the different visual styles available for this portfolio. Click on any theme preview to instantly apply it.</p>
-                
-                <div class="theme-grid">
-                    <div class="theme-preview" data-theme="theme-default">
-                        <div class="preview-color" style="background-color: #64ffda;"></div>
-                        <h3 class="preview-title">Default Tech</h3>
-                        <p class="preview-description">A modern tech-inspired theme with a green accent color and animated background.</p>
-                    </div>
-                    
-                    <div class="theme-preview" data-theme="theme-purple-haze">
-                        <div class="preview-color" style="background-color: #b27cff;"></div>
-                        <h3 class="preview-title">Purple Haze</h3>
-                        <p class="preview-description">A rich purple gradient theme with elegant animations and vibrant accents.</p>
-                    </div>
-                    
-                    <div class="theme-preview" data-theme="theme-ocean-blue">
-                        <div class="preview-color" style="background-color: #00d2ff;"></div>
-                        <h3 class="preview-title">Ocean Blue</h3>
-                        <p class="preview-description">A cool blue theme inspired by ocean depths and marine aesthetics.</p>
-                    </div>
-                    
-                    <div class="theme-preview" data-theme="theme-cyberpunk">
-                        <div class="preview-color" style="background-color: #ff00ff;"></div>
-                        <h3 class="preview-title">Cyberpunk</h3>
-                        <p class="preview-description">A futuristic neon theme with glowing elements and high contrast colors.</p>
-                    </div>
-                    
-                    <div class="theme-preview" data-theme="theme-minimalist">
-                        <div class="preview-color" style="background-color: #ffffff;"></div>
-                        <h3 class="preview-title">Minimalist</h3>
-                        <p class="preview-description">A clean, simple design with focus on content and minimal distractions.</p>
-                    </div>
-                    
-                    <div class="theme-preview" data-theme="theme-light-mode">
-                        <div class="preview-color" style="background-color: #5a67d8;"></div>
-                        <h3 class="preview-title">Light Mode</h3>
-                        <p class="preview-description">A bright, accessible theme with soft colors and subtle shadows.</p>
+                        </ul>
                     </div>
                 </div>
                 
-                <div class="showcase-actions">
-                    <button id="showcase-more-btn" class="btn">Show All Themes</button>
-                    <button id="theme-shuffle-btn" class="btn">Shuffle Themes</button>
-                </div>
-            </section>
-            
-            <!-- CTA Section -->
-            <section class="cta" id="contact">
-                <h2 class="cta-title">Let's Work Together</h2>
-                <p class="cta-description">
-                    Whether you have a project in mind or just want to say hello, feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-                </p>
-                <a href="#contact" class="btn">Get In Touch</a>
-            </section>
-        </div>
+                <button class="btn">Get in Touch</button>
+            </nav>
+        </header>
         
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-logo">MyPortfolio</div>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <h3 class="hero-subtitle">Hi, my name is</h3>
+            <h1 class="hero-title">John Doe.<br>I build <span class="highlight typewriter" id="typewriter"></span></h1>
+            <p class="hero-description">
+                I'm a web developer specializing in building exceptional digital experiences. Currently, I'm focused on creating accessible, human-centered products at a startup.
+            </p>
+            <a href="#projects" class="btn">View My Work</a>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features" id="about">
+            <h2 class="section-title">What I Do</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">Web Development</h3>
+                    <p class="feature-description">
+                        I create responsive websites that work across all devices, focusing on performance and accessibility.
+                    </p>
                 </div>
-                <div class="copyright">
-                    &copy; 2025 Ram Erlikh. All rights reserved.
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">UI/UX Design</h3>
+                    <p class="feature-description">
+                        I design intuitive user interfaces and experiences that are both functional and visually appealing.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Mobile Apps</h3>
+                    <p class="feature-description">
+                        I develop cross-platform mobile applications using modern frameworks like React Native.
+                    </p>
                 </div>
             </div>
-        </footer>
+        </section>
         
-        <!-- Scripts -->
-        <script>
-            // Create stars for background
-            function createStars() {
-                const stars = document.getElementById('stars');
-                const starCount = 100;
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skill-bars">
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <span class="skill-name">HTML & CSS</span>
+                        <span class="skill-percent">95%</span>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="skill-bar" data-width="95"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-percent">90%</span>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="skill-bar" data-width="90"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <span class="skill-name">React</span>
+                        <span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="skill-bar" data-width="85"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <span class="skill-name">Node.js</span>
+                        <span class="skill-percent">80%</span>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="skill-bar" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <h2 class="section-title">Recent Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">🚀</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">E-commerce Platform</h3>
+                        <p class="project-description">A full-featured online store with payment processing and inventory management.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">📱</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Fitness App</h3>
+                        <p class="project-description">Mobile app for tracking workouts, nutrition, and progress with data visualization.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Charts</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">🌐</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Portfolio Website</h3>
+                        <p class="project-description">A responsive portfolio website with smooth animations and dynamic theme switching.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <h2 class="cta-title">Let's Work Together</h2>
+            <p class="cta-description">
+                Whether you have a project in mind or just want to say hello, feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            </p>
             
-                for (let i = 0; i < starCount; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" class="form-input form-textarea" placeholder="Enter your message"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">MyPortfolio</div>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
             
-                    // Random position
-                    const x = Math.random() * 100;
-                    const y = Math.random() * 100;
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <i>🐦</i>
+                </a>
+                <a href="#" class="social-link">
+                    <i>👨‍💻</i>
+                </a>
+                <a href="#" class="social-link">
+                    <i>📸</i>
+                </a>
+                <a href="#" class="social-link">
+                    <i>💼</i>
+                </a>
+            </div>
             
-                    // Random size
-                    const size = Math.random() * 2 + 1;
+            <div class="copyright">
+                &copy; 2025 John Doe. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to top button -->
+    <div class="back-to-top" id="back-to-top">
+        ↑
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        // Create stars for background
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const starCount = 100;
             
-                    // Random animation delay
-                    const delay = Math.random() * 4;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                
+                // Random animation delay
+                const delay = Math.random() * 4;
+                
+                star.style.top = `${y}%`;
+                star.style.left = `${x}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Create particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 30;
             
-                    star.style.top = `${y}%`;
-                    star.style.left = `${x}%`;
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
-                    star.style.animationDelay = `${delay}s`;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const xMovement = Math.random() * 40 - 20;
+                const yMovement = Math.random() * 40 - 20;
+                
+                particle.style.top = `${y}%`;
+                particle.style.left = `${x}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Apply floating animation
+                particle.style.animation = `floatParticle ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // Create keyframes for this specific particle
+                const keyframes = `
+                    @keyframes floatParticle {
+                        0%, 100% {
+                            transform: translate(0, 0);
+                        }
+                        50% {
+                            transform: translate(${xMovement}px, ${yMovement}px);
+                        }
+                    }
+                `;
+                
+                // Add keyframes to document
+                const style = document.createElement('style');
+                style.innerHTML = keyframes;
+                document.head.appendChild(style);
+                
+                particles.appendChild(particle);
+            }
+        }
+        
+        // Typewriter effect
+        function typeWriter() {
+            const words = ["websites.", "applications.", "experiences.", "solutions."];
+            const typewriterElement = document.getElementById('typewriter');
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
             
-                    stars.appendChild(star);
+            function type() {
+                const currentWord = words[wordIndex];
+                
+                if (isDeleting) {
+                    // Deleting text
+                    typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    // Typing text
+                    typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100;
                 }
+                
+                // Check if word is complete
+                if (!isDeleting && charIndex === currentWord.length) {
+                    // Pause at the end of the word
+                    typingSpeed = 1500;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    // Move to next word
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    // Pause before typing next word
+                    typingSpeed = 500;
+                }
+                
+                setTimeout(type, typingSpeed);
             }
             
-            // Style switcher functionality
-            function initStyleSwitcher() {
-                const styleBtn = document.getElementById('style-btn');
-                const styleDropdown = document.getElementById('style-dropdown');
-                const styleItems = document.querySelectorAll('.style-item');
-                const cycleBtn = document.getElementById('cycle-btn');
-                const currentThemeName = document.getElementById('current-theme-name');
+            // Start the typing effect
+            setTimeout(type, 1000);
+        }
+        
+        // Scroll animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section-title, .feature-card, .skill-item, .project-card, .cta-title, .cta-description, .contact-form, .cta .btn');
             
-                // Toggle dropdown
-                styleBtn.addEventListener('click', () => {
-                    styleDropdown.classList.toggle('active');
-                });
-            
-                // Close dropdown when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!styleBtn.contains(e.target) && !styleDropdown.contains(e.target)) {
-                        styleDropdown.classList.remove('active');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // For skill bars, animate the width when visible
+                        if (entry.target.classList.contains('skill-item')) {
+                            const bar = entry.target.querySelector('.skill-bar');
+                            const width = bar.getAttribute('data-width');
+                            setTimeout(() => {
+                                bar.style.width = `${width}%`;
+                            }, 200);
+                        }
                     }
                 });
+            }, {
+                threshold: 0.1
+            });
             
-                // Theme switching
-                styleItems.forEach(item => {
-                    item.addEventListener('click', () => {
-                        // Get theme class
-                        const themeClass = item.getAttribute('data-theme');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Handle sticky header
+        function initStickyHeader() {
+            const header = document.getElementById('header');
+            const scrollThreshold = 50;
             
-                        // Add transition class for animation
-                        document.body.classList.add('theme-transition');
-            
-                        // Remove active class from all items
-                        styleItems.forEach(i => i.classList.remove('active'));
-            
-                        // Add active class to clicked item
-                        item.classList.add('active');
-            
-                        // Apply theme to body
-                        document.body.className = themeClass;
-                        document.body.classList.add('theme-transition');
-            
-                        // Save theme preference
-                        localStorage.setItem('selectedTheme', themeClass);
-                        localStorage.setItem('currentThemeIndex', Array.from(styleItems).indexOf(item));
-            
-                        // Update theme name display
-                        if (currentThemeName) {
-                            currentThemeName.textContent = item.querySelector('.style-name').textContent;
-                        }
-            
-                        // Close dropdown
-                        styleDropdown.classList.remove('active');
-                        
-                        // Remove transition class after animation completes
-                        setTimeout(() => {
-                            document.body.classList.remove('theme-transition');
-                        }, 500);
-                    });
-                });
-                
-                // Cycle through themes with the dedicated button
-                if (cycleBtn) {
-                    cycleBtn.addEventListener('click', () => {
-                        // Get all theme names
-                        const themes = Array.from(styleItems).map(item => item.getAttribute('data-theme'));
-                        
-                        // Get current theme index
-                        let currentIndex = parseInt(localStorage.getItem('currentThemeIndex')) || 0;
-                        
-                        // Calculate next theme index (cycle through the list)
-                        let nextIndex = (currentIndex + 1) % themes.length;
-                        
-                        // Add transition class for animation
-                        document.body.classList.add('theme-transition');
-                        
-                        // Apply next theme
-                        document.body.className = themes[nextIndex];
-                        document.body.classList.add('theme-transition');
-                        
-                        // Update active class in dropdown
-                        styleItems.forEach(item => item.classList.remove('active'));
-                        styleItems[nextIndex].classList.add('active');
-                        
-                        // Update theme name display
-                        if (currentThemeName) {
-                            currentThemeName.textContent = styleItems[nextIndex].querySelector('.style-name').textContent;
-                        }
-                        
-                        // Save new theme preference
-                        localStorage.setItem('selectedTheme', themes[nextIndex]);
-                        localStorage.setItem('currentThemeIndex', nextIndex);
-                        
-                        // Remove transition class after animation completes
-                        setTimeout(() => {
-                            document.body.classList.remove('theme-transition');
-                        }, 500);
-                    });
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
                 }
+            });
+        }
+        
+        // Back to top button
+        function initBackToTop() {
+            const backToTop = document.getElementById('back-to-top');
+            const scrollThreshold = 300;
             
-                // Load saved theme
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > scrollThreshold) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Mobile menu toggle
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
+            
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerHeight = document.getElementById('header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Interactive particles that follow cursor
+        function initInteractiveParticles() {
+            const container = document.querySelector('.container');
+            const particleCount = 5;
+            const particles = [];
+            
+            // Create particles that will follow the cursor
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${4 + i * 2}px`;
+                particle.style.height = `${4 + i * 2}px`;
+                particle.style.opacity = `${0.5 - i * 0.1}`;
+                particle.style.position = 'fixed';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                particle.style.transition = `transform ${0.1 + i * 0.05}s ease-out`;
+                document.body.appendChild(particle);
+                particles.push(particle);
+            }
+            
+            // Update particles position on mousemove
+            document.addEventListener('mousemove', (e) => {
+                particles.forEach((particle, index) => {
+                    // Add delay for each particle to create trail effect
+                    setTimeout(() => {
+                        particle.style.transform = `translate(${e.clientX - particle.offsetWidth / 2}px, ${e.clientY - particle.offsetHeight / 2}px)`;
+                    }, index * 40);
+                });
+            });
+        }
+        
+        // Style switcher functionality
+        function initStyleSwitcher() {
+            const styleBtn = document.getElementById('style-btn');
+            const mobileStyleBtn = document.getElementById('mobile-style-btn');
+            const styleDropdown = document.getElementById('style-dropdown');
+            const styleItems = document.querySelectorAll('.style-item');
+            
+            // Create a memory variable for environments where localStorage isn't available
+            let memoryTheme = null;
+            
+            // Toggle dropdown
+            styleBtn.addEventListener('click', () => {
+                styleDropdown.classList.toggle('active');
+            });
+            
+            mobileStyleBtn.addEventListener('click', () => {
+                styleDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!styleBtn.contains(e.target) && !mobileStyleBtn.contains(e.target) && !styleDropdown.contains(e.target)) {
+                    styleDropdown.classList.remove('active');
+                }
+            });
+            
+            // Theme switching
+            styleItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Get theme class
+                    const themeClass = item.getAttribute('data-theme');
+                    
+                    // Remove active class from all items
+                    styleItems.forEach(i => i.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Apply theme to body
+                    document.body.className = themeClass;
+                    
+                    // Try to save theme preference in localStorage with fallback
+                    try {
+                        localStorage.setItem('selectedTheme', themeClass);
+                    } catch (e) {
+                        // If localStorage is not available (e.g., in sandboxed environments)
+                        memoryTheme = themeClass;
+                        console.log('Theme saved to memory variable instead of localStorage');
+                    }
+                    
+                    // Close dropdown
+                    styleDropdown.classList.remove('active');
+                });
+            });
+            
+            // Try to load saved theme with fallback
+            try {
                 const savedTheme = localStorage.getItem('selectedTheme');
                 if (savedTheme) {
                     document.body.className = savedTheme;
-            
+                    
                     // Update active class in dropdown
-                    styleItems.forEach((item, index) => {
+                    styleItems.forEach(item => {
                         if (item.getAttribute('data-theme') === savedTheme) {
                             item.classList.add('active');
-                            localStorage.setItem('currentThemeIndex', index);
-                            
-                            // Update theme name display
-                            if (currentThemeName) {
-                                currentThemeName.textContent = item.querySelector('.style-name').textContent;
-                            }
                         } else {
                             item.classList.remove('active');
                         }
                     });
                 }
+            } catch (e) {
+                console.log('Unable to access localStorage, using default theme');
+                // Default theme is already applied via HTML class
             }
+        }
+        
+        // Form submission handling
+        function initFormHandling() {
+            const form = document.querySelector('.contact-form');
             
-            // Handle random style button
-            function initRandomStyleButton() {
-                const randomStyleBtn = document.getElementById('random-style-btn');
-                const styleItems = document.querySelectorAll('.style-item');
-                const currentThemeName = document.getElementById('current-theme-name');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
                 
-                if (randomStyleBtn) {
-                    randomStyleBtn.addEventListener('click', () => {
-                        // Get all theme names
-                        const themes = Array.from(styleItems).map(item => item.getAttribute('data-theme'));
-                        
-                        // Get random theme (different from current)
-                        let currentIndex = parseInt(localStorage.getItem('currentThemeIndex')) || 0;
-                        let randomIndex;
-                        do {
-                            randomIndex = Math.floor(Math.random() * themes.length);
-                        } while (randomIndex === currentIndex && themes.length > 1);
-                        
-                        // Add transition class for animation
-                        document.body.classList.add('theme-transition');
-                        
-                        // Apply random theme
-                        document.body.className = themes[randomIndex];
-                        document.body.classList.add('theme-transition');
-                        
-                        // Update active class in dropdown
-                        styleItems.forEach(item => item.classList.remove('active'));
-                        styleItems[randomIndex].classList.add('active');
-                        
-                        // Save new theme preference
-                        localStorage.setItem('selectedTheme', themes[randomIndex]);
-                        localStorage.setItem('currentThemeIndex', randomIndex);
-                        
-                        // Update theme name display
-                        if (currentThemeName) {
-                            currentThemeName.textContent = styleItems[randomIndex].querySelector('.style-name').textContent;
-                        }
-                        
-                        // Remove transition class after animation completes
-                        setTimeout(() => {
-                            document.body.classList.remove('theme-transition');
-                        }, 500);
-                    });
-                }
-            }
-            
-            // Handle theme showcase functionality
-            function initThemeShowcase() {
-                const themePreviewCards = document.querySelectorAll('.theme-preview');
-                const styleItems = document.querySelectorAll('.style-item');
-                const currentThemeName = document.getElementById('current-theme-name');
-                const showcaseMoreBtn = document.getElementById('showcase-more-btn');
-                const shuffleBtn = document.getElementById('theme-shuffle-btn');
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
                 
-                // Apply theme when clicking a preview card
-                themePreviewCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const themeClass = card.getAttribute('data-theme');
-                        
-                        // Find the corresponding theme in the style switcher
-                        const matchingStyleItem = Array.from(styleItems).find(
-                            item => item.getAttribute('data-theme') === themeClass
-                        );
-                        
-                        if (matchingStyleItem) {
-                            const index = Array.from(styleItems).indexOf(matchingStyleItem);
-                            
-                            // Add transition class for animation
-                            document.body.classList.add('theme-transition');
-                            
-                            // Apply theme
-                            document.body.className = themeClass;
-                            document.body.classList.add('theme-transition');
-                            
-                            // Update active class in dropdown
-                            styleItems.forEach(item => item.classList.remove('active'));
-                            matchingStyleItem.classList.add('active');
-                            
-                            // Save theme preference
-                            localStorage.setItem('selectedTheme', themeClass);
-                            localStorage.setItem('currentThemeIndex', index);
-                            
-                            // Update theme name display
-                            if (currentThemeName) {
-                                currentThemeName.textContent = matchingStyleItem.querySelector('.style-name').textContent;
-                            }
-                            
-                            // Remove transition class after animation completes
-                            setTimeout(() => {
-                                document.body.classList.remove('theme-transition');
-                            }, 500);
-                        }
-                    });
-                });
-                
-                // Show all themes button functionality
-                if (showcaseMoreBtn) {
-                    let showingAll = false;
-                    
-                    showcaseMoreBtn.addEventListener('click', () => {
-                        const themeGrid = document.querySelector('.theme-grid');
-                        
-                        if (!showingAll) {
-                            // Create cards for all remaining themes
-                            const existingThemes = Array.from(themePreviewCards).map(
-                                card => card.getAttribute('data-theme')
-                            );
-                            
-                            const allThemes = Array.from(styleItems).map(
-                                item => ({
-                                    theme: item.getAttribute('data-theme'),
-                                    name: item.querySelector('.style-name').textContent,
-                                    color: item.querySelector('.style-color').style.backgroundColor
-                                })
-                            );
-                            
-                            const remainingThemes = allThemes.filter(
-                                theme => !existingThemes.includes(theme.theme)
-                            );
-                            
-                            // Add remaining theme cards
-                            remainingThemes.forEach(theme => {
-                                const newCard = document.createElement('div');
-                                newCard.classList.add('theme-preview');
-                                newCard.setAttribute('data-theme', theme.theme);
-                                
-                                newCard.innerHTML = `
-                                    <div class="preview-color" style="background-color: ${theme.color};"></div>
-                                    <h3 class="preview-title">${theme.name}</h3>
-                                    <p class="preview-description">A unique visual style with custom colors and animations.</p>
-                                `;
-                                
-                                themeGrid.appendChild(newCard);
-                                
-                                // Add click event to new card
-                                newCard.addEventListener('click', () => {
-                                    const themeClass = newCard.getAttribute('data-theme');
-                                    const matchingStyleItem = Array.from(styleItems).find(
-                                        item => item.getAttribute('data-theme') === themeClass
-                                    );
-                                    
-                                    if (matchingStyleItem) {
-                                        const index = Array.from(styleItems).indexOf(matchingStyleItem);
-                                        
-                                        // Add transition class for animation
-                                        document.body.classList.add('theme-transition');
-                                        
-                                        // Apply theme
-                                        document.body.className = themeClass;
-                                        document.body.classList.add('theme-transition');
-                                        
-                                        // Update active class in dropdown
-                                        styleItems.forEach(item => item.classList.remove('active'));
-                                        matchingStyleItem.classList.add('active');
-                                        
-                                        // Save theme preference
-                                        localStorage.setItem('selectedTheme', themeClass);
-                                        localStorage.setItem('currentThemeIndex', index);
-                                        
-                                        // Update theme name display
-                                        if (currentThemeName) {
-                                            currentThemeName.textContent = matchingStyleItem.querySelector('.style-name').textContent;
-                                        }
-                                        
-                                        // Remove transition class after animation completes
-                                        setTimeout(() => {
-                                            document.body.classList.remove('theme-transition');
-                                        }, 500);
-                                    }
-                                });
-                            });
-                            
-                            showcaseMoreBtn.textContent = 'Show Fewer Themes';
-                            showingAll = true;
-                        } else {
-                            // Remove all but the original six theme cards
-                            const allCards = document.querySelectorAll('.theme-preview');
-                            
-                            for (let i = 6; i < allCards.length; i++) {
-                                allCards[i].remove();
-                            }
-                            
-                            showcaseMoreBtn.textContent = 'Show All Themes';
-                            showingAll = false;
-                        }
-                    });
+                // Simple validation
+                if (!name || !email || !message) {
+                    alert('Please fill in all fields');
+                    return;
                 }
                 
-                // Shuffle themes button functionality
-                if (shuffleBtn) {
-                    shuffleBtn.addEventListener('click', () => {
-                        const themes = Array.from(styleItems).map(item => item.getAttribute('data-theme'));
-                        
-                        // Create a sequence of 5 random themes
-                        const shuffleCount = 5;
-                        const shuffleDelay = 300;
-                        let count = 0;
-                        
-                        const shuffleInterval = setInterval(() => {
-                            // Get random theme
-                            const randomIndex = Math.floor(Math.random() * themes.length);
-                            
-                            // Add transition class for animation
-                            document.body.classList.add('theme-transition');
-                            
-                            // Apply random theme
-                            document.body.className = themes[randomIndex];
-                            document.body.classList.add('theme-transition');
-                            
-                            // Update active class in dropdown
-                            styleItems.forEach(item => item.classList.remove('active'));
-                            styleItems[randomIndex].classList.add('active');
-                            
-                            // Update theme name display
-                            if (currentThemeName) {
-                                currentThemeName.textContent = styleItems[randomIndex].querySelector('.style-name').textContent;
-                            }
-                            
-                            count++;
-                            
-                            if (count >= shuffleCount) {
-                                clearInterval(shuffleInterval);
-                                
-                                // Save the final theme preference
-                                localStorage.setItem('selectedTheme', themes[randomIndex]);
-                                localStorage.setItem('currentThemeIndex', randomIndex);
-                            }
-                            
-                            // Remove transition class after animation completes
-                            setTimeout(() => {
-                                document.body.classList.remove('theme-transition');
-                            }, shuffleDelay - 50);
-                        }, shuffleDelay);
-                    });
-                }
-            }
-            
-            // Generate particle effects for certain themes
-            function createParticles() {
-                if (!document.body.classList.contains('theme-particles')) return;
+                // Simulate form submission
+                const submitBtn = form.querySelector('.btn');
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
                 
-                const container = document.createElement('div');
-                container.classList.add('particles-container');
-                document.body.appendChild(container);
-                
-                const particleCount = 50;
-                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff'];
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Reset form
+                    form.reset();
+                    submitBtn.textContent = 'Message Sent!';
                     
-                    // Random position, size, color
-                    const size = Math.random() * 5 + 2;
-                    const x = Math.random() * 100;
-                    const y = Math.random() * 100;
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.left = `${x}%`;
-                    particle.style.top = `${y}%`;
-                    particle.style.backgroundColor = color;
-                    
-                    // Random animation
-                    const duration = Math.random() * 20 + 10;
-                    const delay = Math.random() * 5;
-                    
-                    particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
-                    
-                    container.appendChild(particle);
-                }
-            }
-            
-            // Initialize 3D effects for relevant themes
-            function init3DEffects() {
-                if (document.body.classList.contains('theme-3d-transform')) {
-                    // Add 3D transform capability to elements
-                    const cards = document.querySelectorAll('.feature-card');
-                    
-                    cards.forEach(card => {
-                        card.addEventListener('mousemove', (e) => {
-                            const rect = card.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const y = e.clientY - rect.top;
-                            
-                            const centerX = rect.width / 2;
-                            const centerY = rect.height / 2;
-                            
-                            const rotateX = (y - centerY) / 10;
-                            const rotateY = (centerX - x) / 10;
-                            
-                            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-                        });
-                        
-                        card.addEventListener('mouseleave', () => {
-                            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-                        });
-                    });
-                }
-            }
-            
-            // Apply theme-specific behaviors when theme changes
-            function applyThemeBehaviors() {
-                const observer = new MutationObserver((mutations) => {
-                    mutations.forEach((mutation) => {
-                        if (mutation.attributeName === 'class') {
-                            createParticles();
-                            init3DEffects();
-                        }
-                    });
-                });
-                
-                observer.observe(document.body, { attributes: true });
-            }
-            
-            // Initialize everything when DOM is loaded
-            document.addEventListener('DOMContentLoaded', () => {
-                createStars();
-                initStyleSwitcher();
-                createParticles();
-                init3DEffects();
-                applyThemeBehaviors();
-                initRandomStyleButton();
-                initThemeShowcase();
+                    // Reset button after delay
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Send Message';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }, 1500);
             });
-        </script>
-    </body>
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createParticles();
+            typeWriter();
+            initScrollAnimations();
+            initStickyHeader();
+            initBackToTop();
+            initMobileMenu();
+            initSmoothScrolling();
+            initInteractiveParticles();
+            initStyleSwitcher();
+            initFormHandling();
+        });
+    </script>
+</body>
 </html>
