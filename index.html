@@ -3035,7 +3035,8 @@
                 { name: 'Portfolio', class: 'theme-portfolio' }
             ];
             
-            let currentThemeIndex = 0;
+            // Generate random theme index for initial load
+            let currentThemeIndex = Math.floor(Math.random() * themes.length);
             const themeButton = document.getElementById('theme-button');
             const currentThemeSpan = document.getElementById('current-theme');
             
