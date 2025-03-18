@@ -1,2009 +1,1146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Landing Page</title>
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
-        }
-        
-        body {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Multi-Theme Landing Page</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    body {
+      overflow-x: hidden;
+      font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+    /* Common button style for theme switching that persists across themes */
+    .theme-switcher {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      padding: 12px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border: none;
+      color: #fff;
+      background: linear-gradient(135deg, #5a67d8, #805ad5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .theme-switcher:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+    .theme-switcher:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme container where different designs will be injected -->
+  <div id="theme-container"></div>
+
+  <!-- Theme switcher button (stays constant across all themes) -->
+  <button class="theme-switcher" id="theme-switcher">Change Theme</button>
+
+  <script>
+    // Array of theme objects. Each theme has its unique HTML, CSS, and JS.
+    // Note: The broken Dark Mode Portfolio theme has been removed.
+    const themes = [
+      // Theme 1: Modern Tech (Default)
+      {
+        name: "Modern Tech",
+        html: `
+          <div class="tech-theme">
+            <div class="bg-animated"></div>
+            <div class="bg-grid"></div>
+            <div class="stars" id="stars"></div>
+            <div class="container">
+              <header>
+                <div class="logo">
+                  <span class="logo-icon">M</span>
+                  <span>MyPortfolio</span>
+                </div>
+                <nav>
+                  <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                  </ul>
+                  <button class="btn">Get in Touch</button>
+                </nav>
+              </header>
+              <section class="hero" id="home">
+                <h3 class="hero-subtitle">Hi, my name is</h3>
+                <h1 class="hero-title">Ram Norton.<br>I build things for the web.</h1>
+                <p class="hero-description">
+                  I'm a web developer specializing in building exceptional digital experiences.
+                </p>
+                <a href="#projects" class="btn">View My Work</a>
+              </section>
+              <section class="features" id="about">
+                <h2 class="section-title">What I Do</h2>
+                <div class="feature-grid">
+                  <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">Web Development</h3>
+                    <p class="feature-description">
+                      Responsive websites that work across devices.
+                    </p>
+                  </div>
+                  <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">UI/UX Design</h3>
+                    <p class="feature-description">
+                      Creating intuitive and appealing interfaces.
+                    </p>
+                  </div>
+                  <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Mobile Apps</h3>
+                    <p class="feature-description">
+                      Cross-platform mobile application development.
+                    </p>
+                  </div>
+                </div>
+              </section>
+              <section class="cta" id="contact">
+                <h2 class="cta-title">Let's Work Together</h2>
+                <p class="cta-description">
+                  Feel free to reach out to discuss your project.
+                </p>
+                <a href="#contact" class="btn">Get In Touch</a>
+              </section>
+            </div>
+            <footer>
+              <div class="container">
+                <div class="footer-content">
+                  <div class="footer-logo">MyPortfolio</div>
+                  <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                  </ul>
+                </div>
+                <div class="copyright">
+                  &copy; 2025 Ram Norton. All rights reserved.
+                </div>
+              </div>
+            </footer>
+          </div>
+        `,
+        css: `
+          .tech-theme {
             color: #ccd6f6;
             min-height: 100vh;
-            overflow-x: hidden;
-            transition: all 0.5s ease;
-        }
-        
-        /* Default Theme - Using your original code */
-        .theme-default {
-            --bg-color-1: #0a192f;
-            --bg-color-2: #112240;
-            --bg-color-3: #233554;
-            --bg-color-4: #112240;
-            --accent-color: #64ffda;
-            --text-primary: #e6f1ff;
-            --text-secondary: #8892b0;
-        }
-        
-        .bg-animated {
+            font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+          }
+          .bg-animated {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(-45deg, 
-                var(--bg-color-1, #0a192f), 
-                var(--bg-color-2, #112240), 
-                var(--bg-color-3, #233554), 
-                var(--bg-color-4, #112240));
+            background: linear-gradient(-45deg, #0a192f, #112240, #233554, #112240);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-        }
-        
-        @keyframes gradientBG {
+          }
+          @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-        
-        /* Background grid overlay */
-        .bg-grid {
+          }
+          .bg-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
             z-index: -1;
-        }
-        
-        /* Enhanced Background particles */
-        .stars {
+          }
+          .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-        }
-        
-        .star {
+          }
+          .star {
             position: absolute;
             background-color: #fff;
             border-radius: 50%;
             opacity: 0.5;
             animation: twinkle 4s infinite;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 0.8; transform: scale(1.2); }
-        }
-        
-        .particles {
+          }
+          @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+          }
+          header { padding: 2rem 0; display: flex; justify-content: space-between; align-items: center; color: #64ffda; }
+          .logo { font-size: 1.8rem; font-weight: bold; display: flex; align-items: center; }
+          .logo-icon { display: inline-block; width: 40px; height: 40px; margin-right: 10px; border: 2px solid #64ffda; border-radius: 5px; text-align: center; line-height: 36px; font-size: 1.2rem; }
+          nav { display: flex; align-items: center; }
+          .nav-links { display: flex; list-style: none; }
+          .nav-links li { margin-left: 2rem; }
+          .nav-links a { color: #ccd6f6; text-decoration: none; font-size: 0.9rem; }
+          .nav-links a:hover { color: #64ffda; }
+          .btn { padding: 0.75rem 1.5rem; border: 1px solid #64ffda; border-radius: 4px; background: transparent; color: #64ffda; font-size: 0.9rem; cursor: pointer; margin-left: 1.5rem; text-decoration: none; }
+          .btn:hover { background: rgba(100, 255, 218, 0.1); transform: translateY(-2px); }
+          .hero { padding: 6rem 0; display: flex; flex-direction: column; align-items: flex-start; }
+          .hero-subtitle { color: #64ffda; font-size: 1.2rem; margin-bottom: 1.5rem; }
+          .hero-title { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; color: #e6f1ff; }
+          .hero-description { font-size: 1.2rem; line-height: 1.6; color: #8892b0; max-width: 600px; margin-bottom: 2.5rem; }
+          .features { padding: 6rem 0; }
+          .section-title { font-size: 2rem; margin-bottom: 3rem; color: #e6f1ff; text-align: center; }
+          .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+          .feature-card { background: rgba(17, 34, 64, 0.5); padding: 2rem; border-radius: 8px; border: 1px solid rgba(100, 255, 218, 0.1); }
+          .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+          .cta { padding: 6rem 0; text-align: center; }
+          .cta-title { font-size: 2.5rem; margin-bottom: 1.5rem; color: #e6f1ff; }
+          .cta-description { color: #8892b0; font-size: 1.2rem; margin-bottom: 2.5rem; }
+          footer { padding: 3rem 0; background: rgba(10, 25, 47, 0.8); }
+          .footer-content { display: flex; justify-content: space-between; align-items: center; }
+          .footer-logo { color: #64ffda; font-size: 1.5rem; font-weight: bold; }
+          .footer-links { display: flex; list-style: none; }
+          .footer-links li { margin-left: 2rem; }
+          .footer-links a { color: #ccd6f6; text-decoration: none; font-size: 0.9rem; }
+          .copyright { text-align: center; color: #8892b0; margin-top: 2rem; font-size: 0.9rem; }
+        `,
+        js: `
+          // Create stars for background effect
+          function createStars() {
+            const stars = document.getElementById('stars');
+            if (!stars) return;
+            const starCount = 100;
+            for (let i = 0; i < starCount; i++) {
+              const star = document.createElement('div');
+              star.classList.add('star');
+              const x = Math.random() * 100;
+              const y = Math.random() * 100;
+              const size = Math.random() * 2 + 1;
+              const delay = Math.random() * 4;
+              star.style.top = \`\${y}%\`;
+              star.style.left = \`\${x}%\`;
+              star.style.width = \`\${size}px\`;
+              star.style.height = \`\${size}px\`;
+              star.style.animationDelay = \`\${delay}s\`;
+              stars.appendChild(star);
+            }
+          }
+          createStars();
+          // Smooth scrolling for anchor links
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                window.scrollTo({ top: targetElement.offsetTop - 100, behavior: 'smooth' });
+              }
+            });
+          });
+        `
+      },
+      // Theme 2: Cyberpunk Neon
+      {
+        name: "Cyberpunk Neon",
+        html: `
+          <div class="theme-cyberpunk">
+            <div class="cyber-grid"></div>
+            <div class="cyber-glow"></div>
+            <header class="cyber-header">
+              <div class="cyber-logo">
+                <div class="cyber-glitch" data-text="RAM.NORTON">RAM.NORTON</div>
+              </div>
+              <nav class="cyber-nav">
+                <a href="#home" class="cyber-nav-link">HOME</a>
+                <a href="#about" class="cyber-nav-link">ABOUT</a>
+                <a href="#projects" class="cyber-nav-link">PROJECTS</a>
+                <a href="#contact" class="cyber-nav-link glitch-button">CONNECT</a>
+              </nav>
+            </header>
+            <section class="cyber-hero">
+              <div class="hero-content">
+                <h1 class="cyber-glitch-title" data-text="CYBER DEVELOPER">CYBER DEVELOPER</h1>
+                <div class="cyber-subtitle">FULL-STACK ENGINEER // UI DESIGNER // DIGITAL ARCHITECT</div>
+                <p class="cyber-text">PROGRAMMING THE FUTURE, ONE LINE AT A TIME</p>
+                <div class="cyber-cta">
+                  <a href="#projects" class="cyber-button">VIEW PROJECTS</a>
+                  <a href="#contact" class="cyber-button">INITIALIZE CONNECTION</a>
+                </div>
+              </div>
+              <div class="cyber-decor">
+                <div class="cyber-circle"></div>
+                <div class="cyber-square"></div>
+                <div class="cyber-triangle"></div>
+              </div>
+            </section>
+            <section class="cyber-services">
+              <h2 class="cyber-section-title">SERVICES<span class="blink">_</span></h2>
+              <div class="cyber-cards">
+                <div class="cyber-card">
+                  <div class="card-glow"></div>
+                  <div class="card-icon">⟨⁄⟩</div>
+                  <h3 class="card-title">WEB DEV</h3>
+                  <p class="card-description">Crafting responsive interfaces with cutting-edge tech stacks</p>
+                </div>
+                <div class="cyber-card">
+                  <div class="card-glow"></div>
+                  <div class="card-icon">◎</div>
+                  <h3 class="card-title">UX/UI</h3>
+                  <p class="card-description">Designing futuristic experiences that merge form and function</p>
+                </div>
+                <div class="cyber-card">
+                  <div class="card-glow"></div>
+                  <div class="card-icon">❖</div>
+                  <h3 class="card-title">APPS</h3>
+                  <p class="card-description">Building cross-platform solutions for tomorrow's problems</p>
+                </div>
+              </div>
+            </section>
+            <section class="cyber-contact">
+              <h2 class="cyber-section-title">INIT CONNECTION<span class="blink">_</span></h2>
+              <p class="cyber-text center">READY TO COLLABORATE? LET'S MERGE OUR CODE.</p>
+              <a href="#" class="cyber-button large glow">TRANSMIT MESSAGE</a>
+            </section>
+            <footer class="cyber-footer">
+              <div class="footer-content">
+                <div class="cyber-logo small">RAM.NORTON</div>
+                <div class="cyber-social">
+                  <a href="#" class="social-icon">■</a>
+                  <a href="#" class="social-icon">▲</a>
+                  <a href="#" class="social-icon">●</a>
+                  <a href="#" class="social-icon">◆</a>
+                </div>
+              </div>
+              <div class="cyber-copyright">
+                <span class="blink">></span> SYSTEM.COPYRIGHT.2025 <span class="blink">_</span>
+              </div>
+            </footer>
+          </div>
+        `,
+        css: `
+          .theme-cyberpunk {
+            --cyber-bg: #0a0a16;
+            --cyber-text: #ffffff;
+            --cyber-neon-pink: #ff2b8c;
+            --cyber-neon-blue: #00b3ff;
+            --cyber-glow: 0 0 10px #ff2b8c, 0 0 20px rgba(255, 43, 140, 0.5);
+            --cyber-blue-glow: 0 0 10px #00b3ff, 0 0 20px rgba(0, 179, 255, 0.5);
+            background-color: var(--cyber-bg);
+            color: var(--cyber-text);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            min-height: 100vh;
+            overflow-x: hidden;
+          }
+          .cyber-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-image: 
+              linear-gradient(to right, rgba(255, 43, 140, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 43, 140, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center top;
             z-index: -1;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            background-color: var(--accent-color, #64ffda);
-            border-radius: 50%;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        
-        /* Main container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-        }
-        
-        /* Header styles */
-        header {
-            padding: 2rem 0;
+          }
+          .cyber-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, rgba(255, 43, 140, 0.2), transparent);
+            z-index: -1;
+          }
+          .cyber-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--accent-color, #64ffda);
-            position: sticky;
-            top: 0;
-            backdrop-filter: blur(5px);
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-        
-        header.scrolled {
-            padding: 1rem 0;
-            background-color: rgba(10, 25, 47, 0.9);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .logo {
+            padding: 2rem 5%;
+            border-bottom: 1px solid rgba(255, 43, 140, 0.3);
+          }
+          .cyber-logo {
             font-size: 1.8rem;
             font-weight: bold;
+            color: var(--cyber-neon-pink);
+            text-shadow: var(--cyber-glow);
+          }
+          .cyber-nav {
             display: flex;
+            gap: 2rem;
             align-items: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: translateY(-2px);
-        }
-        
-        .logo-icon {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-            border: 2px solid var(--accent-color, #64ffda);
-            border-radius: 5px;
-            text-align: center;
-            line-height: 36px;
-            font-size: 1.2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .logo:hover .logo-icon {
-            transform: rotate(10deg);
-            box-shadow: 0 0 10px var(--accent-color, #64ffda);
-        }
-        
-        /* Navigation */
-        nav {
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 2rem;
-        }
-        
-        .nav-links a {
-            color: var(--text-primary, #ccd6f6);
+          }
+          .cyber-nav-link {
+            color: var(--cyber-text);
             text-decoration: none;
-            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
             position: relative;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+          }
+          .cyber-nav-link:hover {
+            color: var(--cyber-neon-blue);
+            text-shadow: var(--cyber-blue-glow);
+          }
+          .cyber-nav-link:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--cyber-neon-blue);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+          }
+          .cyber-nav-link:hover:before {
+            transform: scaleX(1);
+          }
+          .glitch-button {
+            border: 1px solid var(--cyber-neon-pink);
+            box-shadow: var(--cyber-glow);
+          }
+          .cyber-hero {
+            display: flex;
+            min-height: 80vh;
+            padding: 5% 10%;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+          }
+          .hero-content {
+            width: 60%;
+            z-index: 1;
+          }
+          .cyber-glitch-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--cyber-neon-pink);
+            text-shadow: var(--cyber-glow);
+            position: relative;
+            animation: glitch 2s infinite;
+          }
+          .cyber-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--cyber-neon-blue);
+            text-shadow: var(--cyber-blue-glow);
+          }
+          .cyber-text {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+          }
+          .cyber-cta {
+            display: flex;
+            gap: 1.5rem;
+          }
+          .cyber-button {
             display: inline-block;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-color, #64ffda);
-            transform: translateY(-2px);
-        }
-        
-        .nav-links a::before {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 1px solid var(--cyber-neon-blue);
+            color: var(--cyber-neon-blue);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-shadow: var(--cyber-blue-glow);
+            box-shadow: var(--cyber-blue-glow);
+            cursor: pointer;
+          }
+          .cyber-button:hover {
+            background: rgba(0, 179, 255, 0.1);
+            transform: translateY(-3px);
+          }
+          .cyber-button.large {
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+          }
+          .cyber-button.glow {
+            border-color: var(--cyber-neon-pink);
+            color: var(--cyber-neon-pink);
+            text-shadow: var(--cyber-glow);
+            box-shadow: var(--cyber-glow);
+          }
+          .cyber-button.glow:hover {
+            background: rgba(255, 43, 140, 0.1);
+          }
+          .cyber-decor {
+            position: absolute;
+            width: 40%;
+            height: 100%;
+            right: 0;
+            top: 0;
+          }
+          .cyber-circle, .cyber-square, .cyber-triangle {
+            position: absolute;
+            animation: float 6s infinite ease-in-out;
+          }
+          .cyber-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid var(--cyber-neon-blue);
+            box-shadow: var(--cyber-blue-glow);
+            top: 20%;
+            right: 20%;
+            animation-delay: 0s;
+          }
+          .cyber-square {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--cyber-neon-pink);
+            box-shadow: var(--cyber-glow);
+            bottom: 30%;
+            right: 35%;
+            animation-delay: 2s;
+          }
+          .cyber-triangle {
+            width: 0;
+            height: 0;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 120px solid rgba(255, 43, 140, 0.2);
+            top: 40%;
+            right: 40%;
+            animation-delay: 4s;
+          }
+          .blink {
+            animation: blink 1s step-end infinite;
+          }
+          @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+          }
+        `,
+        js: `
+          // Add glitch effect to elements with cyber-glitch class
+          document.querySelectorAll('.cyber-glitch').forEach(element => {
+            const text = element.getAttribute('data-text');
+            setInterval(() => {
+              if (Math.random() < 0.1) {
+                element.style.textShadow = \`0.05em 0 0 rgba(0, 179, 255, 0.75), 
+                                              -0.025em -0.05em 0 rgba(255, 43, 140, 0.75), 
+                                              0.025em 0.05em 0 rgba(0, 255, 255, 0.75)\`;
+                element.style.animation = 'glitch 100ms infinite';
+                setTimeout(() => {
+                  element.style.animation = '';
+                  element.style.textShadow = '';
+                }, 100);
+              }
+            }, 2000);
+          });
+        `
+      },
+      // Theme 3: Minimalist Portfolio
+      {
+        name: "Minimalist Portfolio",
+        html: `
+          <div class="theme-minimal">
+            <header class="minimal-header">
+              <div class="minimal-logo">RN</div>
+              <nav class="minimal-nav">
+                <a href="#home" class="nav-item">Home</a>
+                <a href="#work" class="nav-item">Work</a>
+                <a href="#about" class="nav-item">About</a>
+                <a href="#contact" class="nav-item">Contact</a>
+              </nav>
+            </header>
+            <main class="minimal-main">
+              <section class="minimal-hero" id="home">
+                <h1 class="minimal-title">Ram Norton</h1>
+                <p class="minimal-lead">Designer & Developer</p>
+                <div class="hero-line"></div>
+              </section>
+              <section class="minimal-work" id="work">
+                <div class="section-header">
+                  <h2 class="section-title">Selected Work</h2>
+                  <p class="section-subtitle">Recent projects I've worked on</p>
+                </div>
+                <div class="work-grid">
+                  <div class="work-item">
+                    <div class="work-image placeholder"></div>
+                    <h3 class="work-title">Digital Platform</h3>
+                    <p class="work-category">Web Design / Development</p>
+                  </div>
+                  <div class="work-item">
+                    <div class="work-image placeholder"></div>
+                    <h3 class="work-title">Mobile Application</h3>
+                    <p class="work-category">UI/UX & Development</p>
+                  </div>
+                  <div class="work-item">
+                    <div class="work-image placeholder"></div>
+                    <h3 class="work-title">E-Commerce System</h3>
+                    <p class="work-category">Architecture & Development</p>
+                  </div>
+                </div>
+              </section>
+              <section class="minimal-about" id="about">
+                <div class="section-header">
+                  <h2 class="section-title">About Me</h2>
+                  <p class="section-subtitle">Experience & Background</p>
+                </div>
+                <div class="about-content">
+                  <div class="about-text">
+                    <p>I specialize in crafting clean, functional digital experiences.</p>
+                    <p>My approach emphasizes simplicity, usability, and performance.</p>
+                  </div>
+                  <div class="skills">
+                    <div class="skill-category">
+                      <h3>Design</h3>
+                      <ul class="skill-list">
+                        <li>UI/UX Design</li>
+                        <li>Visual Design</li>
+                        <li>Prototyping</li>
+                      </ul>
+                    </div>
+                    <div class="skill-category">
+                      <h3>Development</h3>
+                      <ul class="skill-list">
+                        <li>Frontend Development</li>
+                        <li>JavaScript Applications</li>
+                        <li>API Architecture</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="minimal-contact" id="contact">
+                <div class="section-header">
+                  <h2 class="section-title">Contact</h2>
+                  <p class="section-subtitle">Let's work together</p>
+                </div>
+                <div class="contact-content">
+                  <a href="mailto:hello@ramnorton.com" class="contact-link">hello@ramnorton.com</a>
+                  <div class="social-links">
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">GitHub</a>
+                  </div>
+                </div>
+              </section>
+            </main>
+            <footer class="minimal-footer">
+              <p>&copy; 2025 Ram Norton. All rights reserved.</p>
+            </footer>
+          </div>
+        `,
+        css: `
+          .theme-minimal {
+            --minimal-bg: #ffffff;
+            --minimal-text: #222222;
+            --minimal-accent: #000000;
+            --minimal-muted: #777777;
+            --minimal-light: #f5f5f5;
+            --minimal-spacing: 8vw;
+            background-color: var(--minimal-bg);
+            color: var(--minimal-text);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            min-height: 100vh;
+          }
+          .minimal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem var(--minimal-spacing);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--minimal-bg);
+          }
+          .minimal-logo { font-size: 1.5rem; font-weight: 700; color: var(--minimal-accent); }
+          .minimal-nav { display: flex; gap: 2rem; }
+          .nav-item { color: var(--minimal-text); text-decoration: none; font-size: 0.9rem; position: relative; }
+          .nav-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: var(--minimal-accent);
+            transition: width 0.3s ease;
+          }
+          .nav-item:hover:after { width: 100%; }
+          .minimal-main { padding-top: 6rem; }
+          .minimal-hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 var(--minimal-spacing);
+            position: relative;
+          }
+          .minimal-title { font-size: 5rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; color: var(--minimal-accent); }
+          .minimal-lead { font-size: 1.5rem; color: var(--minimal-muted); max-width: 600px; margin-bottom: 2rem; }
+          .hero-line { width: 60px; height: 2px; background-color: var(--minimal-accent); }
+          .section-header { margin-bottom: 4rem; }
+          .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--minimal-accent); }
+          .section-subtitle { color: var(--minimal-muted); font-size: 1.1rem; }
+          .minimal-work, .minimal-about, .minimal-contact { padding: 8rem var(--minimal-spacing); }
+          .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 3rem; }
+          .work-item { cursor: pointer; }
+          .work-image { height: 350px; background-color: var(--minimal-light); margin-bottom: 1.5rem; }
+          .work-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+          .work-category { color: var(--minimal-muted); font-size: 0.9rem; }
+          .minimal-about { background-color: var(--minimal-light); }
+          .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+          .about-text p { margin-bottom: 1.5rem; font-size: 1.1rem; }
+          .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+          .skill-category h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
+          .skill-list { list-style: none; }
+          .skill-list li { margin-bottom: 0.5rem; color: var(--minimal-muted); }
+          .contact-content { display: flex; flex-direction: column; gap: 2rem; align-items: flex-start; }
+          .contact-link { color: var(--minimal-accent); font-size: 2rem; font-weight: 600; text-decoration: none; position: relative; }
+          .contact-link:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: var(--minimal-accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+          }
+          .contact-link:hover:after { transform: scaleX(1); transform-origin: left; }
+          .social-links { display: flex; gap: 2rem; }
+          .social-link { color: var(--minimal-muted); text-decoration: none; font-size: 1rem; transition: color 0.3s ease; }
+          .social-link:hover { color: var(--minimal-accent); }
+          .minimal-footer { padding: 3rem var(--minimal-spacing); background-color: var(--minimal-bg); color: var(--minimal-muted); font-size: 0.9rem; text-align: center; }
+        `,
+        js: `
+          // Smooth scrolling for navigation links
+          document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              const targetSection = document.querySelector(targetId);
+              if (targetSection) {
+                window.scrollTo({
+                  top: targetSection.offsetTop - 100,
+                  behavior: 'smooth'
+                });
+              }
+            });
+          });
+          // Fade in elements as they scroll into view
+          const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+          };
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+              }
+            });
+          }, observerOptions);
+          document.querySelectorAll('.section-header, .work-item, .about-content, .contact-content').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+          });
+        `
+      },
+      // Theme 4: Creative Agency
+      {
+        name: "Creative Agency",
+        html: `
+          <div class="theme-agency">
+            <header class="agency-header">
+              <div class="agency-logo">
+                <svg viewBox="0 0 100 100" width="50" height="50">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="8" />
+                  <circle cx="50" cy="50" r="15" fill="currentColor" />
+                </svg>
+                <span class="logo-text">AGENCY</span>
+              </div>
+              <nav class="agency-nav">
+                <a href="#home">HOME</a>
+                <a href="#services">SERVICES</a>
+                <a href="#work">WORK</a>
+                <a href="#about">ABOUT</a>
+                <a href="#contact" class="nav-cta">GET IN TOUCH</a>
+              </nav>
+              <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </header>
+            <main>
+              <section class="agency-hero" id="home">
+                <div class="hero-content">
+                  <h1 class="hero-title">
+                    <span class="title-line">We craft</span>
+                    <span class="title-line">digital</span>
+                    <span class="title-line">experiences</span>
+                  </h1>
+                  <p class="hero-subtitle">Award-winning agency creating innovative solutions for forward-thinking brands.</p>
+                  <a href="#work" class="agency-button">VIEW OUR WORK</a>
+                </div>
+                <div class="hero-visual">
+                  <div class="visual-element circle"></div>
+                  <div class="visual-element square"></div>
+                  <div class="visual-element triangle"></div>
+                </div>
+              </section>
+              <section class="agency-services" id="services">
+                <div class="container">
+                  <div class="section-intro">
+                    <span class="section-label">WHAT WE DO</span>
+                    <h2 class="section-title">Services we offer to elevate your brand</h2>
+                  </div>
+                  <div class="services-grid">
+                    <div class="service-card">
+                      <div class="card-number">01</div>
+                      <h3>Web Design</h3>
+                      <p>Beautiful, functional websites that capture your brand's essence.</p>
+                    </div>
+                    <div class="service-card">
+                      <div class="card-number">02</div>
+                      <h3>Brand Strategy</h3>
+                      <p>Comprehensive brand development that communicates your unique position.</p>
+                    </div>
+                    <div class="service-card">
+                      <div class="card-number">03</div>
+                      <h3>Digital Marketing</h3>
+                      <p>Data-driven campaigns that increase visibility and engagement.</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="agency-portfolio" id="work">
+                <div class="container">
+                  <div class="section-intro">
+                    <span class="section-label">OUR WORK</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                  </div>
+                  <div class="portfolio-grid">
+                    <div class="portfolio-item large">
+                      <div class="portfolio-image"></div>
+                      <div class="portfolio-info">
+                        <h3>Modern Retail Platform</h3>
+                        <span>Web Design / E-commerce</span>
+                      </div>
+                    </div>
+                    <div class="portfolio-item">
+                      <div class="portfolio-image"></div>
+                      <div class="portfolio-info">
+                        <h3>Wellness App</h3>
+                        <span>UI/UX / Development</span>
+                      </div>
+                    </div>
+                    <div class="portfolio-item">
+                      <div class="portfolio-image"></div>
+                      <div class="portfolio-info">
+                        <h3>Finance Dashboard</h3>
+                        <span>Web Application</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="agency-contact" id="contact">
+                <div class="container">
+                  <div class="contact-content">
+                    <div class="contact-text">
+                      <span class="section-label">CONTACT US</span>
+                      <h2 class="section-title">Let's create something amazing together</h2>
+                      <p>Ready to elevate your digital presence? We'd love to hear about your project.</p>
+                    </div>
+                    <div class="contact-cta">
+                      <a href="mailto:hello@agency.com" class="agency-button large">START A PROJECT</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </main>
+            <footer class="agency-footer">
+              <div class="container">
+                <div class="footer-top">
+                  <div class="footer-logo">
+                    <svg viewBox="0 0 100 100" width="40" height="40">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="8" />
+                      <circle cx="50" cy="50" r="15" fill="currentColor" />
+                    </svg>
+                    <span>AGENCY</span>
+                  </div>
+                  <div class="footer-links">
+                    <div class="link-column">
+                      <h4>Navigation</h4>
+                      <a href="#home">Home</a>
+                      <a href="#services">Services</a>
+                      <a href="#work">Work</a>
+                      <a href="#about">About</a>
+                      <a href="#contact">Contact</a>
+                    </div>
+                    <div class="link-column">
+                      <h4>Social</h4>
+                      <a href="#">Instagram</a>
+                      <a href="#">Twitter</a>
+                      <a href="#">LinkedIn</a>
+                      <a href="#">Dribbble</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="footer-bottom">
+                  <p>&copy; 2025 Agency. All rights reserved.</p>
+                </div>
+              </div>
+            </footer>
+          </div>
+        `,
+        css: `
+          .theme-agency {
+            --agency-bg: #ffffff;
+            --agency-text: #222222;
+            --agency-primary: #ff3e55;
+            --agency-secondary: #333333;
+            --agency-light: #f5f5f5;
+            --agency-spacing: 8vw;
+            font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+            color: var(--agency-text);
+            background-color: var(--agency-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+          }
+          .container { max-width: 1400px; margin: 0 auto; padding: 0 var(--agency-spacing); }
+          .agency-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem var(--agency-spacing);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: var(--agency-bg);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+          }
+          .scrolled .agency-header {
+            padding: 1rem var(--agency-spacing);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+          }
+          .agency-logo { display: flex; align-items: center; color: var(--agency-secondary); }
+          .logo-text { font-weight: 700; font-size: 1.2rem; margin-left: 0.5rem; letter-spacing: 2px; }
+          .agency-nav { display: flex; align-items: center; gap: 2rem; }
+          .agency-nav a {
+            text-decoration: none;
+            color: var(--agency-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+          }
+          .agency-nav a:after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent-color, #64ffda);
+            background-color: var(--agency-primary);
             transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-        
-        /* Button styles */
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--accent-color, #64ffda);
-            border-radius: 4px;
-            background: transparent;
-            color: var(--accent-color, #64ffda);
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-left: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(100, 255, 218, 0.1);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-        
-        .btn:hover::before {
-            left: 0;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:active {
-            transform: translateY(1px);
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 8rem 0 6rem;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            min-height: calc(100vh - 100px);
-            position: relative;
-        }
-        
-        .hero-subtitle {
-            color: var(--accent-color, #64ffda);
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards 0.3s;
-        }
-        
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary, #e6f1ff);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards 0.6s;
-        }
-        
-        .hero-title .highlight {
-            color: var(--accent-color, #64ffda);
-            display: inline-block;
-            position: relative;
-        }
-        
-        .hero-title .typewriter::after {
-            content: '|';
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% {opacity: 1;}
-            50% {opacity: 0;}
-        }
-        
-        .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: var(--text-secondary, #8892b0);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards 0.9s;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .hero .btn {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards 1.2s;
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 6rem 0;
-            position: relative;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--text-primary, #e6f1ff);
-            text-align: center;
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .section-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: var(--accent-color, #64ffda);
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            position: relative;
-        }
-        
-        .feature-card {
-            background: rgba(17, 34, 64, 0.5);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(100, 255, 218, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-        
-        .feature-card:hover::before {
-            transform: translateX(100%);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border-color: rgba(100, 255, 218, 0.3);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-color, #64ffda);
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2);
-        }
-        
-        .feature-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary, #e6f1ff);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .feature-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 2px;
-            background-color: var(--accent-color, #64ffda);
-            transition: width 0.3s ease;
-        }
-        
-        .feature-card:hover .feature-title::after {
-            width: 50px;
-        }
-        
-        .feature-description {
-            color: var(--text-secondary, #8892b0);
-            line-height: 1.6;
-        }
-        
-        /* Progress bars for skills */
-        .skills {
-            padding: 6rem 0;
-            position: relative;
-        }
-        
-        .skill-bars {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .skill-item {
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .skill-item.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-name {
-            color: var(--text-primary, #e6f1ff);
-            font-weight: 500;
-        }
-        
-        .skill-percent {
-            color: var(--accent-color, #64ffda);
-        }
-        
-        .skill-progress {
-            height: 8px;
-            background-color: rgba(100, 255, 218, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .skill-bar {
-            height: 100%;
-            background-color: var(--accent-color, #64ffda);
-            border-radius: 4px;
+          }
+          .agency-nav a:hover:after { width: 100%; }
+          .nav-cta { background-color: var(--agency-primary); color: white !important; padding: 0.75rem 1.5rem; border-radius: 3px; }
+          .nav-cta:hover { background-color: #e12e42; }
+          .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 20px; background: transparent; border: none; cursor: pointer; }
+          .menu-toggle span { width: 100%; height: 2px; background-color: var(--agency-secondary); transition: all 0.3s ease; }
+          .agency-hero { height: 100vh; display: flex; align-items: center; padding: 0 var(--agency-spacing); position: relative; overflow: hidden; }
+          .hero-content { width: 50%; z-index: 1; }
+          .hero-title { font-size: 5rem; font-weight: 800; line-height: 1.1; margin-bottom: 2rem; color: var(--agency-secondary); }
+          .title-line { display: block; }
+          .hero-subtitle { font-size: 1.2rem; color: #666; margin-bottom: 3rem; max-width: 500px; }
+          .agency-button { display: inline-block; background-color: var(--agency-primary); color: white; padding: 1rem 2.5rem; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-decoration: none; border-radius: 3px; transition: all 0.3s ease; }
+          .agency-button:hover { background-color: #e12e42; transform: translateY(-3px); }
+          .agency-button.large { padding: 1.2rem 3rem; font-size: 1rem; }
+          .hero-visual { position: absolute; width: 50%; height: 100%; right: 0; top: 0; }
+          .visual-element { position: absolute; opacity: 0.7; }
+          .circle { width: 300px; height: 300px; border-radius: 50%; background-color: var(--agency-primary); right: 10%; top: 30%; mix-blend-mode: multiply; }
+          .square { width: 250px; height: 250px; background-color: #4285f4; right: 25%; top: 45%; mix-blend-mode: multiply; }
+          .triangle {
             width: 0;
-            transition: width 1.5s ease;
-        }
-        
-        /* Projects Section */
-        .projects {
-            padding: 6rem 0;
-            position: relative;
-        }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .project-card {
-            background: rgba(17, 34, 64, 0.5);
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease;
-        }
-        
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .project-image {
-            height: 200px;
-            background-color: #1e2a45;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .project-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(100, 255, 218, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .project-card:hover .project-image::before {
-            opacity: 1;
-        }
-        
-        .project-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            font-size: 2rem;
-            color: var(--accent-color, #64ffda);
-        }
-        
-        .project-content {
-            padding: 1.5rem;
-        }
-        
-        .project-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary, #e6f1ff);
-        }
-        
-        .project-description {
-            color: var(--text-secondary, #8892b0);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .tech-tag {
-            font-size: 0.8rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 3px;
-            background-color: rgba(100, 255, 218, 0.1);
-            color: var(--accent-color, #64ffda);
-        }
-        
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .project-link {
-            color: var(--text-primary, #e6f1ff);
-            transition: color 0.3s ease;
-        }
-        
-        .project-link:hover {
-            color: var(--accent-color, #64ffda);
-        }
-        
-        /* CTA Section */
-        .cta {
-            padding: 8rem 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .cta-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary, #e6f1ff);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .cta-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .cta-description {
-            color: var(--text-secondary, #8892b0);
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .cta-description.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .cta .btn {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .cta .btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Contact form */
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .contact-form.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary, #e6f1ff);
-            font-size: 0.9rem;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            border-radius: 4px;
-            background-color: rgba(17, 34, 64, 0.5);
-            color: var(--text-primary, #e6f1ff);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent-color, #64ffda);
-            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.1);
-        }
-        
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 3rem 0;
-            background: rgba(10, 25, 47, 0.8);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .footer-logo {
-            color: var(--accent-color, #64ffda);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .footer-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-left: 2rem;
-        }
-        
-        .footer-links a {
-            color: var(--text-primary, #ccd6f6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-color, #64ffda);
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .social-link {
-            color: var(--text-primary, #ccd6f6);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .social-link:hover {
-            color: var(--accent-color, #64ffda);
-            border-color: var(--accent-color, #64ffda);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            text-align: center;
-            color: var(--text-secondary, #8892b0);
-            margin-top: 2rem;
-            font-size: 0.9rem;
-        }
-        
-        /* Back to top button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--accent-color, #64ffda);
-            color: #0a192f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            z-index: 99;
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .back-to-top:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 10px var(--accent-color, #64ffda);
-        }
-        
-        /* Style Switcher */
-        .style-switcher {
-            position: relative;
-            margin-left: 1.5rem;
-        }
-        
-        .style-btn {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--accent-color, #64ffda);
-            border-radius: 4px;
-            background: transparent;
-            color: var(--accent-color, #64ffda);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .style-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(100, 255, 218, 0.1);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-        
-        .style-btn:hover::before {
-            left: 0;
-        }
-        
-        .style-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .style-dropdown {
-            position: absolute;
-            right: 0;
-            top: calc(100% + 10px);
-            width: 250px;
-            max-height: 0;
-            overflow: hidden;
-            background: var(--bg-color-2, #112240);
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(2, 12, 27, 0.7);
-            transition: max-height 0.5s ease, transform 0.3s ease, opacity 0.3s ease;
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        
-        .style-dropdown.active {
-            max-height: 400px;
-            overflow-y: auto;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .style-list {
-            list-style: none;
-            padding: 0.5rem;
-        }
-        
-        .style-item {
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.25rem;
-            transition: all 0.3s ease;
-        }
-        
-        .style-item:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .style-item.active {
-            background: rgba(100, 255, 218, 0.2);
-        }
-        
-        .style-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin-right: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .style-item:hover .style-color {
-            transform: scale(1.2);
-        }
-        
-        .style-name {
-            font-size: 0.9rem;
-            color: var(--text-primary, #e6f1ff);
-        }
-        
-        /* Mobile menu */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 200;
-        }
-        
-        .menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--accent-color, #64ffda);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        .menu-toggle.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .menu-toggle.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 350px solid #ffbe0b;
+            right: 20%;
+            top: 20%;
+            mix-blend-mode: multiply;
+          }
+          .section-intro { text-align: center; margin-bottom: 5rem; }
+          .section-label { display: block; font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; color: var(--agency-primary); margin-bottom: 1rem; }
+          .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; max-width: 800px; margin: 0 auto; color: var(--agency-secondary); }
+          .agency-services { padding: 8rem 0; }
+          .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 3rem; }
+          .service-card { padding: 2.5rem; background-color: var(--agency-light); border-radius: 5px; transition: all 0.3s ease; }
+          .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+          .card-number { font-size: 3rem; font-weight: 700; color: var(--agency-primary); opacity: 0.3; margin-bottom: 1.5rem; }
+          .service-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--agency-secondary); }
+          .service-card p { color: #666; }
+          .agency-portfolio { padding: 8rem 0; background-color: var(--agency-light); }
+          .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+          .portfolio-item { position: relative; overflow: hidden; border-radius: 5px; cursor: pointer; }
+          .portfolio-item.large { grid-column: span 2; grid-row: span 2; }
+          .portfolio-image { width: 100%; height: 300px; background-color: #ddd; transition: all 0.5s ease; }
+          .portfolio-item.large .portfolio-image { height: 500px; }
+          .portfolio-item:hover .portfolio-image { transform: scale(1.05); }
+          .portfolio-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); color: white; transition: all 0.3s ease; }
+          .portfolio-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+          .portfolio-info span { font-size: 0.9rem; opacity: 0.8; }
+          .agency-contact { padding: 8rem 0; background-color: var(--agency-secondary); color: white; }
+          .agency-contact .section-title { color: white; }
+          .contact-content { display: flex; justify-content: space-between; align-items: center; gap: 3rem; }
+          .contact-text { flex: 1; }
+          .contact-text p { font-size: 1.2rem; max-width: 500px; margin-bottom: 1rem; }
+          .agency-footer { padding: 5rem 0 3rem; background-color: var(--agency-light); }
+          .footer-top { display: flex; justify-content: space-between; margin-bottom: 4rem; }
+          .footer-logo { display: flex; align-items: center; font-weight: 700; font-size: 1.2rem; color: var(--agency-secondary); }
+          .footer-logo svg { margin-right: 0.5rem; }
+          .footer-links { display: flex; gap: 5rem; }
+          .link-column { display: flex; flex-direction: column; }
+          .link-column h4 { font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--agency-secondary); }
+          .link-column a { color: #666; text-decoration: none; margin-bottom: 0.75rem; transition: color 0.3s ease; }
+          .link-column a:hover { color: var(--agency-primary); }
+          .footer-bottom { padding-top: 2rem; border-top: 1px solid #e0e0e0; text-align: center; color: #999; font-size: 0.9rem; }
+        `,
+        js: `
+          // Handle header scroll effect
+          window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const body = document.querySelector('body');
+            if (scrollPosition > 100) {
+              body.classList.add('scrolled');
+            } else {
+              body.classList.remove('scrolled');
             }
-            
-            .menu-toggle {
-                display: flex;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 60%;
-                height: 100vh;
-                flex-direction: column;
-                background-color: var(--bg-color-2, #112240);
-                padding: 6rem 2rem 2rem;
-                z-index: 150;
-                transition: right 0.4s ease;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .nav-links.active {
-                right: 0;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-            
-            .nav-links li {
-                margin: 1.5rem 0;
-            }
-            
-            .style-switcher {
-                display: none;
-            }
-            
-            .btn {
-                display: none;
-            }
-            
-            .mobile-buttons {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                margin-top: 2rem;
-            }
-            
-            .mobile-buttons .btn,
-            .mobile-buttons .style-btn {
-                display: inline-block;
-                margin: 0;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .footer-links {
-                margin-top: 1.5rem;
-                justify-content: center;
-            }
-            
-            .footer-links li:first-child {
-                margin-left: 0;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .mobile-buttons {
-                display: none;
-            }
-        }
-        
-        /* Animation classes */
-        @keyframes floatUp {
-            0% {
-                transform: translateY(10px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .animate-float {
-            animation: floatUp 0.6s forwards;
-        }
-        
-        .delay-1 {
-            animation-delay: 0.1s;
-        }
-        
-        .delay-2 {
-            animation-delay: 0.2s;
-        }
-        
-        .delay-3 {
-            animation-delay: 0.3s;
-        }
-        
-        .delay-4 {
-            animation-delay: 0.4s;
-        }
-        
-        .delay-5 {
-            animation-delay: 0.5s;
-        }
-        
-        /* Include all the original themes */
-        /* Theme 2: Purple Haze */
-        .theme-purple-haze {
-            --bg-color-1: #1a103c;
-            --bg-color-2: #2a1b63;
-            --bg-color-3: #3d2b85;
-            --bg-color-4: #2a1b63;
-            --accent-color: #b27cff;
-            --text-primary: #e9dfff;
-            --text-secondary: #a594d0;
-        }
-        
-        /* Theme 3: Ocean Blue */
-        .theme-ocean-blue {
-            --bg-color-1: #002046;
-            --bg-color-2: #003366;
-            --bg-color-3: #004080;
-            --bg-color-4: #003366;
-            --accent-color: #00d2ff;
-            --text-primary: #e6f7ff;
-            --text-secondary: #a8d8ea;
-        }
-        
-        /* Theme 4: Forest Green */
-        .theme-forest-green {
-            --bg-color-1: #1b2a1b;
-            --bg-color-2: #263d25;
-            --bg-color-3: #345634;
-            --bg-color-4: #263d25;
-            --accent-color: #7cdf85;
-            --text-primary: #e8f5e9;
-            --text-secondary: #b6dbba;
-        }
-        
-        /* Theme 5: Ruby Red */
-        .theme-ruby-red {
-            --bg-color-1: #2d0b0e;
-            --bg-color-2: #4c171b;
-            --bg-color-3: #69232a;
-            --bg-color-4: #4c171b;
-            --accent-color: #ff5c75;
-            --text-primary: #ffe6e9;
-            --text-secondary: #ffb3bb;
-        }
-        
-        /* Theme 6: Golden Sunset */
-        .theme-golden-sunset {
-            --bg-color-1: #2d1b0c;
-            --bg-color-2: #4c2f16;
-            --bg-color-3: #6b4421;
-            --bg-color-4: #4c2f16;
-            --accent-color: #ffa344;
-            --text-primary: #fff0e0;
-            --text-secondary: #ffd8b0;
-        }
-        
-        /* Theme 7: Electric Cyan */
-        .theme-electric-cyan {
-            --bg-color-1: #002b2b;
-            --bg-color-2: #004545;
-            --bg-color-3: #006060;
-            --bg-color-4: #004545;
-            --accent-color: #00ffff;
-            --text-primary: #e0ffff;
-            --text-secondary: #a8e6e6;
-        }
-        
-        /* Theme 8: Pink Paradise */
-        .theme-pink-paradise {
-            --bg-color-1: #2b1624;
-            --bg-color-2: #45233b;
-            --bg-color-3: #5f3051;
-            --bg-color-4: #45233b;
-            --accent-color: #ff79c6;
-            --text-primary: #ffe9f6;
-            --text-secondary: #ffb3dc;
-        }
-        
-        /* Theme 9: Emerald Elegance */
-        .theme-emerald-elegance {
-            --bg-color-1: #0f271f;
-            --bg-color-2: #183c30;
-            --bg-color-3: #225042;
-            --bg-color-4: #183c30;
-            --accent-color: #4ecca3;
-            --text-primary: #e6fff5;
-            --text-secondary: #b6e6d4;
-        }
-        
-        /* Theme 10: Light Mode */
-        .theme-light-mode {
-            --bg-color-1: #f0f4f8;
-            --bg-color-2: #e6edf5;
-            --bg-color-3: #dae4f0;
-            --bg-color-4: #e6edf5;
-            --accent-color: #5a67d8;
-            --text-primary: #2d3748;
-            --text-secondary: #4a5568;
-        }
-        
-        /* Theme 11: Cyberpunk */
-        .theme-cyberpunk {
-            --bg-color-1: #0d001a;
-            --bg-color-2: #190036;
-            --bg-color-3: #240046;
-            --bg-color-4: #190036;
-            --accent-color: #ff00ff;
-            --text-primary: #f5e1ff;
-            --text-secondary: #c77dff;
-        }
-        
-        /* Theme 12: Minimalist */
-        .theme-minimalist {
-            --bg-color-1: #111111;
-            --bg-color-2: #111111;
-            --bg-color-3: #111111;
-            --bg-color-4: #111111;
-            --accent-color: #ffffff;
-            --text-primary: #f5f5f5;
-            --text-secondary: #aaaaaa;
-        }
-        
-        /* Theme 13: Coffee Shop */
-        .theme-coffee-shop {
-            --bg-color-1: #241811;
-            --bg-color-2: #382819;
-            --bg-color-3: #4d3a27;
-            --bg-color-4: #382819;
-            --accent-color: #c8a27c;
-            --text-primary: #f5efe8;
-            --text-secondary: #d4c3b2;
-        }
-        
-        /* Theme 14: Pastel Dreams */
-        .theme-pastel-dreams {
-            --bg-color-1: #f2e3f9;
-            --bg-color-2: #e9d5f9;
-            --bg-color-3: #dfc8f8;
-            --bg-color-4: #e9d5f9;
-            --accent-color: #b392ac;
-            --text-primary: #4d3b48;
-            --text-secondary: #7d6377;
-        }
-        
-        /* Theme 15: Nordic Frost */
-        .theme-nordic-frost {
-            --bg-color-1: #2e3440;
-            --bg-color-2: #3b4252;
-            --bg-color-3: #434c5e;
-            --bg-color-4: #3b4252;
-            --accent-color: #88c0d0;
-            --text-primary: #eceff4;
-            --text-secondary: #d8dee9;
-        }
-        
-        /* Theme 16: Vintage Paper */
-        .theme-vintage-paper {
-            --bg-color-1: #f8f0d7;
-            --bg-color-2: #f8f0d7;
-            --bg-color-3: #f8f0d7;
-            --bg-color-4: #f8f0d7;
-            --accent-color: #8d6e63;
-            --text-primary: #3e2723;
-            --text-secondary: #6d4c41;
-        }
-        
-        /* Theme 17: Space Odyssey */
-        .theme-space-odyssey {
-            --bg-color-1: #0a0d11;
-            --bg-color-2: #121920;
-            --bg-color-3: #1b2430;
-            --bg-color-4: #121920;
-            --accent-color: #49beb7;
-            --text-primary: #e1f5f3;
-            --text-secondary: #a0ded9;
-        }
-        
-        /* Theme 18: Cherry Blossom */
-        .theme-cherry-blossom {
-            --bg-color-1: #fef2f6;
-            --bg-color-2: #fde5ee;
-            --bg-color-3: #fcd8e5;
-            --bg-color-4: #fde5ee;
-            --accent-color: #e84a7f;
-            --text-primary: #4f2a3b;
-            --text-secondary: #7e4560;
-        }
-        
-        /* Theme 19: Vibrant Coral */
-        .theme-vibrant-coral {
-            --bg-color-1: #251e20;
-            --bg-color-2: #3a2e31;
-            --bg-color-3: #4e3d41;
-            --bg-color-4: #3a2e31;
-            --accent-color: #ff7268;
-            --text-primary: #ffe9e7;
-            --text-secondary: #ffb8b3;
-        }
-        
-        /* Theme 20: Crystal Teal */
-        .theme-crystal-teal {
-            --bg-color-1: #0a3336;
-            --bg-color-2: #0e4b4f;
-            --bg-color-3: #136468;
-            --bg-color-4: #0e4b4f;
-            --accent-color: #3ef4ff;
-            --text-primary: #e0fcff;
-            --text-secondary: #8cecf4;
-        }
-    </style>
-</head>
-<body class="theme-default">
-    <!-- Background elements -->
-    <div class="bg-animated"></div>
-    <div class="bg-grid"></div>
-    <div class="stars" id="stars"></div>
-    <div class="particles" id="particles"></div>
-    
-    <!-- Main content -->
-    <div class="container">
-        <!-- Header -->
-        <header id="header">
-            <div class="logo">
-                <span class="logo-icon">M</span>
-                <span>MyPortfolio</span>
-            </div>
-            
-            <nav>
-                <div class="menu-toggle" id="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    
-                    <!-- Mobile buttons (only visible on small screens) -->
-                    <div class="mobile-buttons">
-                        <button id="mobile-style-btn" class="style-btn">Change Style</button>
-                        <button class="btn">Get in Touch</button>
-                    </div>
-                </ul>
-                
-                <!-- Style switcher button -->
-                <div class="style-switcher">
-                    <button id="style-btn" class="style-btn">Change Style</button>
-                    
-                    <div id="style-dropdown" class="style-dropdown">
-                        <ul class="style-list">
-                            <li class="style-item active" data-theme="theme-default">
-                                <span class="style-color" style="background-color: #64ffda;"></span>
-                                <span class="style-name">Default Tech</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-purple-haze">
-                                <span class="style-color" style="background-color: #b27cff;"></span>
-                                <span class="style-name">Purple Haze</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-ocean-blue">
-                                <span class="style-color" style="background-color: #00d2ff;"></span>
-                                <span class="style-name">Ocean Blue</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-forest-green">
-                                <span class="style-color" style="background-color: #7cdf85;"></span>
-                                <span class="style-name">Forest Green</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-ruby-red">
-                                <span class="style-color" style="background-color: #ff5c75;"></span>
-                                <span class="style-name">Ruby Red</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-golden-sunset">
-                                <span class="style-color" style="background-color: #ffa344;"></span>
-                                <span class="style-name">Golden Sunset</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-electric-cyan">
-                                <span class="style-color" style="background-color: #00ffff;"></span>
-                                <span class="style-name">Electric Cyan</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-pink-paradise">
-                                <span class="style-color" style="background-color: #ff79c6;"></span>
-                                <span class="style-name">Pink Paradise</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-emerald-elegance">
-                                <span class="style-color" style="background-color: #4ecca3;"></span>
-                                <span class="style-name">Emerald Elegance</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-light-mode">
-                                <span class="style-color" style="background-color: #5a67d8;"></span>
-                                <span class="style-name">Light Mode</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-cyberpunk">
-                                <span class="style-color" style="background-color: #ff00ff;"></span>
-                                <span class="style-name">Cyberpunk</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-minimalist">
-                                <span class="style-color" style="background-color: #ffffff;"></span>
-                                <span class="style-name">Minimalist</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-coffee-shop">
-                                <span class="style-color" style="background-color: #c8a27c;"></span>
-                                <span class="style-name">Coffee Shop</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-pastel-dreams">
-                                <span class="style-color" style="background-color: #b392ac;"></span>
-                                <span class="style-name">Pastel Dreams</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-nordic-frost">
-                                <span class="style-color" style="background-color: #88c0d0;"></span>
-                                <span class="style-name">Nordic Frost</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-vintage-paper">
-                                <span class="style-color" style="background-color: #8d6e63;"></span>
-                                <span class="style-name">Vintage Paper</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-cherry-blossom">
-                                <span class="style-color" style="background-color: #e84a7f;"></span>
-                                <span class="style-name">Cherry Blossom</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-space-odyssey">
-                                <span class="style-color" style="background-color: #49beb7;"></span>
-                                <span class="style-name">Space Odyssey</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-vibrant-coral">
-                                <span class="style-color" style="background-color: #ff7268;"></span>
-                                <span class="style-name">Vibrant Coral</span>
-                            </li>
-                            <li class="style-item" data-theme="theme-crystal-teal">
-                                <span class="style-color" style="background-color: #3ef4ff;"></span>
-                                <span class="style-name">Crystal Teal</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <button class="btn">Get in Touch</button>
-            </nav>
-        </header>
-        
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <h3 class="hero-subtitle">Hi, my name is</h3>
-            <h1 class="hero-title">Ram Norton.<br>I build <span class="highlight typewriter" id="typewriter"></span></h1>
-            <p class="hero-description">
-                I'm a web developer specializing in building exceptional digital experiences. Currently, I'm focused on creating accessible, human-centered products at a startup.
-            </p>
-            <a href="#projects" class="btn">View My Work</a>
-        </section>
-        
-        <!-- Features Section -->
-        <section class="features" id="about">
-            <h2 class="section-title">What I Do</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3 class="feature-title">Web Development</h3>
-                    <p class="feature-description">
-                        I create responsive websites that work across all devices, focusing on performance and accessibility.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3 class="feature-title">UI/UX Design</h3>
-                    <p class="feature-description">
-                        I design intuitive user interfaces and experiences that are both functional and visually appealing.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3 class="feature-title">Mobile Apps</h3>
-                    <p class="feature-description">
-                        I develop cross-platform mobile applications using modern frameworks like React Native.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Skills Section -->
-        <section class="skills" id="skills">
-            <h2 class="section-title">My Skills</h2>
-            <div class="skill-bars">
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span class="skill-name">HTML & CSS</span>
-                        <span class="skill-percent">95%</span>
-                    </div>
-                    <div class="skill-progress">
-                        <div class="skill-bar" data-width="95"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span class="skill-name">JavaScript</span>
-                        <span class="skill-percent">90%</span>
-                    </div>
-                    <div class="skill-progress">
-                        <div class="skill-bar" data-width="90"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span class="skill-name">React</span>
-                        <span class="skill-percent">85%</span>
-                    </div>
-                    <div class="skill-progress">
-                        <div class="skill-bar" data-width="85"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span class="skill-name">Node.js</span>
-                        <span class="skill-percent">80%</span>
-                    </div>
-                    <div class="skill-progress">
-                        <div class="skill-bar" data-width="80"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Projects Section -->
-        <section class="projects" id="projects">
-            <h2 class="section-title">Recent Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">🚀</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">E-commerce Platform</h3>
-                        <p class="project-description">A full-featured online store with payment processing and inventory management.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">📱</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Fitness App</h3>
-                        <p class="project-description">Mobile app for tracking workouts, nutrition, and progress with data visualization.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Charts</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">🌐</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Portfolio Website</h3>
-                        <p class="project-description">A responsive portfolio website with smooth animations and dynamic theme switching.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- CTA Section -->
-        <section class="cta" id="contact">
-            <h2 class="cta-title">Let's Work Together</h2>
-            <p class="cta-description">
-                Whether you have a project in mind or just want to say hello, feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-            </p>
-            
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" id="name" class="form-input" placeholder="Enter your name">
-                </div>
-                
-                <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-input" placeholder="Enter your email">
-                </div>
-                
-                <div class="form-group">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea id="message" class="form-input form-textarea" placeholder="Enter your message"></textarea>
-                </div>
-                
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-        </section>
-    </div>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">MyPortfolio</div>
-                <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="social-links">
-                <a href="#" class="social-link">
-                    <i>🐦</i>
-                </a>
-                <a href="#" class="social-link">
-                    <i>👨‍💻</i>
-                </a>
-                <a href="#" class="social-link">
-                    <i>📸</i>
-                </a>
-                <a href="#" class="social-link">
-                    <i>💼</i>
-                </a>
-            </div>
-            
-            <div class="copyright">
-                &copy; 2025 Ram Norton. All rights reserved.
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Back to top button -->
-    <div class="back-to-top" id="back-to-top">
-        ↑
-    </div>
-    
-    <!-- Scripts -->
-    <script>
-        // Create stars for background
-        function createStars() {
-            const stars = document.getElementById('stars');
-            const starCount = 100;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // Random position
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 2 + 1;
-                
-                // Random animation delay
-                const delay = Math.random() * 4;
-                
-                star.style.top = `${y}%`;
-                star.style.left = `${x}%`;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.animationDelay = `${delay}s`;
-                
-                stars.appendChild(star);
-            }
-        }
-        
-        // Create particles
-        function createParticles() {
-            const particles = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random position
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 5 + 2;
-                
-                // Random animation
-                const duration = Math.random() * 20 + 10;
-                const xMovement = Math.random() * 40 - 20;
-                const yMovement = Math.random() * 40 - 20;
-                
-                particle.style.top = `${y}%`;
-                particle.style.left = `${x}%`;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Apply floating animation
-                particle.style.animation = `floatParticle ${duration}s infinite ease-in-out`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                
-                // Create keyframes for this specific particle
-                const keyframes = `
-                    @keyframes floatParticle {
-                        0%, 100% {
-                            transform: translate(0, 0);
-                        }
-                        50% {
-                            transform: translate(${xMovement}px, ${yMovement}px);
-                        }
-                    }
-                `;
-                
-                // Add keyframes to document
-                const style = document.createElement('style');
-                style.innerHTML = keyframes;
-                document.head.appendChild(style);
-                
-                particles.appendChild(particle);
-            }
-        }
-        
-        // Typewriter effect
-        function typeWriter() {
-            const words = ["websites.", "applications.", "experiences.", "solutions."];
-            const typewriterElement = document.getElementById('typewriter');
-            let wordIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            let typingSpeed = 100;
-            
-            function type() {
-                const currentWord = words[wordIndex];
-                
-                if (isDeleting) {
-                    // Deleting text
-                    typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
-                    charIndex--;
-                    typingSpeed = 50;
-                } else {
-                    // Typing text
-                    typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
-                    charIndex++;
-                    typingSpeed = 100;
-                }
-                
-                // Check if word is complete
-                if (!isDeleting && charIndex === currentWord.length) {
-                    // Pause at the end of the word
-                    typingSpeed = 1500;
-                    isDeleting = true;
-                } else if (isDeleting && charIndex === 0) {
-                    // Move to next word
-                    isDeleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
-                    // Pause before typing next word
-                    typingSpeed = 500;
-                }
-                
-                setTimeout(type, typingSpeed);
-            }
-            
-            // Start the typing effect
-            setTimeout(type, 1000);
-        }
-        
-        // Scroll animations
-        function initScrollAnimations() {
-            const sections = document.querySelectorAll('.section-title, .feature-card, .skill-item, .project-card, .cta-title, .cta-description, .contact-form, .cta .btn');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        // For skill bars, animate the width when visible
-                        if (entry.target.classList.contains('skill-item')) {
-                            const bar = entry.target.querySelector('.skill-bar');
-                            const width = bar.getAttribute('data-width');
-                            setTimeout(() => {
-                                bar.style.width = `${width}%`;
-                            }, 200);
-                        }
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        }
-        
-        // Handle sticky header
-        function initStickyHeader() {
-            const header = document.getElementById('header');
-            const scrollThreshold = 50;
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > scrollThreshold) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        }
-        
-        // Back to top button
-        function initBackToTop() {
-            const backToTop = document.getElementById('back-to-top');
-            const scrollThreshold = 300;
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > scrollThreshold) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            });
-            
-            backToTop.addEventListener('click', () => {
+          });
+          // Smooth scrolling for navigation
+          document.querySelectorAll('.agency-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
                 window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+                  top: targetElement.offsetTop - 100,
+                  behavior: 'smooth'
                 });
+              }
             });
-        }
-        
-        // Mobile menu toggle
-        function initMobileMenu() {
-            const menuToggle = document.getElementById('menu-toggle');
-            const navLinks = document.getElementById('nav-links');
-            const navItems = document.querySelectorAll('.nav-links a');
-            
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-        }
-        
-        // Smooth scrolling for anchor links
-        function initSmoothScrolling() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        const headerHeight = document.getElementById('header').offsetHeight;
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-        
-        // Interactive particles that follow cursor
-        function initInteractiveParticles() {
-            const container = document.querySelector('.container');
-            const particleCount = 5;
-            const particles = [];
-            
-            // Create particles that will follow the cursor
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.width = `${4 + i * 2}px`;
-                particle.style.height = `${4 + i * 2}px`;
-                particle.style.opacity = `${0.5 - i * 0.1}`;
-                particle.style.position = 'fixed';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '1000';
-                particle.style.transition = `transform ${0.1 + i * 0.05}s ease-out`;
-                document.body.appendChild(particle);
-                particles.push(particle);
+          });
+          // Random movement for hero visual elements
+          document.querySelectorAll('.visual-element').forEach(el => {
+            let xPos = 0;
+            let yPos = 0;
+            let xDirection = Math.random() > 0.5 ? 1 : -1;
+            let yDirection = Math.random() > 0.5 ? 1 : -1;
+            const speed = Math.random() * 0.4 + 0.1;
+            function moveElement() {
+              xPos += speed * xDirection;
+              yPos += speed * yDirection;
+              if (Math.abs(xPos) > 20) xDirection *= -1;
+              if (Math.abs(yPos) > 20) yDirection *= -1;
+              el.style.transform = \`translate(\${xPos}px, \${yPos}px)\`;
+              requestAnimationFrame(moveElement);
             }
-            
-            // Update particles position on mousemove
-            document.addEventListener('mousemove', (e) => {
-                particles.forEach((particle, index) => {
-                    // Add delay for each particle to create trail effect
-                    setTimeout(() => {
-                        particle.style.transform = `translate(${e.clientX - particle.offsetWidth / 2}px, ${e.clientY - particle.offsetHeight / 2}px)`;
-                    }, index * 40);
-                });
-            });
+            moveElement();
+          });
+        `
+      }
+      // Additional themes can be added here.
+    ];
+
+    let currentThemeIndex = 0;
+
+    // Function to generate a random hex color
+    function randomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Function to apply the current theme plus extra randomization
+    function applyTheme(index) {
+      const theme = themes[index];
+      const themeContainer = document.getElementById('theme-container');
+      themeContainer.innerHTML = theme.html;
+      let styleElement = document.getElementById('theme-style');
+      if (!styleElement) {
+        styleElement = document.createElement('style');
+        styleElement.id = 'theme-style';
+        document.head.appendChild(styleElement);
+      }
+      // Set the theme's CSS...
+      styleElement.textContent = theme.css;
+      // Append extra CSS for additional randomization (e.g., random body background)
+      const extraCSS = `
+        body {
+          background-color: ${randomColor()};
         }
-        
-        // Style switcher functionality
-        function initStyleSwitcher() {
-            const styleBtn = document.getElementById('style-btn');
-            const mobileStyleBtn = document.getElementById('mobile-style-btn');
-            const styleDropdown = document.getElementById('style-dropdown');
-            const styleItems = document.querySelectorAll('.style-item');
-            
-            // Create a memory variable for environments where localStorage isn't available
-            let memoryTheme = null;
-            
-            // Toggle dropdown
-            styleBtn.addEventListener('click', () => {
-                styleDropdown.classList.toggle('active');
-            });
-            
-            mobileStyleBtn.addEventListener('click', () => {
-                styleDropdown.classList.toggle('active');
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!styleBtn.contains(e.target) && !mobileStyleBtn.contains(e.target) && !styleDropdown.contains(e.target)) {
-                    styleDropdown.classList.remove('active');
-                }
-            });
-            
-            // Theme switching
-            styleItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    // Get theme class
-                    const themeClass = item.getAttribute('data-theme');
-                    
-                    // Remove active class from all items
-                    styleItems.forEach(i => i.classList.remove('active'));
-                    
-                    // Add active class to clicked item
-                    item.classList.add('active');
-                    
-                    // Apply theme to body
-                    document.body.className = themeClass;
-                    
-                    // Try to save theme preference in localStorage with fallback
-                    try {
-                        localStorage.setItem('selectedTheme', themeClass);
-                    } catch (e) {
-                        // If localStorage is not available (e.g., in sandboxed environments)
-                        memoryTheme = themeClass;
-                        console.log('Theme saved to memory variable instead of localStorage');
-                    }
-                    
-                    // Close dropdown
-                    styleDropdown.classList.remove('active');
-                });
-            });
-            
-            // Try to load saved theme with fallback
-            try {
-                const savedTheme = localStorage.getItem('selectedTheme');
-                if (savedTheme) {
-                    document.body.className = savedTheme;
-                    
-                    // Update active class in dropdown
-                    styleItems.forEach(item => {
-                        if (item.getAttribute('data-theme') === savedTheme) {
-                            item.classList.add('active');
-                        } else {
-                            item.classList.remove('active');
-                        }
-                    });
-                }
-            } catch (e) {
-                console.log('Unable to access localStorage, using default theme');
-                // Default theme is already applied via HTML class
-            }
+      `;
+      styleElement.textContent += extraCSS;
+      try {
+        eval(theme.js);
+      } catch (error) {
+        console.error('Error executing theme JS:', error);
+      }
+      currentThemeIndex = index;
+    }
+
+    // On DOM load, apply a random theme from the available themes.
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pick a random initial theme
+      const initialIndex = Math.floor(Math.random() * themes.length);
+      applyTheme(initialIndex);
+      // Set up the theme switcher to pick a random theme different from the current one.
+      document.getElementById('theme-switcher').addEventListener('click', () => {
+        let nextIndex = currentThemeIndex;
+        while (nextIndex === currentThemeIndex) {
+          nextIndex = Math.floor(Math.random() * themes.length);
         }
-        
-        // Form submission handling
-        function initFormHandling() {
-            const form = document.querySelector('.contact-form');
-            
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-                
-                // Simple validation
-                if (!name || !email || !message) {
-                    alert('Please fill in all fields');
-                    return;
-                }
-                
-                // Simulate form submission
-                const submitBtn = form.querySelector('.btn');
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                // Simulate API call delay
-                setTimeout(() => {
-                    // Reset form
-                    form.reset();
-                    submitBtn.textContent = 'Message Sent!';
-                    
-                    // Reset button after delay
-                    setTimeout(() => {
-                        submitBtn.textContent = 'Send Message';
-                        submitBtn.disabled = false;
-                    }, 3000);
-                }, 1500);
-            });
-        }
-        
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            createParticles();
-            typeWriter();
-            initScrollAnimations();
-            initStickyHeader();
-            initBackToTop();
-            initMobileMenu();
-            initSmoothScrolling();
-            initInteractiveParticles();
-            initStyleSwitcher();
-            initFormHandling();
-        });
-    </script>
+        applyTheme(nextIndex);
+      });
+    });
+  </script>
 </body>
 </html>
