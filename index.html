@@ -609,6 +609,8 @@
             color: #60a5fa;
             border-bottom-color: rgba(96, 165, 250, 0.3);
             text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         body.theme-dark .section-title::before {
@@ -678,6 +680,35 @@
             text-shadow: 0 0 5px rgba(96, 165, 250, 0.3);
         }
         
+        /* Dark theme additional styles */
+        body.theme-dark .logo::before {
+            width: 15px;
+            height: 15px;
+            transform: rotate(45deg);
+            animation: rotate-glow 3s linear infinite;
+        }
+        
+        @keyframes rotate-glow {
+            0% { transform: rotate(0deg); box-shadow: 0 0 10px #60a5fa; }
+            100% { transform: rotate(360deg); box-shadow: 0 0 20px #60a5fa; }
+        }
+        
+        body.theme-dark .profile-container::after {
+            content: '';
+            position: absolute;
+            width: 140%;
+            height: 140%;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s infinite;
+            z-index: 0;
+            animation-delay: -1s;
+        }
+        
         /* Neon Theme */
         @keyframes glow {
             0%, 100% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
@@ -695,12 +726,14 @@
         }
         
         body.theme-neon {
+            --cyber-neon-pink: #ff00ff;
+            --cyber-neon-blue: #00ffff;
             background-color: #000066;
             color: #ffffff;
             position: relative;
-            overflow: hidden;
             font-family: 'VT323', monospace, 'Segoe UI', Roboto;
             letter-spacing: 1px;
+            overflow-y: auto; /* Fix for scrolling issue */
         }
         
         body.theme-neon::before {
@@ -783,7 +816,7 @@
         }
         
         body.theme-neon .theme-button {
-            background-color: transparent;
+            background: transparent;
             color: #00ffff;
             border: 2px solid #00ffff;
             text-transform: uppercase;
@@ -911,7 +944,7 @@
         body.theme-neon .project-content h3 {
             color: #00ffff;
             animation: glow 2s ease-in-out infinite;
-            text-shadow: 0 0 10px #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-family: 'VT323', monospace, 'Segoe UI', Roboto;
@@ -1003,6 +1036,21 @@
             letter-spacing: 5px;
             font-family: 'VT323', monospace, 'Segoe UI', Roboto;
             font-size: 48px;
+        }
+        
+        /* Neon theme profile enhancements */
+        body.theme-neon .profile-pic {
+            width: 130px;
+            height: 130px;
+            background: transparent;
+            border: 3px solid #ff00ff;
+            box-shadow: 0 0 30px #ff00ff, inset 0 0 15px #ff00ff;
+            animation: neonPulse 2s infinite alternate;
+        }
+        
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 20px #ff00ff, inset 0 0 10px #ff00ff; }
+            100% { box-shadow: 0 0 40px #00ffff, inset 0 0 20px #00ffff; border-color: #00ffff; }
         }
         
         /* Terminal Theme */
@@ -1335,6 +1383,8 @@
             padding-left: 15px;
             margin-bottom: 10px;
             line-height: 1.4;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff00;
         }
         
         body.theme-terminal p::before {
@@ -1387,6 +1437,18 @@
             content: '>';
             position: absolute;
             left: 0;
+        }
+        
+        body.theme-terminal .project-content p {
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        body.theme-terminal .project-content p::before {
+            content: '$';
+            position: absolute;
+            left: 0;
+            color: #00aa00;
         }
         
         body.theme-terminal .contact-items {
@@ -1536,15 +1598,6 @@
             background-position: center;
             background-size: 16px;
             filter: invert(1);
-        }
-        
-        body.theme-xp .header-content::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            display: flex;
-            height: 100%;
         }
         
         body.theme-xp .header-content::after {
@@ -1729,6 +1782,7 @@
             margin-bottom: 15px;
             position: relative;
             font-weight: bold;
+            margin-top: 15px;
         }
         
         body.theme-xp .section-title::before {
@@ -1740,10 +1794,19 @@
             border: 1px solid #919b9c;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 0;
+            position: relative;
         }
         
         body.theme-xp .section-content::before {
-            display: none;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: linear-gradient(to bottom, #2860b1, #5888e0);
+            border-bottom: 1px solid #1541a4;
+            transform: none;
         }
         
         body.theme-xp .section-content:hover {
@@ -1858,7 +1921,6 @@
         body.theme-xp a:hover {
             text-decoration: underline;
         }
-
         /* Modern Tech Theme */
         body.theme-modern-tech {
             color: #ccd6f6;
@@ -2025,7 +2087,57 @@
             color: #64ffda;
             text-decoration: none;
         }
-
+        /* Modern Tech profile modifications */
+        body.theme-modern-tech .profile-pic {
+            background: transparent;
+            border: 2px solid #64ffda;
+            position: relative;
+            overflow: visible;
+        }
+        
+        body.theme-modern-tech .profile-pic::before {
+            content: '<';
+            position: absolute;
+            left: -30px;
+            font-size: 24px;
+            color: #64ffda;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        body.theme-modern-tech .profile-pic::after {
+            content: '/>';
+            position: absolute;
+            right: -40px;
+            font-size: 24px;
+            color: #64ffda;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        /* Modern Tech theme stars */
+        body.theme-modern-tech .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        body.theme-modern-tech .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
         /* Cyberpunk Theme */
         body.theme-cyberpunk {
             --cyber-bg: #0a0a16;
@@ -2170,7 +2282,66 @@
         body.theme-cyberpunk a:hover {
             text-shadow: 0 0 15px var(--cyber-neon-blue);
         }
-
+        /* Cyberpunk profile modifications */
+        body.theme-cyberpunk .profile-pic {
+            width: 150px;
+            height: 150px;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            background: linear-gradient(135deg, var(--cyber-neon-pink), var(--cyber-neon-blue));
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px var(--cyber-neon-pink);
+            animation: cyberpulse 3s infinite;
+        }
+        
+        @keyframes cyberpulse {
+            0%, 100% { box-shadow: 0 0 20px var(--cyber-neon-pink); }
+            50% { box-shadow: 0 0 40px var(--cyber-neon-blue); }
+        }
+        
+        /* Cyberpunk decorative elements */
+        .cyber-decor {
+            position: absolute;
+            width: 40%;
+            height: 100%;
+            right: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .cyber-circle, .cyber-square, .cyber-triangle {
+            position: absolute;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .cyber-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid var(--cyber-neon-blue);
+            box-shadow: var(--cyber-blue-glow);
+            animation-delay: 0s;
+        }
+        
+        .cyber-square {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--cyber-neon-pink);
+            box-shadow: var(--cyber-glow);
+            animation-delay: 2s;
+        }
+        
+        .cyber-triangle {
+            width: 0;
+            height: 0;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 120px solid rgba(255, 43, 140, 0.2);
+            animation-delay: 4s;
+        }
         /* Minimalist Theme */
         body.theme-minimalist {
             --minimal-bg: #ffffff;
@@ -2218,9 +2389,40 @@
         }
         
         body.theme-minimalist .profile-pic {
-            background-color: var(--minimal-light);
-            box-shadow: none;
+            width: 120px;
+            height: 120px;
             border-radius: 0;
+            background: #222;
+            box-shadow: none;
+            animation: none;
+            transition: transform 0.3s ease;
+        }
+        
+        body.theme-minimalist .profile-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        body.theme-minimalist .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid #000;
+            border-left: 2px solid #000;
+        }
+        
+        body.theme-minimalist .profile-container::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 50px;
+            height: 50px;
+            border-bottom: 2px solid #000;
+            border-right: 2px solid #000;
         }
         
         body.theme-minimalist .hero h1 {
@@ -2305,7 +2507,6 @@
             color: var(--minimal-accent);
             text-decoration: none;
         }
-
         /* Creative Agency Theme */
         body.theme-agency {
             --agency-bg: #ffffff;
@@ -2460,25 +2661,26 @@
         body.theme-agency a {
             color: var(--agency-primary);
         }
-
+        
         /* Portfolio Theme */
-body.theme-portfolio {
-    background: linear-gradient(135deg, #0f172a, #1e293b, #2a4365);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #e2e8f0;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-body.theme-portfolio .container {
-    background: transparent;
-    box-shadow: none;
-
+        body.theme-portfolio {
+            background: linear-gradient(135deg, #0f172a, #1e293b, #2a4365);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #e2e8f0;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        body.theme-portfolio .container {
+            background: transparent;
+            box-shadow: none;
+        }
+        
         body.theme-portfolio::before {
             content: "";
             position: fixed;
@@ -2511,25 +2713,18 @@ body.theme-portfolio .container {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
-        body.theme-portfolio .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-        }
-        
         body.theme-portfolio header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         body.theme-portfolio .logo {
-            font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 700;
-            color: #2a4365;
+            color: #e2e8f0;
             position: relative;
         }
         
@@ -2540,13 +2735,13 @@ body.theme-portfolio .container {
             left: 0;
             width: 30%;
             height: 3px;
-            background-color: #ed8936;
+            background-color: #4299e1;
         }
         
         body.theme-portfolio .theme-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: #2a4365;
+            background-color: #4299e1;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -2557,7 +2752,7 @@ body.theme-portfolio .container {
         
         body.theme-portfolio .theme-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(42, 67, 101, 0.3);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
         
         body.theme-portfolio .hero {
@@ -2569,130 +2764,6 @@ body.theme-portfolio .container {
             text-align: center;
         }
         
-        /* Cyberpunk profile modifications */
-        body.theme-cyberpunk .profile-pic {
-            width: 150px;
-            height: 150px;
-            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-            background: linear-gradient(135deg, var(--cyber-neon-pink), var(--cyber-neon-blue));
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 30px var(--cyber-neon-pink);
-            animation: cyberpulse 3s infinite;
-        }
-        
-        @keyframes cyberpulse {
-            0%, 100% { box-shadow: 0 0 20px var(--cyber-neon-pink); }
-            50% { box-shadow: 0 0 40px var(--cyber-neon-blue); }
-        }
-        
-        body.theme-cyberpunk .profile-container::before,
-        body.theme-cyberpunk .profile-container::after {
-            display: none;
-        }
-        
-        /* Modern Tech profile modifications */
-        body.theme-modern-tech .profile-pic {
-            background: transparent;
-            border: 2px solid #64ffda;
-            position: relative;
-            overflow: visible;
-        }
-        
-        body.theme-modern-tech .profile-pic::before {
-            content: '<';
-            position: absolute;
-            left: -30px;
-            font-size: 24px;
-            color: #64ffda;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        body.theme-modern-tech .profile-pic::after {
-            content: '/>';
-            position: absolute;
-            right: -40px;
-            font-size: 24px;
-            color: #64ffda;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        /* Minimalist profile modifications */
-        body.theme-minimalist .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 0;
-            background: #222;
-            box-shadow: none;
-            animation: none;
-            transition: transform 0.3s ease;
-        }
-        
-        body.theme-minimalist .profile-container {
-            position: relative;
-            margin-bottom: 40px;
-        }
-        
-        body.theme-minimalist .profile-container::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 50px;
-            height: 50px;
-            border-top: 2px solid #000;
-            border-left: 2px solid #000;
-        }
-        
-        body.theme-minimalist .profile-container::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: -10px;
-            width: 50px;
-            height: 50px;
-            border-bottom: 2px solid #000;
-            border-right: 2px solid #000;
-        }
-        
-        /* Creative Agency profile modifications */
-        body.theme-agency .profile-pic {
-            background: none;
-            border: none;
-            position: relative;
-            z-index: 1;
-            box-shadow: none;
-        }
-        
-        body.theme-agency .profile-pic::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--agency-primary);
-            border-radius: 50%;
-            z-index: -1;
-            left: -10px;
-            top: -10px;
-        }
-        
-        body.theme-agency .profile-pic::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--agency-secondary);
-            border-radius: 50%;
-            z-index: -2;
-            right: -10px;
-            bottom: -10px;
-        }
-        
-        /* Portfolio theme enhancements */
         body.theme-portfolio .profile-pic {
             background: linear-gradient(135deg, #3b82f6, #60a5fa);
             box-shadow: 0 10px 25px rgba(66, 153, 225, 0.5);
@@ -2706,288 +2777,115 @@ body.theme-portfolio .container {
             100% { transform: rotate(360deg); }
         }
         
-        body.theme-portfolio .hero h1,
-        body.theme-portfolio .hero-description,
-        body.theme-portfolio .section-title,
-        body.theme-portfolio .section-content,
-        body.theme-portfolio p,
-        body.theme-portfolio .contact-info h3,
-        body.theme-portfolio .project-content h3,
-        body.theme-portfolio .project-content p {
-            color: #f7fafc;
+        body.theme-portfolio .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: #e2e8f0;
         }
         
-        body.theme-portfolio .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            opacity: 0.8;
-            background-color: rgba(66, 153, 225, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 20px rgba(66, 153, 225, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        body.theme-portfolio .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: #a0aec0;
+        }
+        
+        body.theme-portfolio .section-title {
             font-size: 2rem;
-            color: white;
-            transition: transform 0.5s ease;
-        }
-        
-        /* Dark theme profile modifications */
-        body.theme-dark .profile-container::before {
-            width: 120%;
-            height: 120%;
-            animation-duration: 3s;
-        }
-        
-        body.theme-dark .profile-container::after {
-            content: '';
-            position: absolute;
-            width: 140%;
-            height: 140%;
-            border-radius: 50%;
-            background: transparent;
-            border: 1px solid rgba(96, 165, 250, 0.1);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse 4s infinite;
-            z-index: 0;
-            animation-delay: -1s;
-        }
-        
-        /* Neon theme profile enhancements */
-        body.theme-neon .profile-pic {
-            width: 130px;
-            height: 130px;
-            background: transparent;
-            border: 3px solid #ff00ff;
-            box-shadow: 0 0 30px #ff00ff, inset 0 0 15px #ff00ff;
-            animation: neonPulse 2s infinite alternate;
-        }
-        
-        @keyframes neonPulse {
-            0% { box-shadow: 0 0 20px #ff00ff, inset 0 0 10px #ff00ff; }
-            100% { box-shadow: 0 0 40px #00ffff, inset 0 0 20px #00ffff; border-color: #00ffff; }
-        }
-        
-        /* Cyberpunk decorative elements */
-        .cyber-decor {
-            position: absolute;
-            width: 40%;
-            height: 100%;
-            right: 0;
-            top: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .cyber-circle, .cyber-square, .cyber-triangle {
-            position: absolute;
-            animation: float 6s infinite ease-in-out;
-        }
-        
-        .cyber-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 2px solid var(--cyber-neon-blue);
-            box-shadow: var(--cyber-blue-glow);
-            animation-delay: 0s;
-        }
-        
-        .cyber-square {
-            width: 100px;
-            height: 100px;
-            border: 2px solid var(--cyber-neon-pink);
-            box-shadow: var(--cyber-glow);
-            animation-delay: 2s;
-        }
-        
-        .cyber-triangle {
-            width: 0;
-            height: 0;
-            border-left: 70px solid transparent;
-            border-right: 70px solid transparent;
-            border-bottom: 120px solid rgba(255, 43, 140, 0.2);
-            animation-delay: 4s;
-        }
-        
-        /* Modern Tech theme badges */
-        .tech-badges {
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        
-        /* Agency shapes animations */
-        body.theme-agency .agency-shapes div {
-            animation: pulse-shape 6s infinite alternate;
-        }
-        
-        @keyframes pulse-shape {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
-        
-        /* Portfolio theme enhancements */
-        body.theme-portfolio .section-content,
-        body.theme-portfolio .project-card {
-            background-color: rgba(0, 0, 50, 0.5);
-            border: 1px solid rgba(66, 153, 225, 0.3);
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+            position: relative;
+            display: inline-block;
         }
         
         body.theme-portfolio .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
             background-color: #4299e1;
-            height: 4px;
-            bottom: -12px;
-            width: 60px;
         }
         
-        body.theme-portfolio .contact-icon,
+        body.theme-portfolio .section-content {
+            background-color: rgba(26, 32, 44, 0.4);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        body.theme-portfolio .section-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.theme-portfolio .project-card {
+            background-color: rgba(26, 32, 44, 0.4);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        body.theme-portfolio .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.theme-portfolio .project-content h3 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+        
+        body.theme-portfolio .project-content p {
+            color: #a0aec0;
+        }
+        
+        body.theme-portfolio .contact-icon {
+            background: linear-gradient(135deg, #3b82f6, #805ad5);
+            color: white;
+        }
+        
+        body.theme-portfolio .contact-icon:hover {
+            transform: translateY(-5px);
+        }
+        
         body.theme-portfolio .social-link {
             background: linear-gradient(135deg, #3b82f6, #805ad5);
+            color: white;
         }
         
-        body.theme-portfolio .contact-item:hover .contact-icon {
+        body.theme-portfolio .social-link:hover {
+            transform: translateY(-5px);
             background: linear-gradient(135deg, #805ad5, #3b82f6);
         }
         
-        /* Additional styles for Terminal theme */
-        body.theme-terminal p {
-            font-family: 'Courier New', Courier, monospace;
-            color: #00ff00;
-        }
-        
-        body.theme-terminal .project-content p {
-            position: relative;
-            padding-left: 15px;
-        }
-        
-        body.theme-terminal .project-content p::before {
-            content: '
-        
-        body.theme-portfolio .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            color: #2a4365;
-        }
-        
-        body.theme-portfolio .hero-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            color: #4a5568;
-        }
-        
-        body.theme-portfolio .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #2a4365;
-            position: relative;
-            display: inline-block;
-        }
-        
-        body.theme-portfolio .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: #ed8936;
-        }
-        
-        body.theme-portfolio .section-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        body.theme-portfolio .section-content:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.theme-portfolio .project-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        body.theme-portfolio .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.theme-portfolio .project-content h3 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #2a4365;
-        }
-        
-        body.theme-portfolio .contact-icon {
-            background-color: #2a4365;
-            color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        body.theme-portfolio .contact-icon:hover {
-            transform: translateY(-5px);
-        }
-        
-        body.theme-portfolio .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #2a4365;
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        
-        body.theme-portfolio .social-link:hover {
-            transform: translateY(-5px);
-            background-color: #4299e1;
-        }
-        
         body.theme-portfolio .theme-indicator {
-            background-color: white;
-            color: #2a4365;
-            border-radius: 30px;
+            background-color: rgba(26, 32, 44, 0.4);
+            color: #e2e8f0;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            backdrop-filter: blur(10px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         body.theme-portfolio .theme-dot {
-            background-color: #2a4365;
+            background-color: #4299e1;
         }
         
         body.theme-portfolio footer {
             padding: 2rem 0;
             text-align: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            color: #718096;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0aec0;
         }
         
         body.theme-portfolio a {
@@ -2997,7 +2895,7 @@ body.theme-portfolio .container {
         }
         
         body.theme-portfolio a:hover {
-            color: #2b6cb0;
+            color: #63b3ed;
         }
         
         body.theme-portfolio a::after {
@@ -3017,980 +2915,6 @@ body.theme-portfolio .container {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
-        
-        /* Additional styles for portfolio theme particles */
-        body.theme-portfolio .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        body.theme-portfolio .particle {
-            position: absolute;
-            border-radius: 50%;
-            background-color: rgba(66, 153, 225, 0.5);
-            animation: floatParticle 15s linear infinite;
-        }
-        
-        @keyframes floatParticle {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(25px, 25px) rotate(90deg); }
-            50% { transform: translate(0, 50px) rotate(180deg); }
-            75% { transform: translate(-25px, 25px) rotate(270deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-        
-        /* Additional styles for Modern Tech theme stars */
-        body.theme-modern-tech .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        body.theme-modern-tech .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: twinkle 4s infinite;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Cube for portfolio theme */
-        body.theme-portfolio .cube-wrapper {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            perspective: 1000px;
-            margin-top: 30px;
-        }
-        
-        body.theme-portfolio .cube {
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-style: preserve-3d;
-            animation: rotate 20s infinite linear;
-        }
-        
-        @keyframes rotate {
-            0% { transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg); }
-            100% { transform: translateX(-50%) translateY(-50%) rotateX(360deg) rotateY(360deg); }
-        }
-        
-        body.theme-portfolio .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            opacity: 0.8;
-            background-color: rgba(66, 153, 225, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 20px rgba(66, 153, 225, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            transition: transform 0.5s ease;
-        }
-        
-        body.theme-portfolio .cube-face.front { transform: translateZ(100px); background-color: rgba(66, 153, 225, 0.8); }
-        body.theme-portfolio .cube-face.back { transform: rotateY(180deg) translateZ(100px); background-color: rgba(237, 137, 54, 0.8); }
-        body.theme-portfolio .cube-face.right { transform: rotateY(90deg) translateZ(100px); background-color: rgba(72, 187, 120, 0.8); }
-        body.theme-portfolio .cube-face.left { transform: rotateY(-90deg) translateZ(100px); background-color: rgba(237, 100, 166, 0.8); }
-        body.theme-portfolio .cube-face.top { transform: rotateX(90deg) translateZ(100px); background-color: rgba(128, 90, 213, 0.8); }
-        body.theme-portfolio .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); background-color: rgba(246, 173, 85, 0.8); }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">Ram Erlikh</a>
-                <button id="theme-button" class="theme-button">Change Theme</button>
-            </div>
-        </div>
-    </header>
-    <div class="container">
-        <section class="hero">
-            <div class="profile-container">
-                <div class="profile-pic" data-text="RAM">R</div>
-            </div>
-            <h1 data-text="Ram Erlikh">Ram Erlikh</h1>
-            <p class="hero-description">Developer & Creative focused on building innovative digital experiences that blend technology with artistic vision.</p>
-            <div class="social-links">
-                <a href="https://github.com/RamErlikh" class="social-link" target="_blank" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/ram-erlikh/" class="social-link" target="_blank" title="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="mailto:businessuniquryrn@gmail.com" class="social-link" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://bellettyarts.com" class="social-link" target="_blank" title="Belletty Arts">
-                    <i class="fas fa-palette"></i>
-                </a>
-            </div>
-        </section>
-        <section class="section" data-title="ABOUT">
-            <h2 class="section-title">About Me</h2>
-            <div class="section-content">
-                <p>Hello! I'm Ram Erlikh, a passionate developer with a creative edge. I love building innovative solutions and exploring new technologies.</p>
-                <p>My work spans across multiple disciplines, bringing together technical expertise and artistic vision to create impactful digital experiences.</p>
-                <p>Whether it's crafting clean code or developing creative concepts, I'm dedicated to excellence in everything I do.</p>
-            </div>
-        </section>
-        <section class="section" data-title="PROJECTS">
-            <h2 class="section-title">Projects & Websites</h2>
-            <div class="section-content">
-                <div class="projects-grid">
-                    <a href="https://bellettyarts.com" class="project-card" target="_blank">
-                        <div class="project-content">
-                            <h3>Belletty Arts</h3>
-                            <p>A creative platform showcasing artistic projects and design work.</p>
-                        </div>
-                    </a>
-                    <a href="https://github.com/RamErlikh" class="project-card" target="_blank">
-                        <div class="project-content">
-                            <h3>GitHub Projects</h3>
-                            <p>Explore my open-source contributions and personal projects.</p>
-                        </div>
-                    </a>
-                    <a href="https://www.linkedin.com/in/ram-erlikh/" class="project-card" target="_blank">
-                        <div class="project-content">
-                            <h3>Professional Work</h3>
-                            <p>View my professional experience and career highlights.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-        <section class="section" data-title="CONTACT">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="section-content">
-                <div class="contact-items">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>Email</h3>
-                            <a href="mailto:businessuniquryrn@gmail.com">businessuniquryrn@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>LinkedIn</h3>
-                            <a href="https://www.linkedin.com/in/ram-erlikh/" target="_blank">linkedin.com/in/ram-erlikh</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>GitHub</h3>
-                            <a href="https://github.com/RamErlikh" target="_blank">github.com/RamErlikh</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Ram Erlikh | Current Theme: <span id="current-theme">Modern</span></p>
-        </div>
-    </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Define all themes
-            const themes = [
-                { name: 'Modern', class: '' },
-                { name: 'Dark Mode', class: 'theme-dark' },
-                { name: 'Neon', class: 'theme-neon' },
-                { name: 'Terminal', class: 'theme-terminal' },
-                { name: 'Windows XP', class: 'theme-xp' },
-                { name: 'Modern Tech', class: 'theme-modern-tech' },
-                { name: 'Cyberpunk', class: 'theme-cyberpunk' },
-                { name: 'Minimalist', class: 'theme-minimalist' },
-                { name: 'Creative Agency', class: 'theme-agency' },
-                { name: 'Portfolio', class: 'theme-portfolio' }
-            ];
-            
-            let currentThemeIndex = 0;
-            const themeButton = document.getElementById('theme-button');
-            const themeDisplay = document.getElementById('theme-display');
-            const currentThemeSpan = document.getElementById('current-theme');
-            
-            // Special theme customizations
-            function applySpecialThemeEffects(themeClass) {
-                // Terminal theme typing effect
-                if (themeClass === 'theme-terminal') {
-                    const paragraphs = document.querySelectorAll('p:not(.processed)');
-                    
-                    // Remove existing terminal-typing class
-                    const terminalDivs = document.querySelectorAll('.terminal-typing');
-                    terminalDivs.forEach(div => {
-                        const parent = div.parentNode;
-                        while (div.firstChild) {
-                            parent.insertBefore(div.firstChild, div);
-                        }
-                        parent.removeChild(div);
-                    });
-                    
-                    // Apply to each paragraph
-                    paragraphs.forEach((p, index) => {
-                        p.classList.add('processed');
-                        const text = p.textContent;
-                        p.textContent = '';
-                        
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'terminal-typing';
-                        p.parentNode.insertBefore(wrapper, p);
-                        
-                        const newP = document.createElement('p');
-                        newP.textContent = text;
-                        newP.style.setProperty('--i', index);
-                        wrapper.appendChild(newP);
-                        
-                        p.parentNode.removeChild(p);
-                    });
-                }
-                
-                // Add custom ASCII art for terminal theme profile pic
-                if (themeClass === 'theme-terminal') {
-                    const profilePic = document.querySelector('.profile-pic');
-                    if (profilePic) {
-                        profilePic.innerHTML = '';
-                    }
-                }
-                
-                // Add 3D cube for portfolio theme
-                if (themeClass === 'theme-portfolio') {
-                    // Check if cube wrapper already exists
-                    let cubeWrapper = document.querySelector('.cube-wrapper');
-                    if (!cubeWrapper) {
-                        cubeWrapper = document.createElement('div');
-                        cubeWrapper.className = 'cube-wrapper';
-                        
-                        const cube = document.createElement('div');
-                        cube.className = 'cube';
-                        
-                        const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
-                        const contents = ['R', 'E', 'Web', 'Dev', '2025', '🚀'];
-                        
-                        faces.forEach((face, index) => {
-                            const cubeFace = document.createElement('div');
-                            cubeFace.className = `cube-face ${face}`;
-                            cubeFace.textContent = contents[index];
-                            cube.appendChild(cubeFace);
-                        });
-                        
-                        cubeWrapper.appendChild(cube);
-                        document.querySelector('.hero').appendChild(cubeWrapper);
-                    }
-                } else {
-                    // Remove cube if not portfolio theme
-                    const cubeWrapper = document.querySelector('.cube-wrapper');
-                    if (cubeWrapper) {
-                        cubeWrapper.remove();
-                    }
-                }
-                
-                // Gaming RGB theme text effect
-                if (themeClass === 'theme-gaming') {
-                    const profileName = document.querySelector('.hero h1');
-                    if (profileName && profileName.dataset.text) {
-                        profileName.setAttribute('data-text', profileName.textContent);
-                    }
-                }
-                
-                // XP theme cursor
-                if (themeClass === 'theme-xp') {
-                    document.body.style.cursor = 'default';
-                } else {
-                    document.body.style.cursor = '';
-                }
-            }
-            
-            // Function to update the theme
-            function setTheme(index) {
-                // Remove all theme classes
-                themes.forEach(theme => {
-                    if (theme.class) {
-                        document.body.classList.remove(theme.class);
-                    }
-                });
-                
-                // Add the current theme class
-                const currentTheme = themes[index];
-                if (currentTheme.class) {
-                    document.body.classList.add(currentTheme.class);
-                }
-                
-                // Update theme name displays
-                if (themeDisplay) themeDisplay.textContent = currentTheme.name;
-                if (currentThemeSpan) currentThemeSpan.textContent = currentTheme.name;
-                
-                // Clean up any theme-specific elements
-                cleanupThemeElements();
-                
-                // Fade effect
-                document.body.style.opacity = '0.7';
-                setTimeout(() => {
-                    document.body.style.opacity = '1';
-                    
-                    // Apply special theme effects
-                    if (currentTheme.class) {
-                        setTimeout(() => {
-                            applySpecialThemeEffects(currentTheme.class);
-                            createStarsEffect();
-                            createPortfolioParticles();
-                            addThemeSpecificDecorations(currentTheme.class);
-                            createCube(); // Create 3D cube specifically
-                            
-                            // Update section data attributes for Terminal theme
-                            if (currentTheme.class === 'theme-terminal') {
-                                document.querySelectorAll('.section').forEach(section => {
-                                    const titleEl = section.querySelector('.section-title');
-                                    if (titleEl) {
-                                        section.setAttribute('data-title', titleEl.textContent.toUpperCase());
-                                    }
-                                });
-                            }
-                        }, 200);
-                    }
-                }, 300);
-                
-                currentThemeIndex = index;
-            }
-            
-            // Clean up any theme-specific elements
-            function cleanupThemeElements() {
-                // Remove particles, stars, decorations, etc.
-                const particles = document.querySelector('.particles');
-                if (particles) particles.remove();
-                
-                const stars = document.getElementById('stars');
-                if (stars) stars.remove();
-                
-                const cubeWrapper = document.querySelector('.cube-wrapper');
-                if (cubeWrapper) cubeWrapper.remove();
-                
-                const decorations = document.querySelectorAll('.theme-decoration');
-                decorations.forEach(el => el.remove());
-                
-                // Reset profile pic content
-                const profilePic = document.querySelector('.profile-pic');
-                if (profilePic) {
-                    profilePic.innerHTML = 'R';
-                }
-            }
-            
-            // Create 3D cube for portfolio theme
-            function createCube() {
-                if (document.body.classList.contains('theme-portfolio')) {
-                    // Check if cube wrapper already exists
-                    let cubeWrapper = document.querySelector('.cube-wrapper');
-                    if (!cubeWrapper) {
-                        // Create the cube wrapper
-                        cubeWrapper = document.createElement('div');
-                        cubeWrapper.className = 'cube-wrapper';
-                        cubeWrapper.style.width = '100%';
-                        cubeWrapper.style.height = '300px';
-                        cubeWrapper.style.position = 'relative';
-                        cubeWrapper.style.perspective = '1000px';
-                        cubeWrapper.style.margin = '20px auto';
-                        
-                        // Create the cube
-                        const cube = document.createElement('div');
-                        cube.className = 'cube';
-                        cube.style.width = '200px';
-                        cube.style.height = '200px';
-                        cube.style.position = 'absolute';
-                        cube.style.top = '50%';
-                        cube.style.left = '50%';
-                        cube.style.transformStyle = 'preserve-3d';
-                        cube.style.animation = 'rotate 15s infinite linear';
-                        cube.style.transform = 'translateX(-50%) translateY(-50%)';
-                        
-                        // Create and style each face of the cube
-                        const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
-                        const contents = ['R', 'E', 'Web', 'Dev', '2025', '🚀'];
-                        const colors = [
-                            'rgba(59, 130, 246, 0.9)', // front - blue
-                            'rgba(220, 38, 38, 0.9)',  // back - red
-                            'rgba(16, 185, 129, 0.9)', // right - green
-                            'rgba(217, 70, 239, 0.9)', // left - purple
-                            'rgba(245, 158, 11, 0.9)', // top - orange
-                            'rgba(14, 165, 233, 0.9)'  // bottom - sky blue
-                        ];
-                        
-                        // Create each face with proper transforms
-                        faces.forEach((face, index) => {
-                            const cubeFace = document.createElement('div');
-                            cubeFace.className = `cube-face ${face}`;
-                            cubeFace.style.position = 'absolute';
-                            cubeFace.style.width = '200px';
-                            cubeFace.style.height = '200px';
-                            cubeFace.style.backgroundColor = colors[index];
-                            cubeFace.style.border = '2px solid white';
-                            cubeFace.style.display = 'flex';
-                            cubeFace.style.alignItems = 'center';
-                            cubeFace.style.justifyContent = 'center';
-                            cubeFace.style.fontSize = '2.5rem';
-                            cubeFace.style.fontWeight = 'bold';
-                            cubeFace.style.color = 'white';
-                            cubeFace.style.textShadow = '1px 1px 3px rgba(0,0,0,0.3)';
-                            cubeFace.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
-                            
-                            // Apply transform based on face position
-                            switch(face) {
-                                case 'front':
-                                    cubeFace.style.transform = 'translateZ(100px)';
-                                    break;
-                                case 'back':
-                                    cubeFace.style.transform = 'rotateY(180deg) translateZ(100px)';
-                                    break;
-                                case 'right':
-                                    cubeFace.style.transform = 'rotateY(90deg) translateZ(100px)';
-                                    break;
-                                case 'left':
-                                    cubeFace.style.transform = 'rotateY(-90deg) translateZ(100px)';
-                                    break;
-                                case 'top':
-                                    cubeFace.style.transform = 'rotateX(90deg) translateZ(100px)';
-                                    break;
-                                case 'bottom':
-                                    cubeFace.style.transform = 'rotateX(-90deg) translateZ(100px)';
-                                    break;
-                            }
-                            
-                            // Set content
-                            cubeFace.textContent = contents[index];
-                            
-                            // Add hover effect
-                            cubeFace.addEventListener('mouseenter', () => {
-                                cubeFace.style.transform = cubeFace.style.transform.replace('100px', '120px');
-                            });
-                            
-                            cubeFace.addEventListener('mouseleave', () => {
-                                cubeFace.style.transform = cubeFace.style.transform.replace('120px', '100px');
-                            });
-                            
-                            cube.appendChild(cubeFace);
-                        });
-                        
-                        // Add cube to wrapper and insert in the page
-                        cubeWrapper.appendChild(cube);
-                        
-                        // Add CSS animation for rotation
-                        const style = document.createElement('style');
-                        style.textContent = `
-                            @keyframes rotate {
-                                0% { transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg); }
-                                100% { transform: translateX(-50%) translateY(-50%) rotateX(360deg) rotateY(360deg); }
-                            }
-                        `;
-                        document.head.appendChild(style);
-                        
-                        // Insert after hero section
-                        const hero = document.querySelector('.hero');
-                        if (hero) {
-                            hero.appendChild(cubeWrapper);
-                        }
-                    }
-                } else {
-                    // Remove cube if not portfolio theme
-                    const cubeWrapper = document.querySelector('.cube-wrapper');
-                    if (cubeWrapper) {
-                        cubeWrapper.remove();
-                    }
-                }
-            }
-            
-            // Change theme button listener
-            if (themeButton) {
-                themeButton.addEventListener('click', function() {
-                    // Add click animation
-                    this.classList.add('animate__animated', 'animate__pulse');
-                    setTimeout(() => {
-                        this.classList.remove('animate__animated', 'animate__pulse');
-                    }, 1000);
-                    
-                    // Get next theme
-                    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-                    setTheme(currentThemeIndex);
-                });
-            }
-            
-            // Easter egg: Konami code
-            let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-            let konamiIndex = 0;
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === konamiCode[konamiIndex]) {
-                    konamiIndex++;
-                    if (konamiIndex === konamiCode.length) {
-                        // Easter egg activated - cycle through all themes
-                        alert('Konami code activated! Cycling through all themes...');
-                        
-                        let themeIndex = 0;
-                        const interval = setInterval(() => {
-                            setTheme(themeIndex);
-                            themeIndex = (themeIndex + 1) % themes.length;
-                            if (themeIndex === 0) {
-                                clearInterval(interval);
-                            }
-                        }, 2000);
-                        
-                        konamiIndex = 0;
-                    }
-                } else {
-                    konamiIndex = 0;
-                }
-            });
-            
-            // Animate elements on scroll
-            function animateOnScroll() {
-                const elements = document.querySelectorAll('.section, .project-card, .contact-item');
-                
-                elements.forEach(element => {
-                    const position = element.getBoundingClientRect();
-                    
-                    // If element is in viewport
-                    if (position.top < window.innerHeight && position.bottom >= 0) {
-                        element.classList.add('animate__animated', 'animate__fadeInUp');
-                    }
-                });
-            }
-            
-            // Listen for scroll events
-            window.addEventListener('scroll', animateOnScroll);
-            
-            // Add interactive hover effects 
-            const cards = document.querySelectorAll('.project-card, .contact-item');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = this.style.transform + ' scale(1.03)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = this.style.transform.replace(' scale(1.03)', '');
-                });
-            });
-            
-            // Profile pic interaction
-            const profilePic = document.querySelector('.profile-pic');
-            if (profilePic) {
-                profilePic.addEventListener('click', function() {
-                    this.classList.add('animate__animated', 'animate__rubberBand');
-                    setTimeout(() => {
-                        this.classList.remove('animate__animated', 'animate__rubberBand');
-                    }, 1000);
-                });
-            }
-            
-            // Call once on load
-            setTimeout(animateOnScroll, 500);
-            
-            // Set initial theme
-            setTheme(currentThemeIndex);
-            
-            // Make theme indicator clickable to show current theme name
-            const themeIndicator = document.querySelector('.theme-indicator');
-            if (themeIndicator) {
-                themeIndicator.addEventListener('click', function() {
-                    themeButton.click();
-                });
-            }
-            
-            // Create particles for Portfolio theme
-            function createPortfolioParticles() {
-                if (document.body.classList.contains('theme-portfolio')) {
-                    const particles = document.createElement('div');
-                    particles.className = 'particles';
-                    document.querySelector('.hero').appendChild(particles);
-                    
-                    const particleCount = 50;
-                    for (let i = 0; i < particleCount; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'particle';
-                        
-                        // Random size between 2px and 6px
-                        const size = Math.random() * 4 + 2;
-                        particle.style.width = `${size}px`;
-                        particle.style.height = `${size}px`;
-                        
-                        // Random position
-                        const posX = Math.random() * 100;
-                        const posY = Math.random() * 100;
-                        particle.style.left = `${posX}%`;
-                        particle.style.top = `${posY}%`;
-                        
-                        // Random opacity
-                        particle.style.opacity = Math.random() * 0.5 + 0.3;
-                        
-                        particles.appendChild(particle);
-                    }
-                } else {
-                    const particles = document.querySelector('.particles');
-                    if (particles) {
-                        particles.remove();
-                    }
-                }
-            }
-            
-            // Create stars effect for Modern Tech theme
-            function createStarsEffect() {
-                if (document.body.classList.contains('theme-modern-tech')) {
-                    const stars = document.createElement('div');
-                    stars.className = 'stars';
-                    stars.id = 'stars';
-                    document.body.appendChild(stars);
-                    
-                    const starCount = 100;
-                    for (let i = 0; i < starCount; i++) {
-                        const star = document.createElement('div');
-                        star.classList.add('star');
-                        const x = Math.random() * 100;
-                        const y = Math.random() * 100;
-                        const size = Math.random() * 2 + 1;
-                        const delay = Math.random() * 4;
-                        star.style.top = `${y}%`;
-                        star.style.left = `${x}%`;
-                        star.style.width = `${size}px`;
-                        star.style.height = `${size}px`;
-                        star.style.animationDelay = `${delay}s`;
-                        stars.appendChild(star);
-                    }
-                } else {
-                    const stars = document.getElementById('stars');
-                    if (stars) {
-                        stars.remove();
-                    }
-                }
-        });
-    </script>
-</body>
-</html
-
-<style>
-            position: absolute;
-            left: 0;
-            color: #00aa00;
-        }
-        
-        /* Additional styles for Neon theme */
-        body.theme-neon .logo,
-        body.theme-neon .section-title,
-        body.theme-neon h1 {
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-        }
-        
-        body.theme-neon .project-content h3 {
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-        }
-        
-        /* Additional styles for Dark theme */
-        body.theme-dark .logo::before {
-            width: 15px;
-            height: 15px;
-            transform: rotate(45deg);
-            animation: rotate-glow 3s linear infinite;
-        }
-        
-        @keyframes rotate-glow {
-            0% { transform: rotate(0deg); box-shadow: 0 0 10px #60a5fa; }
-            100% { transform: rotate(360deg); box-shadow: 0 0 20px #60a5fa; }
-        }
-        
-        body.theme-dark .section-title {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Windows XP additional styles */
-        body.theme-xp .section-content {
-            position: relative;
-        }
-        
-        body.theme-xp .section-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 25px;
-            background: linear-gradient(to bottom, #2860b1, #5888e0);
-            border-bottom: 1px solid #1541a4;
-        }
-        
-        body.theme-xp .section-title {
-            margin-top: 15px;
-        }
-        
-        body.theme-portfolio .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            color: #2a4365;
-        }
-        
-        body.theme-portfolio .hero-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            color: #4a5568;
-        }
-        
-        body.theme-portfolio .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #2a4365;
-            position: relative;
-            display: inline-block;
-        }
-        
-        body.theme-portfolio .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: #ed8936;
-        }
-        
-        body.theme-portfolio .section-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        body.theme-portfolio .section-content:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.theme-portfolio .project-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        body.theme-portfolio .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.theme-portfolio .project-content h3 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #2a4365;
-        }
-        
-        body.theme-portfolio .contact-icon {
-            background-color: #2a4365;
-            color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        body.theme-portfolio .contact-icon:hover {
-            transform: translateY(-5px);
-        }
-        
-        body.theme-portfolio .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #2a4365;
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        
-        body.theme-portfolio .social-link:hover {
-            transform: translateY(-5px);
-            background-color: #4299e1;
-        }
-        
-        body.theme-portfolio .theme-indicator {
-            background-color: white;
-            color: #2a4365;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.theme-portfolio .theme-dot {
-            background-color: #2a4365;
-        }
-        
-        body.theme-portfolio footer {
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            color: #718096;
-        }
-        
-        body.theme-portfolio a {
-            color: #4299e1;
-            text-decoration: none;
-            position: relative;
-        }
-        
-        body.theme-portfolio a:hover {
-            color: #2b6cb0;
-        }
-        
-        body.theme-portfolio a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #4299e1;
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease;
-        }
-        
-        body.theme-portfolio a:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-        
-        /* Additional styles for portfolio theme particles */
-        body.theme-portfolio .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        body.theme-portfolio .particle {
-            position: absolute;
-            border-radius: 50%;
-            background-color: rgba(66, 153, 225, 0.5);
-            animation: floatParticle 15s linear infinite;
-        }
-        
-        @keyframes floatParticle {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(25px, 25px) rotate(90deg); }
-            50% { transform: translate(0, 50px) rotate(180deg); }
-            75% { transform: translate(-25px, 25px) rotate(270deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-        
-        /* Additional styles for Modern Tech theme stars */
-        body.theme-modern-tech .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        body.theme-modern-tech .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: twinkle 4s infinite;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Cube for portfolio theme */
-        body.theme-portfolio .cube-wrapper {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            perspective: 1000px;
-            margin-top: 30px;
-        }
-        
-        body.theme-portfolio .cube {
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-style: preserve-3d;
-            animation: rotate 20s infinite linear;
-        }
-        
-        @keyframes rotate {
-            0% { transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg); }
-            100% { transform: translateX(-50%) translateY(-50%) rotateX(360deg) rotateY(360deg); }
-        }
-        
-        body.theme-portfolio .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            opacity: 0.8;
-            background-color: rgba(66, 153, 225, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 20px rgba(66, 153, 225, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            transition: transform 0.5s ease;
-        }
-        
-        body.theme-portfolio .cube-face.front { transform: translateZ(100px); background-color: rgba(66, 153, 225, 0.8); }
-        body.theme-portfolio .cube-face.back { transform: rotateY(180deg) translateZ(100px); background-color: rgba(237, 137, 54, 0.8); }
-        body.theme-portfolio .cube-face.right { transform: rotateY(90deg) translateZ(100px); background-color: rgba(72, 187, 120, 0.8); }
-        body.theme-portfolio .cube-face.left { transform: rotateY(-90deg) translateZ(100px); background-color: rgba(237, 100, 166, 0.8); }
-        body.theme-portfolio .cube-face.top { transform: rotateX(90deg) translateZ(100px); background-color: rgba(128, 90, 213, 0.8); }
-        body.theme-portfolio .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); background-color: rgba(246, 173, 85, 0.8); }
     </style>
 </head>
 <body>
@@ -4035,19 +2959,19 @@ body.theme-portfolio .container {
         <section class="section" data-title="PROJECTS">
             <h2 class="section-title">Projects & Websites</h2>
             <div class="projects-grid">
-                <a href="https://bellettyarts.com" class="project-card" target="_blank" style="--random-rotation: -2deg;">
+                <a href="https://bellettyarts.com" class="project-card" target="_blank">
                     <div class="project-content">
                         <h3>Belletty Arts</h3>
                         <p>A creative platform showcasing artistic projects and design work.</p>
                     </div>
                 </a>
-                <a href="https://github.com/RamErlikh" class="project-card" target="_blank" style="--random-rotation: 1deg;">
+                <a href="https://github.com/RamErlikh" class="project-card" target="_blank">
                     <div class="project-content">
                         <h3>GitHub Projects</h3>
                         <p>Explore my open-source contributions and personal projects.</p>
                     </div>
                 </a>
-                <a href="https://www.linkedin.com/in/ram-erlikh/" class="project-card" target="_blank" style="--random-rotation: -1deg;">
+                <a href="https://www.linkedin.com/in/ram-erlikh/" class="project-card" target="_blank">
                     <div class="project-content">
                         <h3>Professional Work</h3>
                         <p>View my professional experience and career highlights.</p>
@@ -4113,99 +3037,7 @@ body.theme-portfolio .container {
             
             let currentThemeIndex = 0;
             const themeButton = document.getElementById('theme-button');
-            const themeDisplay = document.getElementById('theme-display');
             const currentThemeSpan = document.getElementById('current-theme');
-            
-            // Special theme customizations
-            function applySpecialThemeEffects(themeClass) {
-                // Terminal theme typing effect
-                if (themeClass === 'theme-terminal') {
-                    const paragraphs = document.querySelectorAll('p:not(.processed)');
-                    
-                    // Remove existing terminal-typing class
-                    const terminalDivs = document.querySelectorAll('.terminal-typing');
-                    terminalDivs.forEach(div => {
-                        const parent = div.parentNode;
-                        while (div.firstChild) {
-                            parent.insertBefore(div.firstChild, div);
-                        }
-                        parent.removeChild(div);
-                    });
-                    
-                    // Apply to each paragraph
-                    paragraphs.forEach((p, index) => {
-                        p.classList.add('processed');
-                        const text = p.textContent;
-                        p.textContent = '';
-                        
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'terminal-typing';
-                        p.parentNode.insertBefore(wrapper, p);
-                        
-                        const newP = document.createElement('p');
-                        newP.textContent = text;
-                        newP.style.setProperty('--i', index);
-                        wrapper.appendChild(newP);
-                        
-                        p.parentNode.removeChild(p);
-                    });
-                }
-                
-                // Add custom ASCII art for terminal theme profile pic
-                if (themeClass === 'theme-terminal') {
-                    const profilePic = document.querySelector('.profile-pic');
-                    if (profilePic) {
-                        profilePic.innerHTML = '';
-                    }
-                }
-                
-                // Add 3D cube for portfolio theme
-                if (themeClass === 'theme-portfolio') {
-                    // Check if cube wrapper already exists
-                    let cubeWrapper = document.querySelector('.cube-wrapper');
-                    if (!cubeWrapper) {
-                        cubeWrapper = document.createElement('div');
-                        cubeWrapper.className = 'cube-wrapper';
-                        
-                        const cube = document.createElement('div');
-                        cube.className = 'cube';
-                        
-                        const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
-                        const contents = ['R', 'E', 'Web', 'Dev', '2025', '🚀'];
-                        
-                        faces.forEach((face, index) => {
-                            const cubeFace = document.createElement('div');
-                            cubeFace.className = `cube-face ${face}`;
-                            cubeFace.textContent = contents[index];
-                            cube.appendChild(cubeFace);
-                        });
-                        
-                        cubeWrapper.appendChild(cube);
-                        document.querySelector('.hero').appendChild(cubeWrapper);
-                    }
-                } else {
-                    // Remove cube if not portfolio theme
-                    const cubeWrapper = document.querySelector('.cube-wrapper');
-                    if (cubeWrapper) {
-                        cubeWrapper.remove();
-                    }
-                }
-                
-                // Gaming RGB theme text effect
-                if (themeClass === 'theme-gaming') {
-                    const profileName = document.querySelector('.hero h1');
-                    if (profileName && profileName.dataset.text) {
-                        profileName.setAttribute('data-text', profileName.textContent);
-                    }
-                }
-                
-                // XP theme cursor
-                if (themeClass === 'theme-xp') {
-                    document.body.style.cursor = 'default';
-                } else {
-                    document.body.style.cursor = '';
-                }
-            }
             
             // Function to update the theme
             function setTheme(index) {
@@ -4223,7 +3055,6 @@ body.theme-portfolio .container {
                 }
                 
                 // Update theme name displays
-                if (themeDisplay) themeDisplay.textContent = currentTheme.name;
                 if (currentThemeSpan) currentThemeSpan.textContent = currentTheme.name;
                 
                 // Clean up any theme-specific elements
@@ -4277,6 +3108,167 @@ body.theme-portfolio .container {
                 const profilePic = document.querySelector('.profile-pic');
                 if (profilePic) {
                     profilePic.innerHTML = 'R';
+                }
+            }
+            
+            // Special theme customizations
+            function applySpecialThemeEffects(themeClass) {
+                // Terminal theme typing effect
+                if (themeClass === 'theme-terminal') {
+                    const paragraphs = document.querySelectorAll('p:not(.processed)');
+                    
+                    // Remove existing terminal-typing class
+                    const terminalDivs = document.querySelectorAll('.terminal-typing');
+                    terminalDivs.forEach(div => {
+                        const parent = div.parentNode;
+                        while (div.firstChild) {
+                            parent.insertBefore(div.firstChild, div);
+                        }
+                        parent.removeChild(div);
+                    });
+                    
+                    // Apply to each paragraph
+                    paragraphs.forEach((p, index) => {
+                        p.classList.add('processed');
+                        const text = p.textContent;
+                        p.textContent = '';
+                        
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'terminal-typing';
+                        p.parentNode.insertBefore(wrapper, p);
+                        
+                        const newP = document.createElement('p');
+                        newP.textContent = text;
+                        newP.style.setProperty('--i', index);
+                        wrapper.appendChild(newP);
+                        
+                        p.parentNode.removeChild(p);
+                    });
+                }
+                
+                // Add custom ASCII art for terminal theme profile pic
+                if (themeClass === 'theme-terminal') {
+                    const profilePic = document.querySelector('.profile-pic');
+                    if (profilePic) {
+                        profilePic.innerHTML = '';
+                    }
+                }
+                
+                // Add 3D cube for portfolio theme
+                if (themeClass === 'theme-portfolio') {
+                    createCube();
+                }
+                
+                // XP theme cursor
+                if (themeClass === 'theme-xp') {
+                    document.body.style.cursor = 'default';
+                } else {
+                    document.body.style.cursor = '';
+                }
+            }
+            
+            // Create 3D cube for portfolio theme
+            function createCube() {
+                // Check if cube wrapper already exists
+                let cubeWrapper = document.querySelector('.cube-wrapper');
+                if (!cubeWrapper) {
+                    // Create the cube wrapper
+                    cubeWrapper = document.createElement('div');
+                    cubeWrapper.className = 'cube-wrapper';
+                    cubeWrapper.style.width = '100%';
+                    cubeWrapper.style.height = '300px';
+                    cubeWrapper.style.position = 'relative';
+                    cubeWrapper.style.perspective = '1000px';
+                    cubeWrapper.style.margin = '20px auto';
+                    
+                    // Create the cube
+                    const cube = document.createElement('div');
+                    cube.className = 'cube';
+                    cube.style.width = '200px';
+                    cube.style.height = '200px';
+                    cube.style.position = 'absolute';
+                    cube.style.top = '50%';
+                    cube.style.left = '50%';
+                    cube.style.transformStyle = 'preserve-3d';
+                    cube.style.animation = 'rotate 15s infinite linear';
+                    cube.style.transform = 'translateX(-50%) translateY(-50%)';
+                    
+                    // Create and style each face of the cube
+                    const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+                    const contents = ['R', 'E', 'Web', 'Dev', '2025', '🚀'];
+                    const colors = [
+                        'rgba(59, 130, 246, 0.9)', // front - blue
+                        'rgba(220, 38, 38, 0.9)',  // back - red
+                        'rgba(16, 185, 129, 0.9)', // right - green
+                        'rgba(217, 70, 239, 0.9)', // left - purple
+                        'rgba(245, 158, 11, 0.9)', // top - orange
+                        'rgba(14, 165, 233, 0.9)'  // bottom - sky blue
+                    ];
+                    
+                    // Create each face with proper transforms
+                    faces.forEach((face, index) => {
+                        const cubeFace = document.createElement('div');
+                        cubeFace.className = `cube-face ${face}`;
+                        cubeFace.style.position = 'absolute';
+                        cubeFace.style.width = '200px';
+                        cubeFace.style.height = '200px';
+                        cubeFace.style.backgroundColor = colors[index];
+                        cubeFace.style.border = '2px solid white';
+                        cubeFace.style.display = 'flex';
+                        cubeFace.style.alignItems = 'center';
+                        cubeFace.style.justifyContent = 'center';
+                        cubeFace.style.fontSize = '2.5rem';
+                        cubeFace.style.fontWeight = 'bold';
+                        cubeFace.style.color = 'white';
+                        cubeFace.style.textShadow = '1px 1px 3px rgba(0,0,0,0.3)';
+                        cubeFace.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+                        
+                        // Apply transform based on face position
+                        switch(face) {
+                            case 'front':
+                                cubeFace.style.transform = 'translateZ(100px)';
+                                break;
+                            case 'back':
+                                cubeFace.style.transform = 'rotateY(180deg) translateZ(100px)';
+                                break;
+                            case 'right':
+                                cubeFace.style.transform = 'rotateY(90deg) translateZ(100px)';
+                                break;
+                            case 'left':
+                                cubeFace.style.transform = 'rotateY(-90deg) translateZ(100px)';
+                                break;
+                            case 'top':
+                                cubeFace.style.transform = 'rotateX(90deg) translateZ(100px)';
+                                break;
+                            case 'bottom':
+                                cubeFace.style.transform = 'rotateX(-90deg) translateZ(100px)';
+                                break;
+                        }
+                        
+                        // Set content
+                        cubeFace.textContent = contents[index];
+                        
+                        cube.appendChild(cubeFace);
+                    });
+                    
+                    // Add cube to wrapper and insert in the page
+                    cubeWrapper.appendChild(cube);
+                    
+                    // Add CSS animation for rotation
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes rotate {
+                            0% { transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg); }
+                            100% { transform: translateX(-50%) translateY(-50%) rotateX(360deg) rotateY(360deg); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    // Insert after hero section
+                    const hero = document.querySelector('.hero');
+                    if (hero) {
+                        hero.appendChild(cubeWrapper);
+                    }
                 }
             }
             
@@ -4377,15 +3369,123 @@ body.theme-portfolio .container {
                 }
             }
             
+            // Create particles for Portfolio theme
+            function createPortfolioParticles() {
+                if (document.body.classList.contains('theme-portfolio')) {
+                    const particles = document.createElement('div');
+                    particles.className = 'particles';
+                    particles.style.position = 'absolute';
+                    particles.style.top = '0';
+                    particles.style.left = '0';
+                    particles.style.width = '100%';
+                    particles.style.height = '100%';
+                    particles.style.overflow = 'hidden';
+                    particles.style.pointerEvents = 'none';
+                    particles.style.zIndex = '-1';
+                    
+                    document.querySelector('.hero').appendChild(particles);
+                    
+                    const particleCount = 50;
+                    for (let i = 0; i < particleCount; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.position = 'absolute';
+                        particle.style.borderRadius = '50%';
+                        particle.style.backgroundColor = 'rgba(66, 153, 225, 0.5)';
+                        
+                        // Random size between 2px and 6px
+                        const size = Math.random() * 4 + 2;
+                        particle.style.width = `${size}px`;
+                        particle.style.height = `${size}px`;
+                        
+                        // Random position
+                        const posX = Math.random() * 100;
+                        const posY = Math.random() * 100;
+                        particle.style.left = `${posX}%`;
+                        particle.style.top = `${posY}%`;
+                        
+                        // Random opacity
+                        particle.style.opacity = Math.random() * 0.5 + 0.3;
+                        
+                        // Animation
+                        particle.style.animation = 'floatParticle 15s linear infinite';
+                        
+                        particles.appendChild(particle);
+                    }
+                    
+                    // Add animation keyframes
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes floatParticle {
+                            0% { transform: translate(0, 0) rotate(0deg); }
+                            25% { transform: translate(25px, 25px) rotate(90deg); }
+                            50% { transform: translate(0, 50px) rotate(180deg); }
+                            75% { transform: translate(-25px, 25px) rotate(270deg); }
+                            100% { transform: translate(0, 0) rotate(360deg); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+            
+            // Create stars effect for Modern Tech theme
+            function createStarsEffect() {
+                if (document.body.classList.contains('theme-modern-tech')) {
+                    const stars = document.createElement('div');
+                    stars.className = 'stars';
+                    stars.id = 'stars';
+                    stars.style.position = 'fixed';
+                    stars.style.top = '0';
+                    stars.style.left = '0';
+                    stars.style.width = '100%';
+                    stars.style.height = '100%';
+                    stars.style.zIndex = '-1';
+                    stars.style.pointerEvents = 'none';
+                    
+                    document.body.appendChild(stars);
+                    
+                    const starCount = 100;
+                    for (let i = 0; i < starCount; i++) {
+                        const star = document.createElement('div');
+                        star.classList.add('star');
+                        star.style.position = 'absolute';
+                        star.style.backgroundColor = '#fff';
+                        star.style.borderRadius = '50%';
+                        star.style.opacity = '0.5';
+                        star.style.animation = 'twinkle 4s infinite';
+                        
+                        // Random position
+                        const x = Math.random() * 100;
+                        const y = Math.random() * 100;
+                        // Random size
+                        const size = Math.random() * 2 + 1;
+                        // Random delay
+                        const delay = Math.random() * 4;
+                        
+                        star.style.top = `${y}%`;
+                        star.style.left = `${x}%`;
+                        star.style.width = `${size}px`;
+                        star.style.height = `${size}px`;
+                        star.style.animationDelay = `${delay}s`;
+                        
+                        stars.appendChild(star);
+                    }
+                    
+                    // Add animation keyframes
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes twinkle {
+                            0%, 100% { opacity: 0.2; }
+                            50% { opacity: 0.8; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+            
             // Change theme button listener
             if (themeButton) {
                 themeButton.addEventListener('click', function() {
-                    // Add click animation
-                    this.classList.add('animate__animated', 'animate__pulse');
-                    setTimeout(() => {
-                        this.classList.remove('animate__animated', 'animate__pulse');
-                    }, 1000);
-                    
                     // Get next theme
                     currentThemeIndex = (currentThemeIndex + 1) % themes.length;
                     setTheme(currentThemeIndex);
@@ -4464,81 +3564,6 @@ body.theme-portfolio .container {
             
             // Set initial theme
             setTheme(currentThemeIndex);
-            
-            // Make theme indicator clickable to show current theme name
-            const themeIndicator = document.querySelector('.theme-indicator');
-            if (themeIndicator) {
-                themeIndicator.addEventListener('click', function() {
-                    themeButton.click();
-                });
-            }
-            
-            // Create particles for Portfolio theme
-            function createPortfolioParticles() {
-                if (document.body.classList.contains('theme-portfolio')) {
-                    const particles = document.createElement('div');
-                    particles.className = 'particles';
-                    document.querySelector('.hero').appendChild(particles);
-                    
-                    const particleCount = 50;
-                    for (let i = 0; i < particleCount; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'particle';
-                        
-                        // Random size between 2px and 6px
-                        const size = Math.random() * 4 + 2;
-                        particle.style.width = `${size}px`;
-                        particle.style.height = `${size}px`;
-                        
-                        // Random position
-                        const posX = Math.random() * 100;
-                        const posY = Math.random() * 100;
-                        particle.style.left = `${posX}%`;
-                        particle.style.top = `${posY}%`;
-                        
-                        // Random opacity
-                        particle.style.opacity = Math.random() * 0.5 + 0.3;
-                        
-                        particles.appendChild(particle);
-                    }
-                } else {
-                    const particles = document.querySelector('.particles');
-                    if (particles) {
-                        particles.remove();
-                    }
-                }
-            }
-            
-            // Create stars effect for Modern Tech theme
-            function createStarsEffect() {
-                if (document.body.classList.contains('theme-modern-tech')) {
-                    const stars = document.createElement('div');
-                    stars.className = 'stars';
-                    stars.id = 'stars';
-                    document.body.appendChild(stars);
-                    
-                    const starCount = 100;
-                    for (let i = 0; i < starCount; i++) {
-                        const star = document.createElement('div');
-                        star.classList.add('star');
-                        const x = Math.random() * 100;
-                        const y = Math.random() * 100;
-                        const size = Math.random() * 2 + 1;
-                        const delay = Math.random() * 4;
-                        star.style.top = `${y}%`;
-                        star.style.left = `${x}%`;
-                        star.style.width = `${size}px`;
-                        star.style.height = `${size}px`;
-                        star.style.animationDelay = `${delay}s`;
-                        stars.appendChild(star);
-                    }
-                } else {
-                    const stars = document.getElementById('stars');
-                    if (stars) {
-                        stars.remove();
-                    }
-                }
-            }
         });
     </script>
 </body>
