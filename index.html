@@ -1,4 +1,3 @@
-Remove any duplicates and fix the hero class up, the colors are both white in text and background color in some places, that's very bad and the cube isn't interactive or moving or nothing, it's so ugly, fix it all and make it very super interactive and fun:
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1859,6 +1858,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
         body.theme-xp a:hover {
             text-decoration: underline;
         }
+
         /* Modern Tech Theme */
         body.theme-modern-tech {
             color: #ccd6f6;
@@ -2025,6 +2025,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
             color: #64ffda;
             text-decoration: none;
         }
+
         /* Cyberpunk Theme */
         body.theme-cyberpunk {
             --cyber-bg: #0a0a16;
@@ -2169,6 +2170,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
         body.theme-cyberpunk a:hover {
             text-shadow: 0 0 15px var(--cyber-neon-blue);
         }
+
         /* Minimalist Theme */
         body.theme-minimalist {
             --minimal-bg: #ffffff;
@@ -2303,6 +2305,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
             color: var(--minimal-accent);
             text-decoration: none;
         }
+
         /* Creative Agency Theme */
         body.theme-agency {
             --agency-bg: #ffffff;
@@ -2457,6 +2460,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
         body.theme-agency a {
             color: var(--agency-primary);
         }
+
         /* Portfolio Theme */
         body.theme-portfolio {
             background-color: #000;
@@ -3123,7 +3127,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
             <div class="profile-container">
                 <div class="profile-pic" data-text="RAM">R</div>
             </div>
-            <h1>Ram Erlikh</h1>
+            <h1 data-text="Ram Erlikh">Ram Erlikh</h1>
             <p class="hero-description">Developer & Creative focused on building innovative digital experiences that blend technology with artistic vision.</p>
             <div class="social-links">
                 <a href="https://github.com/RamErlikh" class="social-link" target="_blank" title="GitHub">
@@ -3139,7 +3143,6 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                     <i class="fas fa-palette"></i>
                 </a>
             </div>
-            <!-- Cube will be dynamically inserted here by JavaScript -->
         </section>
         <section class="section" data-title="ABOUT">
             <h2 class="section-title">About Me</h2>
@@ -3328,9 +3331,6 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
             
             // Function to update the theme
             function setTheme(index) {
-                // Clean up first to avoid duplications
-                cleanupThemeElements();
-                
                 // Remove all theme classes
                 themes.forEach(theme => {
                     if (theme.class) {
@@ -3348,8 +3348,8 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                 if (themeDisplay) themeDisplay.textContent = currentTheme.name;
                 if (currentThemeSpan) currentThemeSpan.textContent = currentTheme.name;
                 
-                // Remove any possible duplicate elements
-                removeDuplicateContent();
+                // Clean up any theme-specific elements
+                cleanupThemeElements();
                 
                 // Fade effect
                 document.body.style.opacity = '0.7';
@@ -3363,7 +3363,7 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                             createStarsEffect();
                             createPortfolioParticles();
                             addThemeSpecificDecorations(currentTheme.class);
-                            createCube();
+                            createCube(); // Create 3D cube specifically
                             
                             // Update section data attributes for Terminal theme
                             if (currentTheme.class === 'theme-terminal') {
@@ -3374,9 +3374,6 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                                     }
                                 });
                             }
-                            
-                            // Run one more cleanup after applying theme effects
-                            removeDuplicateContent();
                         }, 200);
                     }
                 }, 300);
@@ -3396,15 +3393,8 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                 const cubeWrapper = document.querySelector('.cube-wrapper');
                 if (cubeWrapper) cubeWrapper.remove();
                 
-                const cubeScene = document.querySelector('.cube-scene');
-                if (cubeScene) cubeScene.remove();
-                
                 const decorations = document.querySelectorAll('.theme-decoration');
                 decorations.forEach(el => el.remove());
-                
-                // Remove any inline styles or debug output
-                const debugOutput = document.querySelectorAll('.debug-output, .style-display');
-                debugOutput.forEach(el => el.remove());
                 
                 // Reset profile pic content
                 const profilePic = document.querySelector('.profile-pic');
@@ -3413,354 +3403,124 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                 }
             }
             
-            // Add theme-specific decorative elements
-            function addThemeSpecificDecorations(themeClass) {
-                const hero = document.querySelector('.hero');
-                
-                if (themeClass === 'theme-cyberpunk') {
-                    // Add cyber elements
-                    const cyberDecor = document.createElement('div');
-                    cyberDecor.className = 'theme-decoration cyber-decor';
-                    
-                    const shapeClasses = ['circle', 'square', 'triangle'];
-                    const shapePositions = [
-                        { top: '20%', right: '10%' },
-                        { bottom: '30%', right: '20%' },
-                        { top: '40%', right: '30%' }
-                    ];
-                    
-                    shapeClasses.forEach((shape, i) => {
-                        const element = document.createElement('div');
-                        element.className = `cyber-${shape}`;
-                        
-                        // Set positions
-                        Object.keys(shapePositions[i]).forEach(pos => {
-                            element.style[pos] = shapePositions[i][pos];
-                        });
-                        
-                        cyberDecor.appendChild(element);
-                    });
-                    
-                    hero.appendChild(cyberDecor);
-                }
-                
-                if (themeClass === 'theme-modern-tech') {
-                    // Add floating tech elements
-                    const techBadges = ['HTML', 'CSS', 'JS', 'React', 'Node'];
-                    const techDecor = document.createElement('div');
-                    techDecor.className = 'theme-decoration tech-badges';
-                    techDecor.style.position = 'absolute';
-                    techDecor.style.right = '10%';
-                    techDecor.style.top = '20%';
-                    techDecor.style.display = 'flex';
-                    techDecor.style.flexDirection = 'column';
-                    techDecor.style.gap = '15px';
-                    
-                    techBadges.forEach((badge, i) => {
-                        const element = document.createElement('div');
-                        element.className = 'tech-badge';
-                        element.textContent = badge;
-                        element.style.backgroundColor = 'rgba(100, 255, 218, 0.1)';
-                        element.style.color = '#64ffda';
-                        element.style.padding = '5px 10px';
-                        element.style.borderRadius = '4px';
-                        element.style.border = '1px solid #64ffda';
-                        element.style.fontSize = '0.8rem';
-                        element.style.animation = `float 3s ease-in-out infinite`;
-                        element.style.animationDelay = `${i * 0.5}s`;
-                        
-                        techDecor.appendChild(element);
-                    });
-                    
-                    hero.appendChild(techDecor);
-                }
-                
-                if (themeClass === 'theme-agency') {
-                    // Add creative shapes
-                    const shapes = document.createElement('div');
-                    shapes.className = 'theme-decoration agency-shapes';
-                    shapes.style.position = 'absolute';
-                    shapes.style.top = '0';
-                    shapes.style.right = '0';
-                    shapes.style.width = '40%';
-                    shapes.style.height = '100%';
-                    shapes.style.zIndex = '-1';
-                    
-                    const circle = document.createElement('div');
-                    circle.style.position = 'absolute';
-                    circle.style.width = '200px';
-                    circle.style.height = '200px';
-                    circle.style.borderRadius = '50%';
-                    circle.style.backgroundColor = 'rgba(255, 62, 85, 0.1)';
-                    circle.style.top = '20%';
-                    circle.style.right = '10%';
-                    
-                    const square = document.createElement('div');
-                    square.style.position = 'absolute';
-                    square.style.width = '150px';
-                    square.style.height = '150px';
-                    square.style.backgroundColor = 'rgba(51, 51, 51, 0.1)';
-                    square.style.bottom = '30%';
-                    square.style.right = '30%';
-                    square.style.transform = 'rotate(45deg)';
-                    
-                    shapes.appendChild(circle);
-                    shapes.appendChild(square);
-                    hero.appendChild(shapes);
-                }
-            }
-            
-            // Create advanced interactive 3D cube
+            // Create 3D cube for portfolio theme
             function createCube() {
                 if (document.body.classList.contains('theme-portfolio')) {
                     // Check if cube wrapper already exists
-                    let cubeScene = document.querySelector('.cube-scene');
-                    if (!cubeScene) {
-                        // Create cube scene
-                        cubeScene = document.createElement('div');
-                        cubeScene.className = 'cube-scene';
+                    let cubeWrapper = document.querySelector('.cube-wrapper');
+                    if (!cubeWrapper) {
+                        // Create the cube wrapper
+                        cubeWrapper = document.createElement('div');
+                        cubeWrapper.className = 'cube-wrapper';
+                        cubeWrapper.style.width = '100%';
+                        cubeWrapper.style.height = '300px';
+                        cubeWrapper.style.position = 'relative';
+                        cubeWrapper.style.perspective = '1000px';
+                        cubeWrapper.style.margin = '20px auto';
                         
-                        // Create cube container for float animation
-                        const cubeContainer = document.createElement('div');
-                        cubeContainer.className = 'cube-container';
-                        
-                        // Create cube
+                        // Create the cube
                         const cube = document.createElement('div');
                         cube.className = 'cube';
-                        cube.id = 'interactive-cube';
+                        cube.style.width = '200px';
+                        cube.style.height = '200px';
+                        cube.style.position = 'absolute';
+                        cube.style.top = '50%';
+                        cube.style.left = '50%';
+                        cube.style.transformStyle = 'preserve-3d';
+                        cube.style.animation = 'rotate 15s infinite linear';
+                        cube.style.transform = 'translateX(-50%) translateY(-50%)';
                         
-                        // Define content for each face
-                        const faceContent = [
-                            { 
-                                icon: '💻', 
-                                title: 'Development',
-                                text: 'Frontend & Backend'
-                            },
-                            { 
-                                icon: '🎨', 
-                                title: 'Design',
-                                text: 'UI/UX & Creative'
-                            },
-                            { 
-                                icon: '📱', 
-                                title: 'Mobile',
-                                text: 'App Development'
-                            },
-                            { 
-                                icon: '⚙️', 
-                                title: 'Systems',
-                                text: 'Architecture & APIs'
-                            },
-                            { 
-                                icon: '🚀', 
-                                title: '2025',
-                                text: 'Always Innovating'
-                            },
-                            { 
-                                icon: '🔍', 
-                                title: 'Solutions',
-                                text: 'Problem Solving'
-                            }
+                        // Create and style each face of the cube
+                        const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+                        const contents = ['R', 'E', 'Web', 'Dev', '2025', '🚀'];
+                        const colors = [
+                            'rgba(59, 130, 246, 0.9)', // front - blue
+                            'rgba(220, 38, 38, 0.9)',  // back - red
+                            'rgba(16, 185, 129, 0.9)', // right - green
+                            'rgba(217, 70, 239, 0.9)', // left - purple
+                            'rgba(245, 158, 11, 0.9)', // top - orange
+                            'rgba(14, 165, 233, 0.9)'  // bottom - sky blue
                         ];
                         
-                        // Create faces with rich content
-                        const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
-                        
+                        // Create each face with proper transforms
                         faces.forEach((face, index) => {
                             const cubeFace = document.createElement('div');
                             cubeFace.className = `cube-face ${face}`;
+                            cubeFace.style.position = 'absolute';
+                            cubeFace.style.width = '200px';
+                            cubeFace.style.height = '200px';
+                            cubeFace.style.backgroundColor = colors[index];
+                            cubeFace.style.border = '2px solid white';
+                            cubeFace.style.display = 'flex';
+                            cubeFace.style.alignItems = 'center';
+                            cubeFace.style.justifyContent = 'center';
+                            cubeFace.style.fontSize = '2.5rem';
+                            cubeFace.style.fontWeight = 'bold';
+                            cubeFace.style.color = 'white';
+                            cubeFace.style.textShadow = '1px 1px 3px rgba(0,0,0,0.3)';
+                            cubeFace.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
                             
-                            // Create content container
-                            const content = document.createElement('div');
-                            content.className = 'cube-content';
+                            // Apply transform based on face position
+                            switch(face) {
+                                case 'front':
+                                    cubeFace.style.transform = 'translateZ(100px)';
+                                    break;
+                                case 'back':
+                                    cubeFace.style.transform = 'rotateY(180deg) translateZ(100px)';
+                                    break;
+                                case 'right':
+                                    cubeFace.style.transform = 'rotateY(90deg) translateZ(100px)';
+                                    break;
+                                case 'left':
+                                    cubeFace.style.transform = 'rotateY(-90deg) translateZ(100px)';
+                                    break;
+                                case 'top':
+                                    cubeFace.style.transform = 'rotateX(90deg) translateZ(100px)';
+                                    break;
+                                case 'bottom':
+                                    cubeFace.style.transform = 'rotateX(-90deg) translateZ(100px)';
+                                    break;
+                            }
                             
-                            // Create icon
-                            const icon = document.createElement('div');
-                            icon.className = 'cube-icon';
-                            icon.textContent = faceContent[index].icon;
+                            // Set content
+                            cubeFace.textContent = contents[index];
                             
-                            // Create title
-                            const title = document.createElement('div');
-                            title.className = 'cube-title';
-                            title.textContent = faceContent[index].title;
-                            
-                            // Create text
-                            const text = document.createElement('div');
-                            text.className = 'cube-text';
-                            text.textContent = faceContent[index].text;
-                            
-                            // Assemble content
-                            content.appendChild(icon);
-                            content.appendChild(title);
-                            content.appendChild(text);
-                            cubeFace.appendChild(content);
-                            
-                            // Add interactivity
+                            // Add hover effect
                             cubeFace.addEventListener('mouseenter', () => {
-                                // Pause rotation animation
-                                cube.style.animationPlayState = 'paused';
+                                cubeFace.style.transform = cubeFace.style.transform.replace('100px', '120px');
                             });
                             
                             cubeFace.addEventListener('mouseleave', () => {
-                                // Resume rotation animation
-                                cube.style.animationPlayState = 'running';
-                            });
-                            
-                            cubeFace.addEventListener('click', () => {
-                                // Show detailed info or link to relevant section
-                                alert(`Learn more about my ${faceContent[index].title} skills!`);
+                                cubeFace.style.transform = cubeFace.style.transform.replace('120px', '100px');
                             });
                             
                             cube.appendChild(cubeFace);
                         });
                         
-                        // Create cube controls
-                        const controls = document.createElement('div');
-                        controls.className = 'cube-controls';
+                        // Add cube to wrapper and insert in the page
+                        cubeWrapper.appendChild(cube);
                         
-                        const speedUpBtn = document.createElement('button');
-                        speedUpBtn.className = 'cube-control';
-                        speedUpBtn.textContent = 'Speed Up';
-                        speedUpBtn.addEventListener('click', () => {
-                            const currentDuration = parseFloat(getComputedStyle(cube).animationDuration);
-                            if (currentDuration > 5) {
-                                cube.style.animationDuration = `${currentDuration - 5}s`;
+                        // Add CSS animation for rotation
+                        const style = document.createElement('style');
+                        style.textContent = `
+                            @keyframes rotate {
+                                0% { transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg); }
+                                100% { transform: translateX(-50%) translateY(-50%) rotateX(360deg) rotateY(360deg); }
                             }
-                        });
+                        `;
+                        document.head.appendChild(style);
                         
-                        const slowDownBtn = document.createElement('button');
-                        slowDownBtn.className = 'cube-control';
-                        slowDownBtn.textContent = 'Slow Down';
-                        slowDownBtn.addEventListener('click', () => {
-                            const currentDuration = parseFloat(getComputedStyle(cube).animationDuration);
-                            cube.style.animationDuration = `${currentDuration + 5}s`;
-                        });
-                        
-                        const reverseBtn = document.createElement('button');
-                        reverseBtn.className = 'cube-control';
-                        reverseBtn.textContent = 'Reverse';
-                        reverseBtn.addEventListener('click', () => {
-                            const currentDirection = getComputedStyle(cube).animationDirection;
-                            cube.style.animationDirection = currentDirection === 'reverse' ? 'normal' : 'reverse';
-                        });
-                        
-                        // Add controls to container
-                        controls.appendChild(speedUpBtn);
-                        controls.appendChild(slowDownBtn);
-                        controls.appendChild(reverseBtn);
-                        
-                        // Assemble cube components
-                        cubeContainer.appendChild(cube);
-                        cubeScene.appendChild(cubeContainer);
-                        cubeScene.appendChild(controls);
-                        
-                        // Add the cube to the page
+                        // Insert after hero section
                         const hero = document.querySelector('.hero');
                         if (hero) {
-                            hero.appendChild(cubeScene);
+                            hero.appendChild(cubeWrapper);
                         }
-                        
-                        // Add manual rotation with mouse drag
-                        let isDragging = false;
-                        let previousMousePosition = { x: 0, y: 0 };
-                        let rotationSpeed = { x: 0, y: 0 };
-                        
-                        cubeScene.addEventListener('mousedown', (e) => {
-                            isDragging = true;
-                            cube.style.animation = 'none';
-                            previousMousePosition = { 
-                                x: e.clientX, 
-                                y: e.clientY 
-                            };
-                            
-                            // Prevent default behavior
-                            e.preventDefault();
-                        });
-                        
-                        document.addEventListener('mousemove', (e) => {
-                            if (isDragging) {
-                                // Calculate mouse movement
-                                const deltaMove = { 
-                                    x: e.clientX - previousMousePosition.x, 
-                                    y: e.clientY - previousMousePosition.y 
-                                };
-                                
-                                // Calculate rotation
-                                rotationSpeed.x += deltaMove.y * 0.1;
-                                rotationSpeed.y += deltaMove.x * 0.1;
-                                
-                                // Apply rotation
-                                const currentTransform = cube.style.transform || 'rotateX(0deg) rotateY(0deg)';
-                                const rotateX = parseFloat(currentTransform.match(/rotateX\(([^)]+)\)/) ? 
-                                                        currentTransform.match(/rotateX\(([^)]+)\)/)[1] : 0);
-                                const rotateY = parseFloat(currentTransform.match(/rotateY\(([^)]+)\)/) ? 
-                                                        currentTransform.match(/rotateY\(([^)]+)\)/)[1] : 0);
-                                
-                                cube.style.transform = `rotateX(${rotateX + rotationSpeed.x}deg) rotateY(${rotateY + rotationSpeed.y}deg)`;
-                                
-                                // Update previous position
-                                previousMousePosition = { 
-                                    x: e.clientX, 
-                                    y: e.clientY 
-                                };
-                            }
-                        });
-                        
-                        document.addEventListener('mouseup', () => {
-                            isDragging = false;
-                            rotationSpeed = { x: 0, y: 0 };
-                            
-                            // Resume animation when drag ends
-                            cube.style.animation = 'rotate-cube 20s infinite linear';
-                        });
-                        
-                        // Touch events for mobile
-                        cubeScene.addEventListener('touchstart', (e) => {
-                            isDragging = true;
-                            cube.style.animation = 'none';
-                            previousMousePosition = { 
-                                x: e.touches[0].clientX, 
-                                y: e.touches[0].clientY 
-                            };
-                            e.preventDefault();
-                        });
-                        
-                        document.addEventListener('touchmove', (e) => {
-                            if (isDragging) {
-                                const deltaMove = { 
-                                    x: e.touches[0].clientX - previousMousePosition.x, 
-                                    y: e.touches[0].clientY - previousMousePosition.y 
-                                };
-                                
-                                rotationSpeed.x += deltaMove.y * 0.1;
-                                rotationSpeed.y += deltaMove.x * 0.1;
-                                
-                                const currentTransform = cube.style.transform || 'rotateX(0deg) rotateY(0deg)';
-                                const rotateX = parseFloat(currentTransform.match(/rotateX\(([^)]+)\)/) ? 
-                                                        currentTransform.match(/rotateX\(([^)]+)\)/)[1] : 0);
-                                const rotateY = parseFloat(currentTransform.match(/rotateY\(([^)]+)\)/) ? 
-                                                        currentTransform.match(/rotateY\(([^)]+)\)/)[1] : 0);
-                                
-                                cube.style.transform = `rotateX(${rotateX + rotationSpeed.x}deg) rotateY(${rotateY + rotationSpeed.y}deg)`;
-                                
-                                previousMousePosition = { 
-                                    x: e.touches[0].clientX, 
-                                    y: e.touches[0].clientY 
-                                };
-                            }
-                        });
-                        
-                        document.addEventListener('touchend', () => {
-                            isDragging = false;
-                            rotationSpeed = { x: 0, y: 0 };
-                            cube.style.animation = 'rotate-cube 20s infinite linear';
-                        });
                     }
                 } else {
                     // Remove cube if not portfolio theme
-                    const cubeScene = document.querySelector('.cube-scene');
-                    if (cubeScene) {
-                        cubeScene.remove();
+                    const cubeWrapper = document.querySelector('.cube-wrapper');
+                    if (cubeWrapper) {
+                        cubeWrapper.remove();
                     }
                 }
             }
@@ -3847,157 +3607,19 @@ Remove any duplicates and fix the hero class up, the colors are both white in te
                 });
             }
             
-            // Comprehensive function to clean up duplicate content
-            function removeDuplicateContent() {
-                // 1. First, identify our main container and its direct children
-                const mainContainer = document.querySelector('.container');
-                if (!mainContainer) return;
-                
-                // 2. Get all content elements
-                const allElements = document.querySelectorAll('body > *');
-                
-                // 3. Remove any text nodes directly under body that contain CSS
-                const bodyNode = document.body;
-                if (bodyNode.childNodes) {
-                    for (let i = 0; i < bodyNode.childNodes.length; i++) {
-                        const node = bodyNode.childNodes[i];
-                        if (node.nodeType === Node.TEXT_NODE && 
-                            node.textContent && 
-                            node.textContent.trim().startsWith('; position: absolute;')) {
-                            bodyNode.removeChild(node);
-                            i--; // Adjust index after removal
-                        }
-                    }
-                }
-                
-                // 4. Remove any duplicated content outside of our main structure
-                let foundMainElements = {
-                    header: false,
-                    footer: false,
-                    themeIndicator: false
-                };
-                
-                allElements.forEach(el => {
-                    // Skip our main structure elements
-                    if (el.tagName === 'HEADER') {
-                        if (foundMainElements.header) {
-                            el.parentNode.removeChild(el);
-                        } else {
-                            foundMainElements.header = true;
-                        }
-                    } 
-                    else if (el.tagName === 'FOOTER') {
-                        if (foundMainElements.footer) {
-                            el.parentNode.removeChild(el);
-                        } else {
-                            foundMainElements.footer = true;
-                        }
-                    }
-                    else if (el.classList.contains('theme-indicator')) {
-                        if (foundMainElements.themeIndicator) {
-                            el.parentNode.removeChild(el);
-                        } else {
-                            foundMainElements.themeIndicator = true;
-                        }
-                    }
-                    // Remove any raw text or unknown elements
-                    else if (!el.classList.contains('container') && 
-                             el.tagName !== 'SCRIPT' && 
-                             el.tagName !== 'STYLE' && 
-                             el.tagName !== 'HEADER' &&
-                             el.tagName !== 'DIV' && 
-                             el.tagName !== 'META' && 
-                             el.tagName !== 'LINK') {
-                        el.parentNode.removeChild(el);
-                    }
-                    // Remove any div elements that aren't containers but contain duplicate content
-                    else if (el.tagName === 'DIV' && !el.classList.contains('container')) {
-                        if (el.textContent && el.textContent.includes('Ram Erlikh') && 
-                            el.textContent.includes('About Me') && 
-                            el.textContent.includes('Projects & Websites')) {
-                            el.parentNode.removeChild(el);
-                        }
-                    }
-                });
-                
-                // 5. Special check for duplicate Ram Erlikh text at the bottom
-                const bodyText = document.body.innerHTML;
-                const ramPattern = /Ram Erlikh\s*Change Theme\s*R\s*Ram Erlikh/g;
-                if (ramPattern.test(bodyText)) {
-                    // There's a duplicate pattern - let's find and remove it
-                    const allTextNodes = [];
-                    
-                    function collectTextNodes(node) {
-                        if (node.nodeType === Node.TEXT_NODE) {
-                            allTextNodes.push(node);
-                        } else {
-                            for (let child of node.childNodes) {
-                                collectTextNodes(child);
-                            }
-                        }
-                    }
-                    
-                    collectTextNodes(document.body);
-                    
-                    // Look for the specific pattern in sequence
-                    let foundRam = false;
-                    let foundChange = false;
-                    
-                    for (let i = 0; i < allTextNodes.length; i++) {
-                        const node = allTextNodes[i];
-                        const text = node.textContent.trim();
-                        
-                        if (text === 'Ram Erlikh' && !foundRam) {
-                            foundRam = true;
-                        } 
-                        else if (text === 'Change Theme' && foundRam && !foundChange) {
-                            foundChange = true;
-                        }
-                        else if (text === 'R' && foundRam && foundChange) {
-                            // We found the pattern - remove these nodes and their parent elements
-                            let parent = node.parentNode;
-                            while (parent && parent !== document.body) {
-                                if (parent.childNodes.length > 1) {
-                                    parent.removeChild(node);
-                                    break;
-                                } else {
-                                    let toRemove = parent;
-                                    parent = parent.parentNode;
-                                    if (parent) parent.removeChild(toRemove);
-                                }
-                            }
-                            
-                            // Reset pattern detection
-                            foundRam = false;
-                            foundChange = false;
-                        }
-                    }
-                }
-                
-                // 6. Remove any elements with the exact CSS text
-                const bodyChildren = document.body.children;
-                for (let i = 0; i < bodyChildren.length; i++) {
-                    const child = bodyChildren[i];
-                    if (child.textContent && 
-                        child.textContent.includes('body.theme-neon .logo') && 
-                        child.textContent.includes('body.theme-portfolio .cube-face')) {
-                        document.body.removeChild(child);
-                        i--; // Adjust index after removal
-                    }
-                }
-            }
-            
-            // Run on initial load
-            setTimeout(function() {
-                animateOnScroll();
-                removeDuplicateContent();
-            }, 500);
-            
-            // Run cleanup periodically
-            setInterval(removeDuplicateContent, 2000);
+            // Call once on load
+            setTimeout(animateOnScroll, 500);
             
             // Set initial theme
             setTheme(currentThemeIndex);
+            
+            // Make theme indicator clickable to show current theme name
+            const themeIndicator = document.querySelector('.theme-indicator');
+            if (themeIndicator) {
+                themeIndicator.addEventListener('click', function() {
+                    themeButton.click();
+                });
+            }
             
             // Create particles for Portfolio theme
             function createPortfolioParticles() {
