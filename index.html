@@ -2462,20 +2462,23 @@
         }
 
         /* Portfolio Theme */
-        body.theme-portfolio {
-            background-color: #000;
-            color: #f7fafc;
-            font-family: 'Montserrat', sans-serif;
-            position: relative;
-        }
-        
-        body.theme-portfolio .container {
-            background-color: rgba(0, 0, 30, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-            color: #f7fafc;
-        }
-        
+body.theme-portfolio {
+    background: linear-gradient(135deg, #0f172a, #1e293b, #2a4365);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #e2e8f0;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body.theme-portfolio .container {
+    background: transparent;
+    box-shadow: none;
+
         body.theme-portfolio::before {
             content: "";
             position: fixed;
@@ -3686,11 +3689,12 @@
                         stars.remove();
                     }
                 }
-            }
         });
     </script>
 </body>
-</html>;
+</html
+
+<style>
             position: absolute;
             left: 0;
             color: #00aa00;
