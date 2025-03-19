@@ -537,7 +537,7 @@
             resize: vertical;
         }
 
-        .submit-btn {
+        .submit {
             background-color: #3b82f6;
             color: white;
             border: none;
@@ -552,7 +552,7 @@
             transition: all 0.3s ease;
         }
 
-        .submit-btn::after {
+        .submit::after {
             content: '';
             position: absolute;
             width: 100%;
@@ -566,12 +566,12 @@
             transition: transform 0.3s ease;
         }
 
-        .submit-btn:hover {
+        .submit:hover {
             transform: translateY(-3px);
             box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
         }
 
-        .submit-btn:hover::after {
+        .submit:hover::after {
             transform: scaleX(1);
             transform-origin: left;
         }
@@ -1081,18 +1081,18 @@
             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
         }
 
-        body.theme-dark .submit-btn {
+        body.theme-dark .submit {
             background-color: rgba(96, 165, 250, 0.2);
             color: #60a5fa;
             border: 1px solid #60a5fa;
         }
 
-        body.theme-dark .submit-btn:hover {
+        body.theme-dark .submit:hover {
             background-color: #60a5fa;
             color: #0f172a;
         }
 
-        body.theme-dark .submit-btn::after {
+        body.theme-dark .submit::after {
             display: none;
         }
 
@@ -1494,7 +1494,7 @@
             box-shadow: 0 0 15px #00ffff, inset 0 0 10px rgba(0, 255, 255, 0.2);
         }
 
-        body.theme-neon .submit-btn {
+        body.theme-neon .submit {
             background: transparent;
             color: #00ffff;
             border: 2px solid #00ffff;
@@ -1506,13 +1506,13 @@
             text-shadow: 0 0 5px #00ffff;
         }
 
-        body.theme-neon .submit-btn:hover {
+        body.theme-neon .submit:hover {
             background-color: rgba(0, 255, 255, 0.2);
             transform: scale(1.05);
             box-shadow: 0 0 25px #00ffff, inset 0 0 10px #00ffff;
         }
 
-        body.theme-neon .submit-btn::after {
+        body.theme-neon .submit::after {
             display: none;
         }
 
@@ -2084,7 +2084,7 @@
             outline: none;
         }
 
-        body.theme-terminal .submit-btn {
+        body.theme-terminal .submit {
             background-color: #000000;
             color: #00ff00;
             border: 1px solid #00ff00;
@@ -2095,13 +2095,13 @@
             padding-left: 25px;
         }
 
-        body.theme-terminal .submit-btn::before {
+        body.theme-terminal .submit::before {
             content: '$ ';
             position: absolute;
             left: 8px;
         }
 
-        body.theme-terminal .submit-btn:hover {
+        body.theme-terminal .submit:hover {
             background-color: #00ff00;
             color: #000000;
             transform: none;
@@ -2569,7 +2569,7 @@
             outline: none;
         }
 
-        body.theme-xp .submit-btn {
+        body.theme-xp .submit {
             background: linear-gradient(to bottom, #f0f0f0, #e1e1e1, #d2d2d2);
             color: #000000;
             border: 1px solid #707070;
@@ -2580,7 +2580,7 @@
             font-weight: normal;
         }
 
-        body.theme-xp .submit-btn:hover {
+        body.theme-xp .submit:hover {
             background: linear-gradient(to bottom, #e5f1fb, #d9edfa, #cce9f9);
             border-color: #0078d7;
             transform: none;
@@ -2806,7 +2806,7 @@
             box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
         }
 
-        body.theme-modern-tech .submit-btn {
+        body.theme-modern-tech .submit {
             background: transparent;
             color: #64ffda;
             border: 1px solid #64ffda;
@@ -2815,7 +2815,7 @@
             font-size: 0.9rem;
         }
 
-        body.theme-modern-tech .submit-btn:hover {
+        body.theme-modern-tech .submit:hover {
             background: rgba(100, 255, 218, 0.1);
             transform: translateY(-2px);
         }
@@ -3070,7 +3070,7 @@
             box-shadow: var(--cyber-glow);
         }
 
-        body.theme-cyberpunk .submit-btn {
+        body.theme-cyberpunk .submit {
             background: transparent;
             color: var(--cyber-neon-blue);
             border: 1px solid var(--cyber-neon-blue);
@@ -3080,7 +3080,7 @@
             letter-spacing: 1px;
         }
 
-        body.theme-cyberpunk .submit-btn:hover {
+        body.theme-cyberpunk .submit:hover {
             color: var(--cyber-neon-pink);
             border-color: var(--cyber-neon-pink);
             text-shadow: var(--cyber-glow);
@@ -3364,7 +3364,7 @@
             box-shadow: none;
         }
 
-        body.theme-minimalist .submit-btn {
+        body.theme-minimalist .submit {
             background-color: var(--minimal-accent);
             color: var(--minimal-bg);
             border: none;
@@ -3374,7 +3374,7 @@
             font-size: 0.9rem;
         }
 
-        body.theme-minimalist .submit-btn:hover {
+        body.theme-minimalist .submit:hover {
             background-color: var(--minimal-text);
             transform: none;
         }
@@ -3581,7 +3581,7 @@
             box-shadow: 0 5px 15px rgba(255, 62, 85, 0.1);
         }
 
-        body.theme-agency .submit-btn {
+        body.theme-agency .submit {
             background-color: var(--agency-primary);
             color: white;
             border: none;
@@ -3592,7 +3592,7 @@
             letter-spacing: 1px;
         }
 
-        body.theme-agency .submit-btn:hover {
+        body.theme-agency .submit:hover {
             background-color: #e12e42;
             transform: translateY(-3px);
         }
@@ -3903,7 +3903,7 @@
             box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
         }
 
-        body.theme-portfolio .submit-btn {
+        body.theme-portfolio .submit {
             background-color: #4299e1;
             color: white;
             border: none;
@@ -3913,7 +3913,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        body.theme-portfolio .submit-btn:hover {
+        body.theme-portfolio .submit:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
             background-color: #3182ce;
@@ -4108,7 +4108,7 @@ body, body * {
 <label for="message">Message</label>
 <textarea id="message" name="message" required=""></textarea>
 </div>
-<button class="submit-btn" type="submit">Send Message</button>
+<button class="submit" type="submit">Send Message</button>
 </form>
 </div>
 </section>
@@ -4921,7 +4921,7 @@ body, body * {
                 e.preventDefault();
                 
                 // Simulate form submission
-                const submitBtn = this.querySelector('.submit-btn');
+                const submitBtn = this.querySelector('.submit');
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
                 
