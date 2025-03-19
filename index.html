@@ -3948,7 +3948,14 @@
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
     </style>
-<style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
+<style id="body-opacity-rule">/* Ensure all elements under body always have opacity 1, with smooth transitions on other properties */
+body, body * {
+    opacity: 1 !important;
+    transition: background-color 0.5s ease, 
+                color 0.5s ease, 
+                border-color 0.5s ease, 
+                transform 0.5s ease !important;
+}</style><style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
 @media (max-width: 768px) {
     /* Optimize Dark Mode: disable heavy animations and shorten transitions */
     body.theme-dark .profile-container::before,
