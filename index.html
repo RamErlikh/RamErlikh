@@ -1,43 +1,37 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <!-- Global Optimization Styles -->
-    <style id="global-optimization">
-      /* Global Performance Tweaks */
+<!-- Smooth Background Transition -->
+<style id="background-transition">
       body {
-          will-change: transform, opacity;
-      }
-      
-      /* Optimize the 3D cube for smoother interactions */
-      .cube {
-          will-change: transform;
-          transition: transform 0.15s ease-out !important;
-      }
-      
-      /* On mobile devices (or any device with a coarse pointer), reduce animation intensity */
-      @media (hover: none) and (pointer: coarse) {
-          * {
-              animation-duration: 0.1s !important;
-              transition-duration: 0.1s !important;
-          }
-          /* Remove heavy visual decorations */
-          .theme-decoration, .particles, .stars {
-              display: none !important;
-          }
-      }
-      
-      /* For all devices, force animations to finish faster */
-      * {
-          animation-fill-mode: forwards !important;
+          transition: background-color 0.5s ease !important;
       }
     </style>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Ram Erlikh</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<!-- Layout Smooth Transitions and Fade-In Animation -->
+<style id="layout-animations">
+      @keyframes fadeInDrop {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+      .profile-container, .profile-pic, .container, header, footer, .hero, .section, .project-card, .contact-item, .dev {
+          transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, transform 0.5s ease !important;
+          animation: fadeInDrop 0.5s ease forwards !important;
+      }
+    </style>
+<!-- Preserve Interactive Button Positioning -->
+<style id="button-reset">
+      .magic-button, #theme-button, .theme-indicator {
+          transition: none !important;
+          animation: none !important;
+      }
+    </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meet Ram Erlikh</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
         /* Base styles */	`
         * {
             margin: 0;
@@ -3954,174 +3948,172 @@
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
     </style>
-</head>
+<style id="body-opacity-rule">/* Ensure all elements under body always have opacity 1, with smooth transitions on other properties */
+body, body * {
+    opacity: 1 !important;
+    transition: background-color 0.5s ease, 
+                color 0.5s ease, 
+                border-color 0.5s ease, 
+                transform 0.5s ease !important;
+}</style></head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">Ram Erlikh</a>
-                <button id="theme-button" class="theme-button">Change Theme</button>
-            </div>
-        </div>
-    </header>
-    <div class="container">
-        <section class="hero">
-            <div class="profile-container">
-                <div class="profile-pic" data-text="RAM">R</div>
-            </div>
-            <h1 data-text="Ram Erlikh">Ram Erlikh</h1>
-            <p class="hero-description">Innovative tech Dev with artistic vision.</p>
-            <div class="social-links">
-                <a href="https://github.com/RamErlikh" class="social-link" target="_blank" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/ram-erlikh/" class="social-link" target="_blank" title="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="mailto:businessuniquryrn@gmail.com" class="social-link" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://bellettyarts.com" class="social-link" target="_blank" title="Belletty Arts">
-                    <i class="fas fa-palette"></i>
-                </a>
-            </div>
-        </section>
-
-        <!-- Interactive 3D Cube -->
-        <div class="cube-wrapper">
-            <div class="cube">
-                <div class="cube-face front">R</div>
-                <div class="cube-face back">E</div>
-                <div class="cube-face right">Web</div>
-                <div class="cube-face left">Dev</div>
-                <div class="cube-face top">2025</div>
-                <div class="cube-face bottom">🚀</div>
-            </div>
-        </div>
-
-        <section class="section" data-title="ABOUT">
-            <h2 class="section-title">About Me</h2>
-            <div class="section-content">
-                <p>Hello! I'm Ram Erlikh, a passionate developer with a creative edge. I love building innovative solutions and exploring new technologies.</p>
-                <p>My work spans across multiple disciplines, bringing together technical expertise and artistic vision to create impactful digital experiences.</p>
-                <p>Whether it's crafting clean code or developing creative concepts, I'm dedicated to excellence in everything I do.</p>
-            </div>
-        </section>
-        <section class="section" data-title="PROJECTS">
-            <h2 class="section-title">Projects & Websites</h2>
-            <div class="projects-grid">
-                <a href="https://bellettyarts.com" class="project-card" target="_blank">
-                    <div class="project-content">
-                        <h3>Belletty Arts</h3>
-                        <p>A creative platform showcasing artistic projects and design work.</p>
-                    </div>
-                </a>
-                <a href="https://github.com/RamErlikh" class="project-card" target="_blank">
-                    <div class="project-content">
-                        <h3>GitHub Projects</h3>
-                        <p>Explore my open-source contributions and personal projects.</p>
-                    </div>
-                </a>
-                <a href="https://www.linkedin.com/in/ram-erlikh/" class="project-card" target="_blank">
-                    <div class="project-content">
-                        <h3>Professional Work</h3>
-                        <p>View my professional experience and career highlights.</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-        <section class="section" data-title="CONTACT">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="section-content">
-                <div class="contact-items">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>Email</h3>
-                            <a href="mailto:businessuniquryrn@gmail.com">businessuniquryrn@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>LinkedIn</h3>
-                            <a href="https://www.linkedin.com/in/ram-erlikh/" target="_blank">linkedin.com/in/ram-erlikh</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h3>GitHub</h3>
-                            <a href="https://github.com/RamErlikh" target="_blank">github.com/RamErlikh</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </section>
-    </div>
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Ram Erlikh | Current Theme: <span id="current-theme">Modern</span></p>
-        </div>
-    </footer>
-
-    <!-- Magic Button -->
-    <button class="magic-button" id="magic-button">
-        <i class="fas fa-magic"></i>
-    </button>
-
-    <!-- Theme Indicator -->
-    <div class="theme-indicator" id="theme-indicator">
-        <div class="theme-dot"></div>
-        <span>Modern</span>
-    </div>
-
-    <!-- Console Message Element -->
-    <div class="console-message" id="console-message">
-        <span id="console-text"></span>
-        <span class="cursor"></span>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <h2>Thank You!</h2>
-            <p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
-        </div>
-    </div>
-
-    <!-- Tooltip -->
-    <div class="tooltip" id="tooltip"></div>
-
-    <script>
+<header>
+<div class="container">
+<div class="header-content">
+<a class="logo" href="#">Ram Erlikh</a>
+<button class="theme-button" id="theme-button">Change Theme</button>
+</div>
+</div>
+</header>
+<div class="container">
+<section class="hero">
+<div class="profile-container">
+<div class="profile-pic" data-text="RAM">R</div>
+</div>
+<h1 data-text="Ram Erlikh">Ram Erlikh</h1>
+<p class="hero-description">Innovative tech Dev with artistic vision.</p>
+<div class="social-links">
+<a class="social-link" href="https://github.com/RamErlikh" target="_blank" title="GitHub">
+<i class="fab fa-github"></i>
+</a>
+<a class="social-link" href="https://www.linkedin.com/in/ram-erlikh/" target="_blank" title="LinkedIn">
+<i class="fab fa-linkedin-in"></i>
+</a>
+<a class="social-link" href="mailto:businessuniquryrn@gmail.com" title="Email">
+<i class="fas fa-envelope"></i>
+</a>
+<a class="social-link" href="https://bellettyarts.com" target="_blank" title="Belletty Arts">
+<i class="fas fa-palette"></i>
+</a>
+</div>
+</section>
+<!-- Interactive 3D Cube -->
+<div class="cube-wrapper">
+<div class="cube">
+<div class="cube-face front">R</div>
+<div class="cube-face back">E</div>
+<div class="cube-face right">Web</div>
+<div class="cube-face left">Dev</div>
+<div class="cube-face top">2025</div>
+<div class="cube-face bottom">🚀</div>
+</div>
+</div>
+<section class="section" data-title="ABOUT">
+<h2 class="section-title">About Me</h2>
+<div class="section-content">
+<p>Hello! I'm Ram Erlikh, a passionate developer with a creative edge. I love building innovative solutions and exploring new technologies.</p>
+<p>My work spans across multiple disciplines, bringing together technical expertise and artistic vision to create impactful digital experiences.</p>
+<p>Whether it's crafting clean code or developing creative concepts, I'm dedicated to excellence in everything I do.</p>
+</div>
+</section>
+<section class="section" data-title="PROJECTS">
+<h2 class="section-title">Projects &amp; Websites</h2>
+<div class="projects-grid">
+<a class="project-card" href="https://bellettyarts.com" target="_blank">
+<div class="project-content">
+<h3>Belletty Arts</h3>
+<p>A creative platform showcasing artistic projects and design work.</p>
+</div>
+</a>
+<a class="project-card" href="https://github.com/RamErlikh" target="_blank">
+<div class="project-content">
+<h3>GitHub Projects</h3>
+<p>Explore my open-source contributions and personal projects.</p>
+</div>
+</a>
+<a class="project-card" href="https://www.linkedin.com/in/ram-erlikh/" target="_blank">
+<div class="project-content">
+<h3>Professional Work</h3>
+<p>View my professional experience and career highlights.</p>
+</div>
+</a>
+</div>
+</section>
+<section class="section" data-title="CONTACT">
+<h2 class="section-title">Get In Touch</h2>
+<div class="section-content">
+<div class="contact-items">
+<div class="contact-item">
+<div class="contact-icon">
+<i class="fas fa-envelope"></i>
+</div>
+<div class="contact-info">
+<h3>Email</h3>
+<a href="mailto:businessuniquryrn@gmail.com">businessuniquryrn@gmail.com</a>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">
+<i class="fab fa-linkedin-in"></i>
+</div>
+<div class="contact-info">
+<h3>LinkedIn</h3>
+<a href="https://www.linkedin.com/in/ram-erlikh/" target="_blank">linkedin.com/in/ram-erlikh</a>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">
+<i class="fab fa-github"></i>
+</div>
+<div class="contact-info">
+<h3>GitHub</h3>
+<a href="https://github.com/RamErlikh" target="_blank">github.com/RamErlikh</a>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<form class="contact-form" id="contact-form">
+<div class="form-group">
+<label for="name">Your Name</label>
+<input id="name" name="name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">Email Address</label>
+<input id="email" name="email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="subject">Subject</label>
+<input id="subject" name="subject" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="message">Message</label>
+<textarea id="message" name="message" required=""></textarea>
+</div>
+<button class="submit-btn" type="submit">Send Message</button>
+</form>
+</div>
+</section>
+</div>
+<footer>
+<div class="container">
+<p>© 2025 Ram Erlikh | Current Theme: <span id="current-theme">Modern</span></p>
+</div>
+</footer>
+<!-- Magic Button -->
+<button class="magic-button" id="magic-button">
+<i class="fas fa-magic"></i>
+</button>
+<!-- Theme Indicator -->
+<div class="theme-indicator" id="theme-indicator">
+<div class="theme-dot"></div>
+<span>Modern</span>
+</div>
+<!-- Console Message Element -->
+<div class="console-message" id="console-message">
+<span id="console-text"></span>
+<span class="cursor"></span>
+</div>
+<!-- Modal -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<button class="modal-close" id="modal-close">×</button>
+<h2>Thank You!</h2>
+<p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
+</div>
+</div>
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip"></div>
+<script>
         document.addEventListener('DOMContentLoaded', function() {
             // Define all themes
             const themes = [
