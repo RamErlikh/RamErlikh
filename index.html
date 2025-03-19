@@ -4920,26 +4920,44 @@ body, body * {
             }
 
             // Contact form handling
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Simulate form submission
-                const submitBtn = this.querySelector('.submit');
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                // Simulate API call delay
-                setTimeout(() => {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                    
-                    // Show success modal
-                    modal.classList.add('active');
-                    
-                    // Reset form
-                    contactForm.reset();
-                }, 1500);
-            });
+			contactForm.addEventListener('submit', function(e) {
+				e.preventDefault();
+				
+				// Get form data
+				const formData = new FormData(this);
+				
+				// Update button state
+				const submitBtn = this.querySelector('.submit');
+				submitBtn.textContent = 'Sending...';
+				submitBtn.disabled = true;
+				
+				// Actually submit the form using fetch API
+				fetch('https://api.web3forms.com/submit', {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						// Show success modal
+						modal.classList.add('active');
+						// Reset form
+						contactForm.reset();
+					} else {
+						// Show error message
+						showConsoleMessage("Error: " + data.message);
+					}
+				})
+				.catch(error => {
+					// Show error message
+					showConsoleMessage("Error submitting form: " + error.message);
+				})
+				.finally(() => {
+					// Reset button state
+					submitBtn.textContent = 'Submit Form';
+					submitBtn.disabled = false;
+				});
+			});
             
             // Close modal
             modalClose.addEventListener('click', function() {
