@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Global Optimization Styles -->
+    <style id="global-optimization">
+      /* Global Performance Tweaks */
+      body {
+          will-change: transform, opacity;
+      }
+      
+      /* Optimize the 3D cube for smoother interactions */
+      .cube {
+          will-change: transform;
+          transition: transform 0.15s ease-out !important;
+      }
+      
+      /* On mobile devices (or any device with a coarse pointer), reduce animation intensity */
+      @media (hover: none) and (pointer: coarse) {
+          * {
+              animation-duration: 0.1s !important;
+              transition-duration: 0.1s !important;
+          }
+          /* Remove heavy visual decorations */
+          .theme-decoration, .particles, .stars {
+              display: none !important;
+          }
+      }
+      
+      /* For all devices, force animations to finish faster */
+      * {
+          animation-fill-mode: forwards !important;
+      }
+    </style>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet Ram Erlikh</title>
