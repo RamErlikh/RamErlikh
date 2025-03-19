@@ -561,13 +561,6 @@
         }
 
         .cube {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    touch-action: none;
-    -webkit-touch-callout: none;
-            
             width: 200px;
             height: 200px;
             position: absolute;
@@ -4528,7 +4521,55 @@
                 hideTooltip();
             });
 
-            // Make cube faces clickable
+            
+    // Mobile Touch Events
+    cube.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        isDragging = true;
+        previousX = e.touches[0].clientX;
+        previousY = e.touches[0].clientY;
+        cube.style.cursor = 'grabbing';
+        cancelAnimationFrame(animationFrame);
+        showTooltip(e.touches[0], 'Drag to rotate! Hold and throw for spin effect!');
+    });
+    document.addEventListener('touchmove', function(e) {
+        if (isDragging) {
+            e.preventDefault();
+            let touch = e.touches[0];
+            let deltaX = touch.clientX - previousX;
+            let deltaY = touch.clientY - previousY;
+            velocityX = deltaX * 0.5;
+            velocityY = deltaY * 0.5;
+            rotateY += deltaX * 0.5;
+            rotateX -= deltaY * 0.5;
+            cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            previousX = touch.clientX;
+            previousY = touch.clientY;
+        }
+    });
+    document.addEventListener('touchend', function(e) {
+        if (isDragging) {
+            isDragging = false;
+            cube.style.cursor = 'grab';
+            cube.classList.add('spinning');
+            function animateCubeTouch() {
+                velocityX *= 0.95;
+                velocityY *= 0.95;
+                rotateY += velocityX;
+                rotateX -= velocityY;
+                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+                    animationFrame = requestAnimationFrame(animateCubeTouch);
+                } else {
+                    cube.classList.remove('spinning');
+                }
+            }
+            animationFrame = requestAnimationFrame(animateCubeTouch);
+        }
+        hideTooltip();
+    });
+    
+// Make cube faces clickable
             cubeFaces.forEach((face, index) => {
                 face.addEventListener('click', function(e) {
                     // Stop propagation to prevent activating drag and prevent default behavior
