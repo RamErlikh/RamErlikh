@@ -4953,7 +4953,36 @@
                 });
             }
             
-            // Call once on load
+            
+    // Mobile Optimization
+    (function optimizeForMobile(){
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Remove heavy particle and star effects if they exist
+            var particles = document.querySelector('.particles');
+            if (particles) particles.remove();
+            var stars = document.getElementById('stars');
+            if (stars) stars.remove();
+            // Remove additional decorative elements
+            var decorations = document.querySelectorAll('.theme-decoration');
+            decorations.forEach(function(el){ el.remove(); });
+            // Disable background animations
+            document.body.style.animation = 'none';
+            // Optimize the cube transition for smoother touch performance
+            var cube = document.querySelector('.cube');
+            if (cube) {
+                cube.style.transition = 'transform 0.1s ease-out';
+                cube.style.willChange = 'transform';
+            }
+            // Remove hover animations from project cards and contact items
+            var cards = document.querySelectorAll('.project-card, .contact-item');
+            cards.forEach(function(card){
+                card.style.transition = 'none';
+            });
+            console.log("Mobile optimizations applied.");
+        }
+    })();
+    
+// Call once on load
             setTimeout(animateOnScroll, 500);
             
             // Set initial theme
