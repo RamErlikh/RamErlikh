@@ -14,7 +14,7 @@
           transition: background-color 0.5s ease !important;
       }
     </style>
-<!-- Layout Smooth Transitions and Fade-In Animation -->
+<!-- Smooth Transitions and Fade-In Animation -->
 <style id="layout-animations">
       @keyframes fadeInDrop {
           from { opacity: 0; transform: translateY(-20px); }
@@ -797,18 +797,20 @@
 
         /* Tooltip */
         .tooltip {
-            position: absolute;
-            background-color: rgba(33, 37, 41, 0.9);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            white-space: nowrap;
-            z-index: 1001;
-        }
+			position: absolute;
+			background-color: rgba(33, 37, 41, 0.9);
+			color: white;
+			padding: 8px 12px;
+			border-radius: 4px;
+			font-size: 0.8rem;
+			pointer-events: none;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.2s ease, visibility 0.2s ease;
+			white-space: nowrap;
+			z-index: 1001;
+			max-width: 200px;
+		}
 
         .tooltip::after {
             content: '';
@@ -4518,16 +4520,16 @@ body, body * {
 
             // Mouse down event
             cube.addEventListener('mousedown', function(e) {
-                e.preventDefault(); // Prevent default behavior including page scrolling
-                isDragging = true;
-                previousX = e.clientX;
-                previousY = e.clientY;
-                cube.style.cursor = 'grabbing';
-                cancelAnimationFrame(animationFrame);
-                
-                // Show tooltip
-                showTooltip(e, 'Drag to rotate! Hold and throw for spin effect!');
-            });
+				e.preventDefault(); 
+				isDragging = true;
+				previousX = e.clientX;
+				previousY = e.clientY;
+				cube.style.cursor = 'grabbing';
+				cancelAnimationFrame(animationFrame);
+				
+				// Show tooltip for mouse
+				showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
+			});
 
             // Mouse move event
             document.addEventListener('mousemove', function(e) {
@@ -4550,49 +4552,48 @@ body, body * {
             });
 
             // Mouse up event - start physics-based spinning
-            document.addEventListener('mouseup', function() {
-                if (isDragging) {
-                    isDragging = false;
-                    cube.style.cursor = 'grab';
-                    
-                    // Add spinning class for smooth animation
-                    cube.classList.add('spinning');
-                    
-                    // Start the physics-based animation
-                    function animateCube() {
-                        // Apply friction
-                        velocityX *= 0.95;
-                        velocityY *= 0.95;
-                        
-                        rotateY += velocityX;
-                        rotateX -= velocityY;
-                        
-                        cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                        
-                        if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-                            animationFrame = requestAnimationFrame(animateCube);
-                        } else {
-                            cube.classList.remove('spinning');
-                        }
-                    }
-                    
-                    animationFrame = requestAnimationFrame(animateCube);
-                }
-                
-                hideTooltip();
-            });
+            document.addEventListener('mouseup', function(e) {
+				if (isDragging) {
+					isDragging = false;
+					cube.style.cursor = 'grab';
+					cube.classList.add('spinning');
+					
+					function animateCube() {
+						velocityX *= 0.95;
+						velocityY *= 0.95;
+						
+						rotateY += velocityX;
+						rotateX -= velocityY;
+						
+						cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+						
+						if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+							animationFrame = requestAnimationFrame(animateCube);
+						} else {
+							cube.classList.remove('spinning');
+						}
+					}
+					
+					animationFrame = requestAnimationFrame(animateCube);
+				}
+				
+				// Always hide the tooltip on mouseup
+				hideTooltip();
+			});
+
 
             
     // Mobile Touch Events
     cube.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        isDragging = true;
-        previousX = e.touches[0].clientX;
-        previousY = e.touches[0].clientY;
-        cube.style.cursor = 'grabbing';
-        cancelAnimationFrame(animationFrame);
-        showTooltip(e.touches[0], 'Drag to rotate! Hold and throw for spin effect!');
-    });
+		e.preventDefault();
+		isDragging = true;
+		previousX = e.touches[0].clientX;
+		previousY = e.touches[0].clientY;
+		cancelAnimationFrame(animationFrame);
+		
+		// Simpler message for mobile
+		showTooltip(e.touches[0], "Drag to rotate!");
+	});
     document.addEventListener('touchmove', function(e) {
         if (isDragging) {
             e.preventDefault();
@@ -4608,71 +4609,73 @@ body, body * {
             previousY = touch.clientY;
         }
     });
-    document.addEventListener('touchend', function(e) {
-        if (isDragging) {
-            isDragging = false;
-            cube.style.cursor = 'grab';
-            cube.classList.add('spinning');
-            function animateCubeTouch() {
-                velocityX *= 0.95;
-                velocityY *= 0.95;
-                rotateY += velocityX;
-                rotateX -= velocityY;
-                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-                    animationFrame = requestAnimationFrame(animateCubeTouch);
-                } else {
-                    cube.classList.remove('spinning');
-                }
-            }
-            animationFrame = requestAnimationFrame(animateCubeTouch);
-        }
+    document.addEventListener('touchend', function() {
+		if (isDragging) {
+			isDragging = false;
+			cube.classList.add('spinning');
+			
+			function animateCubeTouch() {
+				velocityX *= 0.95;
+				velocityY *= 0.95;
+				rotateY += velocityX;
+				rotateX -= velocityY;
+				cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+				if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+					animationFrame = requestAnimationFrame(animateCubeTouch);
+				} else {
+					cube.classList.remove('spinning');
+				}
+			}
+			
+			animationFrame = requestAnimationFrame(animateCubeTouch);
+		}
+		
+		// Always hide the tooltip on touchend
+		hideTooltip();
+	});
+    // Also hide tooltip when leaving the cube area with mouse
+	cube.addEventListener('mouseleave', hideTooltip);
+
+	// Make cube faces clickable
+            cubeFaces.forEach((face, index) => {
+    // Click handler (keeping your existing code)
+    face.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        cancelAnimationFrame(animationFrame);
+        cube.classList.remove('spinning');
+        
+        const messages = [
+            "Front face activated! Hello, nice to meet you! 👋",
+            "Back face discovered! Exploring new territories... 🚀",
+            "Right face clicked! Web development is my passion! 💻",
+            "Left face touched! Dev mode activated... 🛠️",
+            "Top face selected! Welcome to 2025! 🎯",
+            "Bottom face unlocked! Ready for liftoff! 🚀"
+        ];
+        
+        showConsoleMessage(messages[index]);
+        
+        this.style.transform = this.style.transform.replace('translateZ', 'scale(1.1) translateZ');
+        
+        setTimeout(() => {
+            this.style.transform = this.style.transform.replace('scale(1.1) translateZ', 'translateZ');
+        }, 500);
+        
+        // Hide tooltip after click
         hideTooltip();
     });
-    
-// Make cube faces clickable
-            cubeFaces.forEach((face, index) => {
-                face.addEventListener('click', function(e) {
-                    // Stop propagation to prevent activating drag and prevent default behavior
-                    e.stopPropagation();
-                    e.preventDefault();
-                    
-                    // Stop any existing animation
-                    cancelAnimationFrame(animationFrame);
-                    cube.classList.remove('spinning');
-                    
-                    // Different actions based on which face clicked
-                    const messages = [
-                        "Front face activated! Hello, World! 👋",
-                        "Back face discovered! Exploring new territories... 🚀",
-                        "Right face clicked! Web development is my passion! 💻",
-                        "Left face touched! Dev mode activated... 🛠️",
-                        "Top face selected! Welcome to 2025! 🎯",
-                        "Bottom face unlocked! Ready for liftoff! 🚀"
-                    ];
-                    
-                    // Show console message
-                    showConsoleMessage(messages[index]);
-                    
-                    // Special effect - expand the face slightly
-                    this.style.transform = this.style.transform.replace('translateZ', 'scale(1.1) translateZ');
-                    
-                    // Reset after animation
-                    setTimeout(() => {
-                        this.style.transform = this.style.transform.replace('scale(1.1) translateZ', 'translateZ');
-                    }, 500);
-                });
-                
-                // Add hover effect with tooltip
-                face.addEventListener('mouseenter', function(e) {
-                    showTooltip(e, `Click to activate ${this.textContent}`);
-                });
-                
-                face.addEventListener('mouseleave', function() {
-                    hideTooltip();
-                });
-            });
 
+	  // Only add hover tooltips for non-touch devices
+    if (!isTouchDevice()) {
+        face.addEventListener('mouseenter', function(e) {
+            showTooltip(e, `Click to activate ${this.textContent}`);
+        });
+        
+        face.addEventListener('mouseleave', hideTooltip);
+    }
+	});
             // Magic Button Functionality
             magicButton.addEventListener('click', function() {
                 const magicEffects = [
@@ -4905,26 +4908,53 @@ body, body * {
                 }, 100);
             }
 
-            // Tooltip functions
-            function showTooltip(e, text) {
-                tooltip.textContent = text;
-                
-                // Position the tooltip
-                const x = e.clientX;
-                const y = e.clientY;
-                
-                tooltip.style.left = `${x + 15}px`;
-                tooltip.style.top = `${y - 35}px`;
-                tooltip.style.opacity = '1';
-                
-                // Determine best position
-                tooltip.className = 'tooltip bottom';
-            }
-            
-            function hideTooltip() {
-                tooltip.style.opacity = '0';
-            }
+            // Tooltip functions - Updated
+			function showTooltip(e, text) {
+				// Don't show tooltips if touch device and not for cube dragging
+				if (isTouchDevice() && !text.includes("Drag to rotate")) {
+					return;
+				}
+				
+				tooltip.textContent = text;
+				
+				// Adjust for mobile vs desktop positioning
+				const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+				const y = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+				
+				// Position below for touch devices, above for mouse
+				if (isTouchDevice()) {
+					// Position below for touch
+					tooltip.style.left = `${Math.min(x, window.innerWidth - tooltip.offsetWidth - 20)}px`;
+					tooltip.style.top = `${y + 30}px`;
+					tooltip.className = 'tooltip top'; // Arrow pointing up
+				} else {
+					// Position above for mouse
+					tooltip.style.left = `${Math.min(x, window.innerWidth - tooltip.offsetWidth - 20)}px`;
+					tooltip.style.top = `${Math.max(y - tooltip.offsetHeight - 10, 10)}px`;
+					tooltip.className = 'tooltip bottom'; // Arrow pointing down
+				}
+				
+				tooltip.style.opacity = '1';
+				tooltip.style.visibility = 'visible'; // Ensure visibility
+			}
 
+			function hideTooltip() {
+				tooltip.style.opacity = '0';
+				
+				// Hide completely after transition
+				setTimeout(() => {
+					if (tooltip.style.opacity === '0') {
+						tooltip.style.visibility = 'hidden';
+					}
+				}, 500);
+			}
+			
+			// Detect if device is touch-based
+			function isTouchDevice() {
+				return ('ontouchstart' in window) || 
+					   (navigator.maxTouchPoints > 0) || 
+					   (navigator.msMaxTouchPoints > 0);
+			}
 			// Contact form handling
 			contactForm.addEventListener('submit', function(e) {
 				e.preventDefault();
