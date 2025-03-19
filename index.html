@@ -797,21 +797,23 @@
 
         /* Tooltip */
         .tooltip {
-			position: fixed; /* Changed from absolute to fixed for better positioning */
-			background-color: rgba(33, 37, 41, 0.9);
+			position: fixed;
+			background-color: rgba(0, 0, 0, 0.8); /* Darker background for better visibility */
 			color: white;
-			padding: 8px 12px;
+			padding: 10px 15px;
 			border-radius: 4px;
-			font-size: 0.8rem;
+			font-size: 0.9rem;
+			font-weight: 500;
 			pointer-events: none;
 			opacity: 0;
 			visibility: hidden;
-			transition: opacity 0.2s ease, visibility 0.2s ease;
+			transition: opacity 0.3s;
 			white-space: nowrap;
-			z-index: 9999; /* Increased z-index to ensure visibility */
-			max-width: 200px;
-			transform: translateX(-50%); /* Center the tooltip horizontally */
+			z-index: 9999;
+			transform: translateX(-50%);
 			text-align: center;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			border: 1px solid rgba(255, 255, 255, 0.1);
 		}
 
 		/* Arrow styling for more precise positioning */
@@ -823,10 +825,14 @@
 
 		/* Arrow pointing up (for tooltips below elements) */
 		.tooltip.top::after {
-			border-bottom-color: rgba(33, 37, 41, 0.9);
-			top: -12px;
+			content: '';
+			position: absolute;
+			top: -10px;
 			left: 50%;
-			transform: translateX(-50%);
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
 		}
 
         .tooltip.bottom::after {
@@ -4914,55 +4920,44 @@ body, body * {
 
             // Tooltip functions - Updated
 			function showTooltip(e, text) {
-				// Don't show tooltips if touch device and not for cube dragging
+				// Don't show tooltips on touch devices except for dragging
 				if (isTouchDevice() && !text.includes("Drag to rotate")) {
 					return;
 				}
 				
 				tooltip.textContent = text;
 				
-				// Get the element being hovered (if any)
-				const targetElement = e.target || (e.touches && e.touches[0].target);
+				// DIRECT POSITIONING FIX: 
+				// Get the cube wrapper (the container for the cube)
+				const cubeWrapper = document.querySelector('.cube-wrapper');
+				const cubeRect = cubeWrapper.getBoundingClientRect();
 				
-				// If we have a specific target element (like a cube face)
-				if (targetElement && targetElement.classList.contains('cube-face')) {
-					// Get the element's position
-					const rect = targetElement.getBoundingClientRect();
-					
-					// Position the tooltip below the center of the face
-					const centerX = rect.left + rect.width / 2;
-					const bottomY = rect.bottom + window.scrollY;
-					
-					// Account for tooltip width so it's centered on the face
-					tooltip.style.left = `${centerX - (tooltip.offsetWidth / 2 || 100)}px`;
-					tooltip.style.top = `${bottomY + 10}px`; // 10px below the face
-					tooltip.className = 'tooltip top'; // Arrow pointing up
-				} else {
-					// Fallback to cursor position for drag operations
-					const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-					const y = e.clientY || (e.touches && e.touches[0].clientY) || 0;
-					
-					// Position near cursor
-					tooltip.style.left = `${Math.min(x + 10, window.innerWidth - tooltip.offsetWidth - 20)}px`;
-					tooltip.style.top = `${y + 20}px`;
-					tooltip.className = 'tooltip top';
-				}
+				// Position tooltip directly below the cube
+				const centerX = cubeRect.left + (cubeRect.width / 2);
+				const bottomY = cubeRect.bottom;
 				
-				// Make tooltip visible
+				// Set position (using fixed positioning for reliability)
+				tooltip.style.position = 'fixed';
+				tooltip.style.left = `${centerX}px`;
+				tooltip.style.top = `${bottomY + 20}px`;
+				tooltip.style.transform = 'translateX(-50%)'; // Center horizontally
+				
+				// Add a class for styling
+				tooltip.className = 'tooltip top';
+				
+				// Make visible
 				tooltip.style.opacity = '1';
 				tooltip.style.visibility = 'visible';
 			}
 
-
+			// Make sure hideTooltip is also reliable
 			function hideTooltip() {
 				tooltip.style.opacity = '0';
 				
-				// Hide completely after transition
+				// Completely hide after transition
 				setTimeout(() => {
-					if (tooltip.style.opacity === '0') {
-						tooltip.style.visibility = 'hidden';
-					}
-				}, 500);
+					tooltip.style.visibility = 'hidden';
+				}, 300);
 			}
 			
 			// Detect if device is touch-based
