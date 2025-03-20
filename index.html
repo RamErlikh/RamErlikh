@@ -3990,36 +3990,6 @@
             color: white;
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
-    
-    /* Cube Smoothness Fixes */
-    body.theme-neon .cube {
-        /* Override any theme-specific transitions for better dragging */
-        transition: none !important;
-        animation: none !important;
-    }
-    
-    body.theme-neon .cube.spinning {
-        /* Only apply transition when spinning after release */
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-    
-    body.theme-neon .cube-face {
-        /* Ensure cube faces don't have conflicting animations */
-        transition: none !important;
-        backface-visibility: visible !important;
-    }
-    
-    /* Override any hover effects while dragging */
-    .cube.dragging .cube-face:hover {
-        transform: none !important;
-    }
-    
-    /* General fixes for all themes */
-    .cube {
-        /* These will help ensure smooth dragging */
-        touch-action: none;
-        will-change: transform;
-    }
     </style>
 <style id="body-opacity-rule">/* Ensure all elements under body always have opacity 1, with smooth transitions on other properties */
 body, body * {
@@ -4577,7 +4547,6 @@ body, body * {
                 }
             }
 
-            
             // 3D Cube Interaction with Physics
             const cube = document.querySelector('.cube');
             let isDragging = false;
@@ -4589,23 +4558,10 @@ body, body * {
             let velocityY = 0;
             let animationFrame;
             let cubeFaces = document.querySelectorAll('.cube-face');
-            
+
             // Initialize cube rotation
             cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg)`;
-            
-            // Helper function to detect neon theme
-            function isNeonTheme() {
-                return document.body.classList.contains('theme-neon');
-            }
-            
-            // Helper function to update cube transform consistently
-            function updateCubeTransform() {
-                // Ensure the transform is applied consistently
-                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            }
-    
 
-            
             
             // Mouse down event
             cube.addEventListener('mousedown', function(e) {
@@ -4616,13 +4572,11 @@ body, body * {
                 cube.style.cursor = 'grabbing';
                 cancelAnimationFrame(animationFrame);
                 
-                // Add dragging class for CSS targeting
-                cube.classList.add('dragging');
-                cube.classList.remove('spinning');
-                
                 // Show tooltip
                 showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
             });
+
+
             
             // Mouse move event
             document.addEventListener('mousemove', function(e) {
@@ -4641,22 +4595,20 @@ body, body * {
                     rotateY += deltaX * 0.5;
                     rotateX -= deltaY * 0.5;
                     
-                    // Update transform
-                    updateCubeTransform();
+                    cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                     
                     previousX = e.clientX;
                     previousY = e.clientY;
                 }
             });
+
+
             
             // Mouse up event - start physics-based spinning
             document.addEventListener('mouseup', function() {
                 if (isDragging) {
                     isDragging = false;
                     cube.style.cursor = 'grab';
-                    
-                    // Remove dragging class
-                    cube.classList.remove('dragging');
                     
                     // Add spinning class for smooth animation
                     cube.classList.add('spinning');
@@ -4670,8 +4622,7 @@ body, body * {
                         rotateY += velocityX;
                         rotateX -= velocityY;
                         
-                        // Update transform
-                        updateCubeTransform();
+                        cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                         
                         if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
                             animationFrame = requestAnimationFrame(animateCube);
@@ -4686,130 +4637,102 @@ body, body * {
                 // Always hide the tooltip on mouseup
                 hideTooltip();
             });
-    
 
 
 
             
     
-    
-            // Mobile Touch Events
-            cube.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                isDragging = true;
-                
-                // Ensure we're getting coordinates correctly
-                previousX = e.touches[0].clientX;
-                previousY = e.touches[0].clientY;
-                
-                // Add dragging class for CSS targeting
-                cube.classList.add('dragging');
-                
-                // Cancel any ongoing animations
-                cancelAnimationFrame(animationFrame);
-                cube.classList.remove('spinning');
-                
-                // Show tooltip
-                showTooltip(e.touches[0], "Drag to rotate!");
-            });
+    // Mobile Touch Events
+    cube.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        isDragging = true;
+        
+        // Ensure we're getting coordinates correctly
+        previousX = e.touches[0].clientX;
+        previousY = e.touches[0].clientY;
+        
+        // Cancel any ongoing animations
+        cancelAnimationFrame(animationFrame);
+        cube.classList.remove('spinning');
+        
+        // Show tooltip
+        if (tooltip) {
+            showTooltip(e.touches[0], "Drag to rotate!");
+        }
+    });
+
+    document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        
+        // Important: prevent scrolling while dragging the cube
+        e.preventDefault();
+        
+        // Get the current touch position
+        const touch = e.touches[0];
+        
+        // Calculate the delta (how much the finger has moved)
+        const deltaX = touch.clientX - previousX;
+        const deltaY = touch.clientY - previousY;
+        
+        // Set the velocity (for momentum effect later)
+        velocityX = deltaX * 0.5;
+        velocityY = deltaY * 0.5;
+        
+        // Update the rotation angles
+        rotateY += deltaX * 0.5;
+        rotateX -= deltaY * 0.5;
+        
+        // Apply the transform directly with translateX/Y values to ensure it works across all themes
+        cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        
+        // Store the current position for the next move event
+        previousX = touch.clientX;
+        previousY = touch.clientY;
+        
+        // Update tooltip position if visible
+        if (tooltip && tooltip.style.visibility === 'visible') {
+            tooltip.style.left = `${touch.clientX}px`;
+            tooltip.style.top = `${touch.clientY - 40}px`;
+        }
+    });
+
+    document.addEventListener('touchend', function() {
+        if (!isDragging) return;
+        
+        // No longer dragging
+        isDragging = false;
+        
+        // Add the spinning class for smooth animation
+        cube.classList.add('spinning');
+        
+        // Create the momentum-based animation function
+        function animateCubeTouch() {
+            // Apply friction to gradually slow down
+            velocityX *= 0.95;
+            velocityY *= 0.95;
             
-            document.addEventListener('touchmove', function(e) {
-                if (!isDragging) return;
-                
-                // Important: prevent scrolling while dragging the cube
-                e.preventDefault();
-                
-                // Get the current touch position
-                const touch = e.touches[0];
-                
-                // Calculate the delta (how much the finger has moved)
-                const deltaX = touch.clientX - previousX;
-                const deltaY = touch.clientY - previousY;
-                
-                // Set the velocity (for momentum effect later)
-                velocityX = deltaX * 0.5;
-                velocityY = deltaY * 0.5;
-                
-                // Update the rotation angles
-                rotateY += deltaX * 0.5;
-                rotateX -= deltaY * 0.5;
-                
-                // For neon theme, we might need additional handling
-                if (isNeonTheme()) {
-                    // Force immediate update with no transitions
-                    cube.style.transition = 'none';
-                }
-                
-                // Apply the transform with consistent values
-                updateCubeTransform();
-                
-                // Store the current position for the next move event
-                previousX = touch.clientX;
-                previousY = touch.clientY;
-                
-                // Update tooltip position if visible
-                if (tooltip && tooltip.style.visibility === 'visible') {
-                    tooltip.style.left = `${touch.clientX}px`;
-                    tooltip.style.top = `${touch.clientY - 40}px`;
-                }
-            });
+            // Update rotation based on velocity
+            rotateY += velocityX;
+            rotateX -= velocityY;
             
-            document.addEventListener('touchend', function() {
-                if (!isDragging) return;
-                
-                // No longer dragging
-                isDragging = false;
-                
-                // Remove dragging class
-                cube.classList.remove('dragging');
-                
-                // Add the spinning class for smooth animation
-                cube.classList.add('spinning');
-                
-                // Create the momentum-based animation function
-                function animateCubeTouch() {
-                    // Apply friction to gradually slow down
-                    velocityX *= 0.95;
-                    velocityY *= 0.95;
-                    
-                    // Update rotation based on velocity
-                    rotateY += velocityX;
-                    rotateX -= velocityY;
-                    
-                    // Apply transform with consistent values
-                    updateCubeTransform();
-                    
-                    // Continue animation if still moving
-                    if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-                        animationFrame = requestAnimationFrame(animateCubeTouch);
-                    } else {
-                        // Stop spinning class when velocity is too low
-                        cube.classList.remove('spinning');
-                    }
-                }
-                
-                // Start the animation
+            // Apply transform with consistent values
+            cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            
+            // Continue animation if still moving
+            if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
                 animationFrame = requestAnimationFrame(animateCubeTouch);
-                
-                // Hide the tooltip
-                hideTooltip();
-            });
-            
-            // Add touchcancel event to handle interruptions (e.g., system dialogs)
-            document.addEventListener('touchcancel', function() {
-                if (isDragging) {
-                    isDragging = false;
-                    hideTooltip();
-                    
-                    // Remove dragging class
-                    cube.classList.remove('dragging');
-                    
-                    // Clear any ongoing animations to prevent unexpected behavior
-                    cancelAnimationFrame(animationFrame);
-                    cube.classList.remove('spinning');
-                }
-            });
-    
+            } else {
+                // Stop spinning class when velocity is too low
+                cube.classList.remove('spinning');
+            }
+        }
+        
+        // Start the animation
+        animationFrame = requestAnimationFrame(animateCubeTouch);
+        
+        // Hide the tooltip
+        hideTooltip();
+    });
 
     // Add touchcancel event to handle interruptions (e.g., system dialogs)
     document.addEventListener('touchcancel', function() {
@@ -5279,50 +5202,34 @@ body, body * {
             
             
     
-    
-            // Mobile Optimization
-            (function optimizeForMobile(){
-                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    // Remove heavy particle and star effects if they exist
-                    var particles = document.querySelector('.particles');
-                    if (particles) particles.remove();
-                    var stars = document.getElementById('stars');
-                    if (stars) stars.remove();
-                    // Remove additional decorative elements
-                    var decorations = document.querySelectorAll('.theme-decoration');
-                    decorations.forEach(function(el){ el.remove(); });
-                    // Disable background animations
-                    document.body.style.animation = 'none';
-                    
-                    // Special handling for neon theme on mobile
-                    if (document.body.classList.contains('theme-neon')) {
-                        document.querySelectorAll('.theme-neon .profile-pic, .theme-neon .social-link, .theme-neon .section-content, .theme-neon .contact-icon').forEach(function(el) {
-                            el.style.animation = 'none';
-                        });
-                    }
-                    
-                    // Optimize the cube for all themes
-                    var cube = document.querySelector('.cube');
-                    if (cube) {
-                        // CSS will handle transitions - we're setting them via classes
-                        cube.style.willChange = 'transform';
-                        
-                        // Reduce the animations on cube faces
-                        document.querySelectorAll('.cube-face').forEach(function(face) {
-                            face.style.animation = 'none';
-                        });
-                    }
-                    
-                    // Remove hover animations from project cards and contact items
-                    var cards = document.querySelectorAll('.project-card, .contact-item');
-                    cards.forEach(function(card){
-                        card.style.transition = 'none';
-                    });
-                    
-                    console.log("Enhanced mobile optimizations applied with neon theme fixes");
-                }
-            })();
-    
+    // Mobile Optimization
+    (function optimizeForMobile(){
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Remove heavy particle and star effects if they exist
+            var particles = document.querySelector('.particles');
+            if (particles) particles.remove();
+            var stars = document.getElementById('stars');
+            if (stars) stars.remove();
+            // Remove additional decorative elements
+            var decorations = document.querySelectorAll('.theme-decoration');
+            decorations.forEach(function(el){ el.remove(); });
+            // Disable background animations
+            document.body.style.animation = 'none';
+            // Optimize the cube transition for smoother touch performance
+            var cube = document.querySelector('.cube');
+            if (cube) {
+                // Use a standard, short transition for all themes
+                cube.style.transition = 'transform 0.2s ease-out';
+                cube.style.willChange = 'transform';
+            }
+            // Remove hover animations from project cards and contact items
+            var cards = document.querySelectorAll('.project-card, .contact-item');
+            cards.forEach(function(card){
+                card.style.transition = 'none';
+            });
+            console.log("Mobile optimizations applied with improved cube handling.");
+        }
+    })();
     
 // Call once on load
             setTimeout(animateOnScroll, 500);
