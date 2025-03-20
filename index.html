@@ -577,6 +577,7 @@
             position: relative;
             perspective: 1000px;
             margin: 40px auto;
+            overflow: hidden;
         }
         .cube {
             width: 200px;
@@ -586,11 +587,11 @@
             left: 50%;
             transform-style: preserve-3d;
             transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg);
-            transition: transform 0.3s ease;
+            transition: transform 0.1s linear;
             cursor: grab;
         }
         .cube.spinning {
-            transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7);
+            transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .cube-face {
             position: absolute;
@@ -603,10 +604,10 @@
             font-weight: bold;
             color: white;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
             border: 2px solid white;
             backface-visibility: visible;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s linear;
         }
         .cube-face:hover {
             cursor: pointer;
@@ -3859,57 +3860,72 @@ body, body * {
                 color 0.5s ease, 
                 border-color 0.5s ease, 
                 transform 0.5s ease !important;
-}</style><style id="mobile-optimization">
-/* Mobile Neon Theme Cube Optimizations */
+}</style><style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
 @media (max-width: 768px) {
-    /* Optimize cube base styles */
+    /* Optimize Dark Mode: disable heavy animations and shorten transitions */
+    body.theme-dark .profile-container::before,
+    body.theme-dark .profile-container::after,
+    body.theme-dark .logo::before,
+    body.theme-dark .profile-pic,
+    body.theme-dark .section-content,
+    body.theme-dark .project-card,
+    body.theme-dark .theme-indicator,
+    body.theme-dark .magic-button {
+         animation: none !important;
+         transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
+    }
+    /* Optimize Neon Theme: disable heavy animations and shorten transitions */
+    body.theme-neon .header-content,
+    body.theme-neon .logo,
+    body.theme-neon .theme-button,
+    body.theme-neon .profile-pic,
+    body.theme-neon .section-title,
+    body.theme-neon .section-content,
+    body.theme-neon .project-card,
+    body.theme-neon .contact-item,
+    body.theme-neon .theme-indicator,
+    body.theme-neon .magic-button {
+         animation: none !important;
+         transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
+    }
+}/* Mobile Cube Optimization */
+@media (max-width: 768px) {
     .cube-wrapper {
+        height: 250px;
         perspective: 800px;
     }
-    
+    .cube, .cube-face {
+        width: 150px;
+        height: 150px;
+    }
     .cube {
-        will-change: transform;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg);
+        transition: transform 0.08s linear;
     }
-    
+    .cube.spinning {
+        transition: transform 1.5s ease-out;
+    }
     .cube-face {
-        will-change: transform;
-        backface-visibility: hidden;
-        transform: translateZ(0);
+        font-size: 2rem;
     }
+    .cube-face.front { transform: translateZ(75px); }
+    .cube-face.back { transform: rotateY(180deg) translateZ(75px); }
+    .cube-face.right { transform: rotateY(90deg) translateZ(75px); }
+    .cube-face.left { transform: rotateY(-90deg) translateZ(75px); }
+    .cube-face.top { transform: rotateX(90deg) translateZ(75px); }
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
     
-    /* Neon theme specific optimizations */
+    /* Neon theme specific cube fixes */
     body.theme-neon .cube-face {
-        /* Replace heavy animation with lighter version */
-        animation: simpleNeonGlow 3s infinite alternate ease-in-out !important;
-        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5) !important;
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        animation: simpleBorderGlow 3s infinite alternate ease-in-out;
     }
     
-    /* Simplified glow animation */
-    @keyframes simpleNeonGlow {
-        0% { box-shadow: 0 0 8px rgba(255, 0, 255, 0.5); }
-        100% { box-shadow: 0 0 12px rgba(0, 255, 255, 0.5); }
+    @keyframes simpleBorderGlow {
+        0% { border-color: #ff00ff; }
+        100% { border-color: #00ffff; }
     }
-    
-    /* Inactive vs active state handling */
-    .cube.dragging .cube-face {
-        /* Disable animations during drag for better performance */
-        animation: none !important;
-        box-shadow: 0 0 5px rgba(255, 0, 255, 0.3) !important;
-    }
-    
-    body.theme-neon .cube {
-        /* Use optimized transition for smoother rotation */
-        transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1) !important;
-    }
-    
-    body.theme-neon .cube.spinning {
-        /* Use optimized transition for smoother inertia */
-        transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) !important;
-    }
-}
-</style></head>
+}</style></head>
 <body>
 <header>
 <div class="container">
@@ -5041,163 +5057,85 @@ body, body * {
             setTimeout(animateOnScroll, 500);
             
             // Set initial theme
+
+// Simple cube movement fix
+document.addEventListener('DOMContentLoaded', function() {
+    const cube = document.querySelector('.cube');
+    if (!cube) return;
+    
+    // Detect if device is touch-based
+    const isTouchDevice = ('ontouchstart' in window) || 
+                         (navigator.maxTouchPoints > 0) || 
+                         (navigator.msMaxTouchPoints > 0);
+    
+    // Set smaller rotation amount for mobile to prevent wild spinning
+    const rotationFactor = isTouchDevice ? 0.2 : 0.5;
+    
+    // Add spinning class immediately on touch end instead of calculating velocity
+    if (isTouchDevice) {
+        let activeAnimation = null;
+        
+        document.addEventListener('touchend', function() {
+            if (isDragging) {
+                isDragging = false;
+                cube.style.cursor = 'grab';
+                
+                // If we're moving with a reasonable velocity, add spinning effect
+                if (Math.abs(velocityX) > 1 || Math.abs(velocityY) > 1) {
+                    // Cancel any running animations first
+                    if (activeAnimation) {
+                        cancelAnimationFrame(activeAnimation);
+                    }
+                    
+                    // More gentle rotation with simple decay
+                    velocityX *= 0.8;
+                    velocityY *= 0.8;
+                    
+                    // Apply the spinning effect with limited rotation
+                    cube.classList.add('spinning');
+                    const targetX = rotateX + (velocityY * -5);  // Limit rotation amount
+                    const targetY = rotateY + (velocityX * 5);   // Limit rotation amount
+                    cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${targetX}deg) rotateY(${targetY}deg)`;
+                    
+                    // Update current rotation values
+                    rotateX = targetX;
+                    rotateY = targetY;
+                    
+                    // Remove class after animation completes
+                    setTimeout(() => {
+                        cube.classList.remove('spinning');
+                    }, 1500);
+                }
+            }
+        });
+        
+        // Simpler mouse/touch move with less calculations
+        document.addEventListener('touchmove', function(e) {
+            if (isDragging) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                
+                const deltaX = touch.clientX - previousX;
+                const deltaY = touch.clientY - previousY;
+                
+                velocityX = deltaX * rotationFactor;
+                velocityY = deltaY * rotationFactor;
+                
+                rotateY += velocityX;
+                rotateX -= velocityY;
+                
+                // Apply transform immediately with no delay
+                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                
+                previousX = touch.clientX;
+                previousY = touch.clientY;
+            }
+        }, { passive: false });
+    }
+});
+
             setTheme(currentThemeIndex);
         });
     </script>
-<script id="mobile-cube-optimization">
-// Optimized cube rotation for mobile neon theme
-(function() {
-    // Get device type
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (!isMobile) return; // Only apply on mobile devices
-    
-    // Wait for DOM to be ready
-    document.addEventListener('DOMContentLoaded', function() {
-        const cube = document.querySelector('.cube');
-        if (!cube) return;
-        
-        // Configuration
-        const config = {
-            damping: 0.92,      // Deceleration factor (higher = slower stop)
-            sensitivity: 0.3,    // How responsive rotation is to touch (lower = less sensitive)
-            minVelocity: 0.05,   // Velocity threshold to stop animation
-            maxVelocity: 15      // Maximum velocity to prevent wild spinning
-        };
-        
-        // State tracking
-        let isDragging = false;
-        let rotateX = 0;
-        let rotateY = 0;
-        let velocityX = 0;
-        let velocityY = 0;
-        let previousX = 0;
-        let previousY = 0;
-        let lastFrameTime = 0;
-        let animationFrame = null;
-        
-        // Improved touch handlers with performance optimizations
-        cube.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            isDragging = true;
-            previousX = e.touches[0].clientX;
-            previousY = e.touches[0].clientY;
-            cube.classList.add('dragging');
-            cube.classList.remove('spinning');
-            
-            // Cancel any ongoing animation
-            if (animationFrame) {
-                cancelAnimationFrame(animationFrame);
-                animationFrame = null;
-            }
-        });
-        
-        // Throttled touch move handler
-        let lastMoveTime = 0;
-        document.addEventListener('touchmove', function(e) {
-            if (!isDragging) return;
-            
-            // Throttle to improve performance
-            const now = Date.now();
-            if (now - lastMoveTime < 16) return; // ~60fps max
-            lastMoveTime = now;
-            
-            e.preventDefault();
-            
-            const touch = e.touches[0];
-            const deltaX = touch.clientX - previousX;
-            const deltaY = touch.clientY - previousY;
-            
-            // Calculate velocity with sensitivity factor
-            velocityX = deltaX * config.sensitivity;
-            velocityY = deltaY * config.sensitivity;
-            
-            // Apply velocity limits
-            velocityX = Math.max(Math.min(velocityX, config.maxVelocity), -config.maxVelocity);
-            velocityY = Math.max(Math.min(velocityY, config.maxVelocity), -config.maxVelocity);
-            
-            // Update rotation
-            rotateY += velocityX;
-            rotateX -= velocityY;
-            
-            // Apply transform with hardware acceleration
-            cube.style.transform = `translateX(-50%) translateY(-50%) translateZ(0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            
-            previousX = touch.clientX;
-            previousY = touch.clientY;
-        });
-        
-        // Optimized inertia on touch end
-        document.addEventListener('touchend', function() {
-            if (!isDragging) return;
-            isDragging = false;
-            cube.classList.remove('dragging');
-            
-            // Only add spinning effect if there's significant velocity
-            if (Math.abs(velocityX) > 1 || Math.abs(velocityY) > 1) {
-                cube.classList.add('spinning');
-                
-                // Frame-time based animation for smooth deceleration
-                lastFrameTime = Date.now();
-                
-                function animateCube() {
-                    const now = Date.now();
-                    const deltaTime = Math.min(1, (now - lastFrameTime) / 16); // Cap at 1x for stability
-                    lastFrameTime = now;
-                    
-                    // Apply time-adjusted damping for consistent physics
-                    velocityX *= Math.pow(config.damping, deltaTime);
-                    velocityY *= Math.pow(config.damping, deltaTime);
-                    
-                    rotateY += velocityX;
-                    rotateX -= velocityY;
-                    
-                    // Optimized transform
-                    cube.style.transform = `translateX(-50%) translateY(-50%) translateZ(0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                    
-                    if (Math.abs(velocityX) > config.minVelocity || Math.abs(velocityY) > config.minVelocity) {
-                        animationFrame = requestAnimationFrame(animateCube);
-                    } else {
-                        cube.classList.remove('spinning');
-                    }
-                }
-                
-                animationFrame = requestAnimationFrame(animateCube);
-            }
-        });
-        
-        // Apply neon theme optimizations when theme changes
-        function applyNeonOptimizations() {
-            if (document.body.classList.contains('theme-neon')) {
-                // Reduce animation complexity for better performance
-                const cubeFaces = document.querySelectorAll('.cube-face');
-                cubeFaces.forEach(face => {
-                    face.style.willChange = 'transform';
-                    face.style.backfaceVisibility = 'hidden';
-                });
-                
-                // Set optimal physics parameters for neon theme
-                config.damping = 0.94;      // Smoother deceleration
-                config.sensitivity = 0.25;   // Less sensitive rotation
-            }
-        }
-        
-        // Listen for theme changes
-        const themeButton = document.getElementById('theme-button');
-        if (themeButton) {
-            themeButton.addEventListener('click', applyNeonOptimizations);
-        }
-        
-        const themeIndicator = document.getElementById('theme-indicator');
-        if (themeIndicator) {
-            themeIndicator.addEventListener('click', applyNeonOptimizations);
-        }
-        
-        // Initial optimization
-        applyNeonOptimizations();
-        
-        console.log("Mobile cube rotation optimizations applied");
-    });
-})();
-</script>
 </body>
 </html>
