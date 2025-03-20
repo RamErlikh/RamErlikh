@@ -796,76 +796,162 @@
         }
 
         /* Tooltip */
-        
-        /* Tooltip styles */
         .tooltip {
-            position: fixed;
-            padding: 6px 12px;
-            pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s, visibility 0.2s;
-            z-index: 9999;
-            text-align: center;
-            white-space: nowrap;
-            width: auto;
-            min-width: fit-content;
-            max-width: none;
-            transform: translateX(-50%);
-            font-family: inherit;
-            font-size: 0.85rem;
-        }
-        
-        /* Theme-specific tooltip styles */
-        body .tooltip {
-            background-color: rgba(33, 37, 41, 0.9);
-            color: #3b82f6;
-            border: 1px solid #3b82f6;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        body.theme-dark .tooltip {
-            background-color: rgba(15, 23, 42, 0.9);
-            color: #60a5fa;
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
-        }
-        
-        body.theme-neon .tooltip {
-            background-color: rgba(0, 0, 50, 0.8);
-            color: #00ffff;
-            border: 2px solid #ff00ff;
-            font-family: 'VT323', monospace, 'Segoe UI', Roboto;
-        }
-        
-        body.theme-terminal .tooltip {
-            background-color: #000000;
-            color: #00ff00;
-            border: 1px solid #00ff00;
-            border-radius: 0;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        body.theme-terminal .tooltip::before {
-            content: '> ';
-        }
-        
-        body.theme-xp .tooltip {
-            background: linear-gradient(to bottom, #2860b1, #5888e0);
-            color: white;
-            border: 1px solid #1541a4;
-            border-radius: 3px;
-            font-family: 'Tahoma', sans-serif;
-        }
-        
-        body.theme-modern-tech .tooltip {
-            background: rgba(17, 34, 64, 0.8);
-            color: #64ffda;
-            border: 1px solid rgba(100, 255, 218, 0.3);
-            border-radius: 4px;
-        }
+			position: fixed;
+			padding: 6px 12px;
+			pointer-events: none;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.2s, visibility 0.2s;
+			z-index: 9999;
+			text-align: center;
+			
+			/* Single line fixes */
+			white-space: nowrap;    /* Prevent wrapping */
+			width: auto;            /* Auto-adjust to content */
+			min-width: fit-content; /* Ensure it fits content */
+			max-width: none;        /* Remove max-width constraint */
+			
+			/* Positioning */
+			transform: translateX(-50%);
+			
+			/* Default styling */
+			background-color: rgba(22, 28, 45, 0.9); /* Match theme background */
+			color: #38bdf8;                          /* Match theme color */
+			border: 1px solid rgba(56, 189, 248, 0.3);
+			border-radius: 4px;
+			font-size: 0.85rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+		}
+		/* Arrow styling for more precise positioning */
+		.tooltip::after {
+			content: '';
+			position: absolute;
+			border: 6px solid transparent;
+			display: inline-block;
+		}
+		
+		/* Default theme */
+		body .tooltip {
+			background-color: rgba(0, 0, 0, 0.8);
+			color: #3b82f6;
+			border: 1px solid #3b82f6;
+			border-radius: 4px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		}
 
+		/* Dark theme */
+		body.theme-dark .tooltip {
+			background-color: rgba(15, 23, 42, 0.9);
+			color: #60a5fa;
+			border: 1px solid rgba(96, 165, 250, 0.3);
+			border-radius: 8px;
+			box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
+		}
+
+		/* Neon theme */
+		body.theme-neon .tooltip {
+			background-color: rgba(0, 0, 50, 0.8);
+			color: #00ffff;
+			border: 2px solid #ff00ff;
+			animation: borderGlow 4s infinite;
+			box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+			font-family: 'VT323', monospace, 'Segoe UI', Roboto;
+		}
+
+		/* Terminal theme */
+		body.theme-terminal .tooltip {
+			background-color: #000000;
+			color: #00ff00;
+			border: 1px solid #00ff00;
+			border-radius: 0;
+			font-family: 'Courier New', Courier, monospace;
+		}
+		body.theme-terminal .tooltip::before {
+			content: '> ';
+		}
+
+		/* Windows XP theme */
+		body.theme-xp .tooltip {
+			background: linear-gradient(to bottom, #2860b1, #5888e0);
+			color: white;
+			border: 1px solid #1541a4;
+			border-radius: 3px;
+			font-family: 'Tahoma', sans-serif;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		}
+
+		/* Modern Tech theme */
+		body.theme-modern-tech .tooltip {
+			background: rgba(17, 34, 64, 0.8);
+			color: #64ffda;
+			border: 1px solid rgba(100, 255, 218, 0.3);
+			border-radius: 4px;
+			backdrop-filter: blur(5px);
+		}
+
+		/* Cyberpunk theme */
+		body.theme-cyberpunk .tooltip {
+			--cyber-neon-pink: #ff2b8c;
+			--cyber-neon-blue: #00b3ff;
+			background-color: rgba(0, 0, 50, 0.7);
+			color: var(--cyber-neon-pink);
+			border: 1px solid var(--cyber-neon-pink);
+			box-shadow: 0 0 10px var(--cyber-neon-pink);
+			font-family: 'Courier New', monospace;
+		}
+
+		/* Minimalist theme */
+		body.theme-minimalist .tooltip {
+			background-color: #222222;
+			color: white;
+			border: none;
+			border-radius: 0;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+		}
+
+		/* Creative Agency theme */
+		body.theme-agency .tooltip {
+			background-color: white;
+			color: #ff3e55;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+			font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+		}
+
+		/* Portfolio theme */
+		body.theme-portfolio .tooltip {
+			background-color: rgba(26, 32, 44, 0.8);
+			color: #e2e8f0;
+			border: 1px solid rgba(66, 153, 225, 0.3);
+			border-radius: 6px;
+			backdrop-filter: blur(10px);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+		/* Arrow pointing up (for tooltips below elements) */
+		.tooltip.top::after {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+		}
+
+        /* Add a triangle pointer to the tooltip */
+		.tooltip.bottom::after {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+		}
 
         .tooltip.left::after {
             border-left-color: rgba(33, 37, 41, 0.9);
@@ -4027,7 +4113,95 @@ body, body * {
          animation: none !important;
          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
     }
-}</style></head>
+}
+
+/* Mobile Neon Theme Optimizations - Preserves Visual Style */
+@media (max-width: 768px) {
+    /* Optimize background effects without removing them */
+    body.theme-neon {
+        background-attachment: scroll !important; /* Better scroll performance */
+    }
+    
+    body.theme-neon::before {
+        /* Keep grid but reduce animation frequency */
+        animation-duration: 30s !important; 
+        opacity: 0.1 !important; /* Reduce opacity for better performance */
+    }
+    
+    /* Reduce animation complexity but keep main effects */
+    body.theme-neon .header-content {
+        animation: borderGlow 8s infinite !important; /* Slower animation */
+    }
+    
+    body.theme-neon .header-content::before {
+        opacity: 0.2 !important; /* Reduce gradient effect intensity */
+        animation: sweep 10s linear infinite !important; /* Slower animation */
+    }
+    
+    /* Keep profile pic effects but optimize them */
+    body.theme-neon .profile-pic {
+        animation: neonPulse 4s infinite alternate !important; /* Slower pulse */
+        box-shadow: 0 0 15px #ff00ff !important; /* Reduced shadow intensity */
+    }
+    
+    /* Optimize but keep container effects */
+    body.theme-neon .profile-container::before,
+    body.theme-neon .profile-container::after {
+        animation: pulseAndRotate 8s linear infinite !important; /* Slower animation */
+    }
+    
+    /* Reduce card animation complexity */
+    body.theme-neon .section-content,
+    body.theme-neon .project-card {
+        animation: borderGlow 8s infinite !important; /* Slower animation */
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    
+    /* Simplify text glow effects but keep them visible */
+    body.theme-neon .logo,
+    body.theme-neon h1,
+    body.theme-neon .section-title {
+        animation: glow 4s ease-in-out infinite !important; /* Slower glow */
+    }
+    
+    /* Simplify cube face effects */
+    body.theme-neon .cube-face {
+        animation: borderGlow 6s infinite !important; /* Slower animation */
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5) !important; /* Reduced shadow */
+    }
+    
+    /* Optimize keyframes for mobile */
+    @keyframes glow {
+        0%, 100% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff; }
+        50% { text-shadow: 0 0 8px #ff00ff, 0 0 15px #ff00ff; }
+    }
+    
+    @keyframes borderGlow {
+        0%, 100% { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; }
+        50% { border-color: #00ffff; box-shadow: 0 0 8px #00ffff; }
+    }
+}
+
+/* Additional mobile cube optimizations for Neon theme - Preserves Visual Style */
+@media (max-width: 768px) {
+    body.theme-neon .cube-wrapper {
+        transform: translateZ(0) !important; /* Force GPU acceleration */
+        will-change: transform !important;
+    }
+    
+    body.theme-neon .cube {
+        /* Keep 3D effect but optimize rendering */
+        will-change: transform !important;
+        backface-visibility: hidden !important;
+    }
+    
+    /* Keep colors but optimize animation */
+    body.theme-neon .cube-face {
+        animation-duration: 6s !important;
+        transition: transform 0.2s ease !important;
+    }
+}
+</style></head>
 <body>
 <header>
 <div class="container">
@@ -4562,30 +4736,23 @@ body, body * {
             // Initialize cube rotation
             cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg)`;
 
-            
             // Mouse down event
             cube.addEventListener('mousedown', function(e) {
-                e.preventDefault(); // Prevent default behavior including page scrolling
-                isDragging = true;
-                previousX = e.clientX;
-                previousY = e.clientY;
-                cube.style.cursor = 'grabbing';
-                cancelAnimationFrame(animationFrame);
-                
-                // Show tooltip
-                showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
-            });
+				e.preventDefault(); 
+				isDragging = true;
+				previousX = e.clientX;
+				previousY = e.clientY;
+				cube.style.cursor = 'grabbing';
+				cancelAnimationFrame(animationFrame);
+				
+				// Show tooltip for mouse
+				showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
+			});
 
-
-            
             // Mouse move event
             document.addEventListener('mousemove', function(e) {
                 if (isDragging) {
                     e.preventDefault(); // Prevent default behavior including page scrolling
-                    
-                    // Keep tooltip visible during drag
-                    showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
-                    
                     const deltaX = e.clientX - previousX;
                     const deltaY = e.clientY - previousY;
                     
@@ -4602,42 +4769,35 @@ body, body * {
                 }
             });
 
-
-            
             // Mouse up event - start physics-based spinning
-            document.addEventListener('mouseup', function() {
-                if (isDragging) {
-                    isDragging = false;
-                    cube.style.cursor = 'grab';
-                    
-                    // Add spinning class for smooth animation
-                    cube.classList.add('spinning');
-                    
-                    // Start the physics-based animation
-                    function animateCube() {
-                        // Apply friction
-                        velocityX *= 0.95;
-                        velocityY *= 0.95;
-                        
-                        rotateY += velocityX;
-                        rotateX -= velocityY;
-                        
-                        cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                        
-                        if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-                            animationFrame = requestAnimationFrame(animateCube);
-                        } else {
-                            cube.classList.remove('spinning');
-                        }
-                    }
-                    
-                    animationFrame = requestAnimationFrame(animateCube);
-                }
-                
-                // Always hide the tooltip on mouseup
-                hideTooltip();
-            });
-
+            document.addEventListener('mouseup', function(e) {
+				if (isDragging) {
+					isDragging = false;
+					cube.style.cursor = 'grab';
+					cube.classList.add('spinning');
+					
+					function animateCube() {
+						velocityX *= 0.95;
+						velocityY *= 0.95;
+						
+						rotateY += velocityX;
+						rotateX -= velocityY;
+						
+						cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+						
+						if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+							animationFrame = requestAnimationFrame(animateCube);
+						} else {
+							cube.classList.remove('spinning');
+						}
+					}
+					
+					animationFrame = requestAnimationFrame(animateCube);
+				}
+				
+				// Always hide the tooltip on mouseup
+				hideTooltip();
+			});
 
 
             
@@ -5181,6 +5341,55 @@ body, body * {
             // Set initial theme
             setTheme(currentThemeIndex);
         });
-    </script>
+    
+    // Enhanced Neon Theme mobile optimization that preserves visual appearance
+    (function optimizeNeonForMobile() {
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            // Check if Neon theme is active
+            function optimizeIfNeon() {
+                if (document.body.classList.contains('theme-neon')) {
+                    console.log("Applying Neon theme mobile optimizations");
+                    
+                    // Force hardware acceleration for better performance
+                    document.body.style.transform = 'translateZ(0)';
+                    document.body.style.backfaceVisibility = 'hidden';
+                    
+                    // Optimize cube rendering
+                    const cube = document.querySelector('.cube');
+                    if (cube) {
+                        // Use hardware acceleration for cube
+                        cube.style.willChange = 'transform';
+                        cube.style.backfaceVisibility = 'hidden';
+                        
+                        // Smooth animations for cube faces
+                        document.querySelectorAll('.cube-face').forEach(face => {
+                            face.style.willChange = 'transform';
+                            face.style.backfaceVisibility = 'hidden';
+                        });
+                    }
+                }
+            }
+            
+            // Run optimization immediately if Neon theme is active
+            optimizeIfNeon();
+            
+            // Re-apply optimizations when theme changes
+            const themeButton = document.getElementById('theme-button');
+            if (themeButton) {
+                themeButton.addEventListener('click', function() {
+                    setTimeout(optimizeIfNeon, 100);
+                });
+            }
+            
+            const themeIndicator = document.getElementById('theme-indicator');
+            if (themeIndicator) {
+                themeIndicator.addEventListener('click', function() {
+                    setTimeout(optimizeIfNeon, 100);
+                });
+            }
+        }
+    })();
+
+</script>
 </body>
 </html>
