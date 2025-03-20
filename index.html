@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 
 <html lang="en">
 <head>
@@ -14,23 +18,29 @@
           transition: background-color 0.5s ease !important;
       }
     
-/* Mobile cube performance optimization */
+/* Improved cube touch handling for mobile while preserving desktop */
 @media (max-width: 768px) {
-    /* Hardware acceleration for cube */
     .cube-wrapper {
+        touch-action: none !important;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
     
     .cube {
+        touch-action: none !important;
         will-change: transform;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        /* Make transitions super responsive on mobile */
+        transition: none !important;
     }
     
-    .cube-face {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    /* Spinning animation should be smooth */
+    .cube.spinning {
+        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
     }
 }
 
@@ -46,23 +56,29 @@
           animation: fadeInDrop 0.5s ease forwards !important;
       }
     
-/* Mobile cube performance optimization */
+/* Improved cube touch handling for mobile while preserving desktop */
 @media (max-width: 768px) {
-    /* Hardware acceleration for cube */
     .cube-wrapper {
+        touch-action: none !important;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
     
     .cube {
+        touch-action: none !important;
         will-change: transform;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        /* Make transitions super responsive on mobile */
+        transition: none !important;
     }
     
-    .cube-face {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    /* Spinning animation should be smooth */
+    .cube.spinning {
+        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
     }
 }
 
@@ -74,23 +90,29 @@
           animation: none !important;
       }
     
-/* Mobile cube performance optimization */
+/* Improved cube touch handling for mobile while preserving desktop */
 @media (max-width: 768px) {
-    /* Hardware acceleration for cube */
     .cube-wrapper {
+        touch-action: none !important;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
     
     .cube {
+        touch-action: none !important;
         will-change: transform;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        /* Make transitions super responsive on mobile */
+        transition: none !important;
     }
     
-    .cube-face {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    /* Spinning animation should be smooth */
+    .cube.spinning {
+        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
     }
 }
 
@@ -4140,23 +4162,29 @@
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
     
-/* Mobile cube performance optimization */
+/* Improved cube touch handling for mobile while preserving desktop */
 @media (max-width: 768px) {
-    /* Hardware acceleration for cube */
     .cube-wrapper {
+        touch-action: none !important;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
     
     .cube {
+        touch-action: none !important;
         will-change: transform;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        /* Make transitions super responsive on mobile */
+        transition: none !important;
     }
     
-    .cube-face {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    /* Spinning animation should be smooth */
+    .cube.spinning {
+        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
     }
 }
 
@@ -4169,23 +4197,29 @@ body, body * {
                 border-color 0.5s ease, 
                 transform 0.5s ease !important;
 }
-/* Mobile cube performance optimization */
+/* Improved cube touch handling for mobile while preserving desktop */
 @media (max-width: 768px) {
-    /* Hardware acceleration for cube */
     .cube-wrapper {
+        touch-action: none !important;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
     
     .cube {
+        touch-action: none !important;
         will-change: transform;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        /* Make transitions super responsive on mobile */
+        transition: none !important;
     }
     
-    .cube-face {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    /* Spinning animation should be smooth */
+    .cube.spinning {
+        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
     }
 }
 
@@ -4219,23 +4253,29 @@ body, body * {
          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
     }
 }
-/* Mobile cube performance optimization */
+/* Improved cube touch handling for mobile while preserving desktop */
 @media (max-width: 768px) {
-    /* Hardware acceleration for cube */
     .cube-wrapper {
+        touch-action: none !important;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
     
     .cube {
+        touch-action: none !important;
         will-change: transform;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        /* Make transitions super responsive on mobile */
+        transition: none !important;
     }
     
-    .cube-face {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    /* Spinning animation should be smooth */
+    .cube.spinning {
+        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
     }
 }
 
@@ -4840,46 +4880,31 @@ body, body * {
 
             
     // Mobile Touch Events
-    
-    // Mobile Touch Events - Fixed for reliability
     cube.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        isDragging = true;
-        previousX = e.touches[0].clientX;
-        previousY = e.touches[0].clientY;
-        cube.style.cursor = 'grabbing';
-        cancelAnimationFrame(animationFrame);
-        showTooltip(e.touches[0], "Drag to rotate!");
-    });
-
-    
-    // Optimized touchmove for smoother cube rotation
+		e.preventDefault();
+		isDragging = true;
+		previousX = e.touches[0].clientX;
+		previousY = e.touches[0].clientY;
+		cancelAnimationFrame(animationFrame);
+		
+		// Simpler message for mobile
+		showTooltip(e.touches[0], "Drag to rotate!");
+	});
     document.addEventListener('touchmove', function(e) {
         if (isDragging) {
             e.preventDefault();
-            
-            // Get touch position
             let touch = e.touches[0];
             let deltaX = touch.clientX - previousX;
             let deltaY = touch.clientY - previousY;
-            
-            // Update velocities
             velocityX = deltaX * 0.5;
             velocityY = deltaY * 0.5;
-            
-            // Update rotation
             rotateY += deltaX * 0.5;
             rotateX -= deltaY * 0.5;
-            
-            // Apply transform directly
             cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            
-            // Update previous position
             previousX = touch.clientX;
             previousY = touch.clientY;
         }
-    }, { passive: false });
-
+    });
     document.addEventListener('touchend', function() {
 		if (isDragging) {
 			isDragging = false;
@@ -5394,6 +5419,122 @@ body, body * {
             // Set initial theme
             setTheme(currentThemeIndex);
         });
-    </script>
+    
+    // Improved mobile touch handling while preserving desktop functionality
+    function initImprovedMobileTouch() {
+        const cube = document.querySelector('.cube');
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (!cube || !isMobile) return; // Only apply to mobile devices
+        
+        console.log("Applying improved mobile touch handling");
+        
+        // Prevent browser handling that could cause glitching
+        cube.style.touchAction = 'none';
+        
+        // Better touch start handling
+        cube.addEventListener('touchstart', function(e) {
+            // Stop any existing animation
+            cancelAnimationFrame(animationFrame);
+            cube.classList.remove('spinning');
+            
+            // Prevent browser handling
+            e.preventDefault();
+            
+            // Set up dragging state with clean coordinates
+            isDragging = true;
+            previousX = e.touches[0].clientX;
+            previousY = e.touches[0].clientY;
+            
+            // Show tooltip
+            if (typeof showTooltip === 'function') {
+                showTooltip(e.touches[0], "Drag to rotate!");
+            }
+        }, { passive: false });
+        
+        // Improved touch move handling
+        const originalTouchMove = document.ontouchmove;
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            
+            // Prevent scrolling while dragging cube
+            e.preventDefault();
+            
+            // Get current touch position
+            const touch = e.touches[0];
+            const currentX = touch.clientX;
+            const currentY = touch.clientY;
+            
+            // Calculate movement
+            const deltaX = currentX - previousX;
+            const deltaY = currentY - previousY;
+            
+            // Update cube rotation right away
+            velocityX = deltaX * 0.5;
+            velocityY = deltaY * 0.5;
+            rotateY += deltaX * 0.5;
+            rotateX -= deltaY * 0.5;
+            
+            // Direct transform without waiting for next frame
+            cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            
+            // Update position for next move event
+            previousX = currentX;
+            previousY = currentY;
+            
+            // Update tooltip position if it exists
+            if (typeof showTooltip === 'function') {
+                showTooltip(e.touches[0], "Drag to rotate!");
+            }
+        }, { passive: false });
+        
+        // Improved touch end handling
+        document.addEventListener('touchend', function(e) {
+            if (!isDragging) return;
+            
+            // No longer dragging
+            isDragging = false;
+            
+            // Start smooth spinning with momentum
+            cube.classList.add('spinning');
+            
+            function betterAnimateCubeTouch() {
+                // Apply gentle friction
+                velocityX *= 0.95;
+                velocityY *= 0.95;
+                
+                // Update rotation based on velocity
+                rotateY += velocityX;
+                rotateX -= velocityY;
+                
+                // Apply transform
+                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                
+                // Continue animation until velocity is very small
+                if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+                    animationFrame = requestAnimationFrame(betterAnimateCubeTouch);
+                } else {
+                    cube.classList.remove('spinning');
+                }
+            }
+            
+            // Start the animation
+            animationFrame = requestAnimationFrame(betterAnimateCubeTouch);
+            
+            // Hide tooltip
+            if (typeof hideTooltip === 'function') {
+                hideTooltip();
+            }
+        }, { passive: true });
+    }
+    
+    // Call the function after DOM loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initImprovedMobileTouch);
+    } else {
+        initImprovedMobileTouch();
+    }
+
+</script>
 </body>
 </html>
