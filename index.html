@@ -797,30 +797,130 @@
 
         /* Tooltip */
         .tooltip {
-		position: fixed;
-		background-color: rgba(0, 0, 0, 0.8);
-		color: #0f0; /* Green to match terminal theme */
-		padding: 8px 12px;
-		border-radius: 4px;
-		font-size: 0.9rem;
-		pointer-events: none;
-		opacity: 0;
-		visibility: hidden;
-		transition: opacity 0.3s;
-		white-space: nowrap;
-		z-index: 9999;
-		transform: translateX(-50%);
-		text-align: center;
-		border: 1px solid #0f0;
-		font-family: 'Courier New', monospace;
-	}
+			position: fixed;
+			padding: 8px 12px;
+			pointer-events: none;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.2s, visibility 0.2s;
+			white-space: nowrap;
+			z-index: 9999;
+			transform: translateX(-50%);
+			text-align: center;
+			max-width: 250px;
+			
+			/* Default styling (will be overridden by theme) */
+			background-color: rgba(0, 0, 0, 0.8);
+			color: white;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 4px;
+			font-family: inherit;
+		}
 		/* Arrow styling for more precise positioning */
 		.tooltip::after {
 			content: '';
 			position: absolute;
 			border: 6px solid transparent;
 		}
+		
+		/* Default theme */
+		body .tooltip {
+			background-color: rgba(0, 0, 0, 0.8);
+			color: #3b82f6;
+			border: 1px solid #3b82f6;
+			border-radius: 4px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		}
 
+		/* Dark theme */
+		body.theme-dark .tooltip {
+			background-color: rgba(15, 23, 42, 0.9);
+			color: #60a5fa;
+			border: 1px solid rgba(96, 165, 250, 0.3);
+			border-radius: 8px;
+			box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
+		}
+
+		/* Neon theme */
+		body.theme-neon .tooltip {
+			background-color: rgba(0, 0, 50, 0.8);
+			color: #00ffff;
+			border: 2px solid #ff00ff;
+			animation: borderGlow 4s infinite;
+			box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+			font-family: 'VT323', monospace, 'Segoe UI', Roboto;
+		}
+
+		/* Terminal theme */
+		body.theme-terminal .tooltip {
+			background-color: #000000;
+			color: #00ff00;
+			border: 1px solid #00ff00;
+			border-radius: 0;
+			font-family: 'Courier New', Courier, monospace;
+		}
+		body.theme-terminal .tooltip::before {
+			content: '> ';
+		}
+
+		/* Windows XP theme */
+		body.theme-xp .tooltip {
+			background: linear-gradient(to bottom, #2860b1, #5888e0);
+			color: white;
+			border: 1px solid #1541a4;
+			border-radius: 3px;
+			font-family: 'Tahoma', sans-serif;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		}
+
+		/* Modern Tech theme */
+		body.theme-modern-tech .tooltip {
+			background: rgba(17, 34, 64, 0.8);
+			color: #64ffda;
+			border: 1px solid rgba(100, 255, 218, 0.3);
+			border-radius: 4px;
+			backdrop-filter: blur(5px);
+		}
+
+		/* Cyberpunk theme */
+		body.theme-cyberpunk .tooltip {
+			--cyber-neon-pink: #ff2b8c;
+			--cyber-neon-blue: #00b3ff;
+			background-color: rgba(0, 0, 50, 0.7);
+			color: var(--cyber-neon-pink);
+			border: 1px solid var(--cyber-neon-pink);
+			box-shadow: 0 0 10px var(--cyber-neon-pink);
+			font-family: 'Courier New', monospace;
+		}
+
+		/* Minimalist theme */
+		body.theme-minimalist .tooltip {
+			background-color: #222222;
+			color: white;
+			border: none;
+			border-radius: 0;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+		}
+
+		/* Creative Agency theme */
+		body.theme-agency .tooltip {
+			background-color: white;
+			color: #ff3e55;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+			font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+		}
+
+		/* Portfolio theme */
+		body.theme-portfolio .tooltip {
+			background-color: rgba(26, 32, 44, 0.8);
+			color: #e2e8f0;
+			border: 1px solid rgba(66, 153, 225, 0.3);
+			border-radius: 6px;
+			backdrop-filter: blur(10px);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
 		/* Arrow pointing up (for tooltips below elements) */
 		.tooltip.top::after {
 			content: '';
@@ -4196,6 +4296,14 @@ body, body * {
             
             // Function to update the theme
             function setTheme(index) {
+				if (tooltip && tooltip.style.opacity !== '0') {
+						// Force a quick repaint of the tooltip to apply new theme
+						tooltip.style.opacity = '0.99';
+						setTimeout(() => {
+							if (tooltip.style.opacity === '0.99') {
+								tooltip.style.opacity = '1';
+						}
+					}, 10);
                 // Remove all theme classes
                 themes.forEach(theme => {
                     if (theme.class) {
@@ -4923,33 +5031,40 @@ body, body * {
 
             // Tooltip functions - Updated
 			function showTooltip(e, text) {
-				// Skip on touch unless for dragging
 				if (isTouchDevice() && !text.includes("Drag to rotate")) {
 					return;
 				}
 				
 				tooltip.textContent = text;
 				
-				// Use the exact mouse position
+				// Remove any existing prefix that might be added by theme
+				tooltip.classList.forEach(cls => {
+					if (cls.startsWith('tooltip-prefix-')) {
+						tooltip.classList.remove(cls);
+					}
+				});
+				
+				// Get current theme
+				const currentTheme = Array.from(document.body.classList)
+										 .find(cls => cls.startsWith('theme-')) || '';
+				
+				// Add theme-specific prefix class if needed
+				if (currentTheme) {
+					tooltip.classList.add(`tooltip-prefix-${currentTheme}`);
+				}
+				
+				// Position tooltip at mouse with appropriate offset
 				const mouseX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
 				const mouseY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
 				
-				// Position tooltip directly at mouse location with slight offset
 				tooltip.style.position = 'fixed';
 				tooltip.style.left = `${mouseX}px`;
-				tooltip.style.top = `${mouseY - 40}px`; // 40px above cursor
-				tooltip.style.transform = 'translateX(-50%)'; // Center horizontally
-				
-				// Add a class for styling
-				tooltip.className = 'tooltip bottom';
+				tooltip.style.top = `${mouseY - 40}px`;
+				tooltip.style.transform = 'translateX(-50%)';
 				
 				// Make visible
 				tooltip.style.opacity = '1';
 				tooltip.style.visibility = 'visible';
-				
-				// Store last position for touch devices
-				lastTooltipX = mouseX;
-				lastTooltipY = mouseY;
 			}
 
 			// For touch devices (store last position)
