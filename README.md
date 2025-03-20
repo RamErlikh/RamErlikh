@@ -1,2 +1,2 @@
 ## Hi there 👋
-- ⚡ Check out my portfolio website! https://ramerlikh.com
+⚡ Check out my portfolio website! https://ramerlikh.com
