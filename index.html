@@ -577,7 +577,6 @@
             position: relative;
             perspective: 1000px;
             margin: 40px auto;
-            overflow: hidden;
         }
         .cube {
             width: 200px;
@@ -587,11 +586,11 @@
             left: 50%;
             transform-style: preserve-3d;
             transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg);
-            transition: transform 0.1s linear;
+            transition: transform 0.3s ease;
             cursor: grab;
         }
         .cube.spinning {
-            transition: transform 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7);
         }
         .cube-face {
             position: absolute;
@@ -604,10 +603,10 @@
             font-weight: bold;
             color: white;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border: 2px solid white;
             backface-visibility: visible;
-            transition: transform 0.2s linear;
+            transition: transform 0.3s ease;
         }
         .cube-face:hover {
             cursor: pointer;
@@ -3888,43 +3887,6 @@ body, body * {
          animation: none !important;
          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
     }
-}/* Mobile Cube Optimization */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        height: 250px;
-        perspective: 800px;
-    }
-    .cube, .cube-face {
-        width: 150px;
-        height: 150px;
-    }
-    .cube {
-        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg);
-        transition: transform 0.08s linear;
-    }
-    .cube.spinning {
-        transition: transform 1.5s ease-out;
-    }
-    .cube-face {
-        font-size: 2rem;
-    }
-    .cube-face.front { transform: translateZ(75px); }
-    .cube-face.back { transform: rotateY(180deg) translateZ(75px); }
-    .cube-face.right { transform: rotateY(90deg) translateZ(75px); }
-    .cube-face.left { transform: rotateY(-90deg) translateZ(75px); }
-    .cube-face.top { transform: rotateX(90deg) translateZ(75px); }
-    .cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
-    
-    /* Neon theme specific cube fixes */
-    body.theme-neon .cube-face {
-        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-        animation: simpleBorderGlow 3s infinite alternate ease-in-out;
-    }
-    
-    @keyframes simpleBorderGlow {
-        0% { border-color: #ff00ff; }
-        100% { border-color: #00ffff; }
-    }
 }</style></head>
 <body>
 <header>
@@ -5057,83 +5019,6 @@ body, body * {
             setTimeout(animateOnScroll, 500);
             
             // Set initial theme
-
-// Simple cube movement fix
-document.addEventListener('DOMContentLoaded', function() {
-    const cube = document.querySelector('.cube');
-    if (!cube) return;
-    
-    // Detect if device is touch-based
-    const isTouchDevice = ('ontouchstart' in window) || 
-                         (navigator.maxTouchPoints > 0) || 
-                         (navigator.msMaxTouchPoints > 0);
-    
-    // Set smaller rotation amount for mobile to prevent wild spinning
-    const rotationFactor = isTouchDevice ? 0.2 : 0.5;
-    
-    // Add spinning class immediately on touch end instead of calculating velocity
-    if (isTouchDevice) {
-        let activeAnimation = null;
-        
-        document.addEventListener('touchend', function() {
-            if (isDragging) {
-                isDragging = false;
-                cube.style.cursor = 'grab';
-                
-                // If we're moving with a reasonable velocity, add spinning effect
-                if (Math.abs(velocityX) > 1 || Math.abs(velocityY) > 1) {
-                    // Cancel any running animations first
-                    if (activeAnimation) {
-                        cancelAnimationFrame(activeAnimation);
-                    }
-                    
-                    // More gentle rotation with simple decay
-                    velocityX *= 0.8;
-                    velocityY *= 0.8;
-                    
-                    // Apply the spinning effect with limited rotation
-                    cube.classList.add('spinning');
-                    const targetX = rotateX + (velocityY * -5);  // Limit rotation amount
-                    const targetY = rotateY + (velocityX * 5);   // Limit rotation amount
-                    cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${targetX}deg) rotateY(${targetY}deg)`;
-                    
-                    // Update current rotation values
-                    rotateX = targetX;
-                    rotateY = targetY;
-                    
-                    // Remove class after animation completes
-                    setTimeout(() => {
-                        cube.classList.remove('spinning');
-                    }, 1500);
-                }
-            }
-        });
-        
-        // Simpler mouse/touch move with less calculations
-        document.addEventListener('touchmove', function(e) {
-            if (isDragging) {
-                e.preventDefault();
-                const touch = e.touches[0];
-                
-                const deltaX = touch.clientX - previousX;
-                const deltaY = touch.clientY - previousY;
-                
-                velocityX = deltaX * rotationFactor;
-                velocityY = deltaY * rotationFactor;
-                
-                rotateY += velocityX;
-                rotateX -= velocityY;
-                
-                // Apply transform immediately with no delay
-                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                
-                previousX = touch.clientX;
-                previousY = touch.clientY;
-            }
-        }, { passive: false });
-    }
-});
-
             setTheme(currentThemeIndex);
         });
     </script>
