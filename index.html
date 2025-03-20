@@ -13,7 +13,117 @@
       body {
           transition: background-color 0.5s ease !important;
       }
-    </style>
+    
+/* Ultra-lite Neon theme for mobile */
+@media (max-width: 768px) {
+    /* Create a simple static version for mobile */
+    body.theme-neon.mobile-lite-mode {
+        background: #000066 !important; /* Static background */
+        background-image: none !important;
+    }
+    
+    /* Remove heavy background effects */
+    body.theme-neon.mobile-lite-mode::before,
+    body.theme-neon.mobile-lite-mode::after {
+        display: none !important;
+    }
+    
+    /* Simplify header */
+    body.theme-neon.mobile-lite-mode .header-content {
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Static logo */
+    body.theme-neon.mobile-lite-mode .logo {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Simple profile pic */
+    body.theme-neon.mobile-lite-mode .profile-pic {
+        background: transparent !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Remove profile container effects */
+    body.theme-neon.mobile-lite-mode .profile-container::before,
+    body.theme-neon.mobile-lite-mode .profile-container::after {
+        display: none !important;
+    }
+    
+    /* Static content cards */
+    body.theme-neon.mobile-lite-mode .section-content,
+    body.theme-neon.mobile-lite-mode .project-card {
+        background-color: rgba(0, 0, 30, 0.7) !important;
+        border: 1px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Static headings */
+    body.theme-neon.mobile-lite-mode h1,
+    body.theme-neon.mobile-lite-mode .section-title {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Static social links & buttons */
+    body.theme-neon.mobile-lite-mode .social-link,
+    body.theme-neon.mobile-lite-mode .theme-button,
+    body.theme-neon.mobile-lite-mode .magic-button,
+    body.theme-neon.mobile-lite-mode .theme-indicator {
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Super optimized cube */
+    body.theme-neon.mobile-lite-mode .cube-face {
+        animation: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ff00ff !important;
+    }
+    
+    /* Disable all animations globally in lite mode */
+    body.theme-neon.mobile-lite-mode * {
+        transition-duration: 0s !important;
+        animation: none !important;
+    }
+}
+
+/* iPhone-specific optimizations for cube */
+@media (max-width: 768px) {
+    .cube-wrapper {
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+    }
+    
+    .cube {
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+        transition: none !important;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg) translateZ(0) !important;
+    }
+    
+    .cube.spinning {
+        transition: transform 0.1s linear !important;
+    }
+    
+    .cube-face {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+    }
+}
+
+</style>
 <!-- Smooth Transitions and Fade-In Animation -->
 <style id="layout-animations">
       @keyframes fadeInDrop {
@@ -24,14 +134,234 @@
           transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, transform 0.5s ease !important;
           animation: fadeInDrop 0.5s ease forwards !important;
       }
-    </style>
+    
+/* Ultra-lite Neon theme for mobile */
+@media (max-width: 768px) {
+    /* Create a simple static version for mobile */
+    body.theme-neon.mobile-lite-mode {
+        background: #000066 !important; /* Static background */
+        background-image: none !important;
+    }
+    
+    /* Remove heavy background effects */
+    body.theme-neon.mobile-lite-mode::before,
+    body.theme-neon.mobile-lite-mode::after {
+        display: none !important;
+    }
+    
+    /* Simplify header */
+    body.theme-neon.mobile-lite-mode .header-content {
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Static logo */
+    body.theme-neon.mobile-lite-mode .logo {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Simple profile pic */
+    body.theme-neon.mobile-lite-mode .profile-pic {
+        background: transparent !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Remove profile container effects */
+    body.theme-neon.mobile-lite-mode .profile-container::before,
+    body.theme-neon.mobile-lite-mode .profile-container::after {
+        display: none !important;
+    }
+    
+    /* Static content cards */
+    body.theme-neon.mobile-lite-mode .section-content,
+    body.theme-neon.mobile-lite-mode .project-card {
+        background-color: rgba(0, 0, 30, 0.7) !important;
+        border: 1px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Static headings */
+    body.theme-neon.mobile-lite-mode h1,
+    body.theme-neon.mobile-lite-mode .section-title {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Static social links & buttons */
+    body.theme-neon.mobile-lite-mode .social-link,
+    body.theme-neon.mobile-lite-mode .theme-button,
+    body.theme-neon.mobile-lite-mode .magic-button,
+    body.theme-neon.mobile-lite-mode .theme-indicator {
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Super optimized cube */
+    body.theme-neon.mobile-lite-mode .cube-face {
+        animation: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ff00ff !important;
+    }
+    
+    /* Disable all animations globally in lite mode */
+    body.theme-neon.mobile-lite-mode * {
+        transition-duration: 0s !important;
+        animation: none !important;
+    }
+}
+
+/* iPhone-specific optimizations for cube */
+@media (max-width: 768px) {
+    .cube-wrapper {
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+    }
+    
+    .cube {
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+        transition: none !important;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg) translateZ(0) !important;
+    }
+    
+    .cube.spinning {
+        transition: transform 0.1s linear !important;
+    }
+    
+    .cube-face {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+    }
+}
+
+</style>
 <!-- Preserve Interactive Button Positioning -->
 <style id="button-reset">
       .magic-button, #theme-button, .theme-indicator {
           transition: none !important;
           animation: none !important;
       }
-    </style>
+    
+/* Ultra-lite Neon theme for mobile */
+@media (max-width: 768px) {
+    /* Create a simple static version for mobile */
+    body.theme-neon.mobile-lite-mode {
+        background: #000066 !important; /* Static background */
+        background-image: none !important;
+    }
+    
+    /* Remove heavy background effects */
+    body.theme-neon.mobile-lite-mode::before,
+    body.theme-neon.mobile-lite-mode::after {
+        display: none !important;
+    }
+    
+    /* Simplify header */
+    body.theme-neon.mobile-lite-mode .header-content {
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Static logo */
+    body.theme-neon.mobile-lite-mode .logo {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Simple profile pic */
+    body.theme-neon.mobile-lite-mode .profile-pic {
+        background: transparent !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Remove profile container effects */
+    body.theme-neon.mobile-lite-mode .profile-container::before,
+    body.theme-neon.mobile-lite-mode .profile-container::after {
+        display: none !important;
+    }
+    
+    /* Static content cards */
+    body.theme-neon.mobile-lite-mode .section-content,
+    body.theme-neon.mobile-lite-mode .project-card {
+        background-color: rgba(0, 0, 30, 0.7) !important;
+        border: 1px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Static headings */
+    body.theme-neon.mobile-lite-mode h1,
+    body.theme-neon.mobile-lite-mode .section-title {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Static social links & buttons */
+    body.theme-neon.mobile-lite-mode .social-link,
+    body.theme-neon.mobile-lite-mode .theme-button,
+    body.theme-neon.mobile-lite-mode .magic-button,
+    body.theme-neon.mobile-lite-mode .theme-indicator {
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Super optimized cube */
+    body.theme-neon.mobile-lite-mode .cube-face {
+        animation: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ff00ff !important;
+    }
+    
+    /* Disable all animations globally in lite mode */
+    body.theme-neon.mobile-lite-mode * {
+        transition-duration: 0s !important;
+        animation: none !important;
+    }
+}
+
+/* iPhone-specific optimizations for cube */
+@media (max-width: 768px) {
+    .cube-wrapper {
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+    }
+    
+    .cube {
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+        transition: none !important;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg) translateZ(0) !important;
+    }
+    
+    .cube.spinning {
+        transition: transform 0.1s linear !important;
+    }
+    
+    .cube-face {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+    }
+}
+
+</style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Meet Ram Erlikh</title>
@@ -4076,7 +4406,117 @@
             color: white;
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
-    </style>
+    
+/* Ultra-lite Neon theme for mobile */
+@media (max-width: 768px) {
+    /* Create a simple static version for mobile */
+    body.theme-neon.mobile-lite-mode {
+        background: #000066 !important; /* Static background */
+        background-image: none !important;
+    }
+    
+    /* Remove heavy background effects */
+    body.theme-neon.mobile-lite-mode::before,
+    body.theme-neon.mobile-lite-mode::after {
+        display: none !important;
+    }
+    
+    /* Simplify header */
+    body.theme-neon.mobile-lite-mode .header-content {
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Static logo */
+    body.theme-neon.mobile-lite-mode .logo {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Simple profile pic */
+    body.theme-neon.mobile-lite-mode .profile-pic {
+        background: transparent !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Remove profile container effects */
+    body.theme-neon.mobile-lite-mode .profile-container::before,
+    body.theme-neon.mobile-lite-mode .profile-container::after {
+        display: none !important;
+    }
+    
+    /* Static content cards */
+    body.theme-neon.mobile-lite-mode .section-content,
+    body.theme-neon.mobile-lite-mode .project-card {
+        background-color: rgba(0, 0, 30, 0.7) !important;
+        border: 1px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Static headings */
+    body.theme-neon.mobile-lite-mode h1,
+    body.theme-neon.mobile-lite-mode .section-title {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Static social links & buttons */
+    body.theme-neon.mobile-lite-mode .social-link,
+    body.theme-neon.mobile-lite-mode .theme-button,
+    body.theme-neon.mobile-lite-mode .magic-button,
+    body.theme-neon.mobile-lite-mode .theme-indicator {
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Super optimized cube */
+    body.theme-neon.mobile-lite-mode .cube-face {
+        animation: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ff00ff !important;
+    }
+    
+    /* Disable all animations globally in lite mode */
+    body.theme-neon.mobile-lite-mode * {
+        transition-duration: 0s !important;
+        animation: none !important;
+    }
+}
+
+/* iPhone-specific optimizations for cube */
+@media (max-width: 768px) {
+    .cube-wrapper {
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+    }
+    
+    .cube {
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+        transition: none !important;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg) translateZ(0) !important;
+    }
+    
+    .cube.spinning {
+        transition: transform 0.1s linear !important;
+    }
+    
+    .cube-face {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+    }
+}
+
+</style>
 <style id="body-opacity-rule">/* Ensure all elements under body always have opacity 1, with smooth transitions on other properties */
 body, body * {
     opacity: 1 !important;
@@ -4084,7 +4524,117 @@ body, body * {
                 color 0.5s ease, 
                 border-color 0.5s ease, 
                 transform 0.5s ease !important;
-}</style><style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
+}
+/* Ultra-lite Neon theme for mobile */
+@media (max-width: 768px) {
+    /* Create a simple static version for mobile */
+    body.theme-neon.mobile-lite-mode {
+        background: #000066 !important; /* Static background */
+        background-image: none !important;
+    }
+    
+    /* Remove heavy background effects */
+    body.theme-neon.mobile-lite-mode::before,
+    body.theme-neon.mobile-lite-mode::after {
+        display: none !important;
+    }
+    
+    /* Simplify header */
+    body.theme-neon.mobile-lite-mode .header-content {
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Static logo */
+    body.theme-neon.mobile-lite-mode .logo {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Simple profile pic */
+    body.theme-neon.mobile-lite-mode .profile-pic {
+        background: transparent !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
+    }
+    
+    /* Remove profile container effects */
+    body.theme-neon.mobile-lite-mode .profile-container::before,
+    body.theme-neon.mobile-lite-mode .profile-container::after {
+        display: none !important;
+    }
+    
+    /* Static content cards */
+    body.theme-neon.mobile-lite-mode .section-content,
+    body.theme-neon.mobile-lite-mode .project-card {
+        background-color: rgba(0, 0, 30, 0.7) !important;
+        border: 1px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Static headings */
+    body.theme-neon.mobile-lite-mode h1,
+    body.theme-neon.mobile-lite-mode .section-title {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Static social links & buttons */
+    body.theme-neon.mobile-lite-mode .social-link,
+    body.theme-neon.mobile-lite-mode .theme-button,
+    body.theme-neon.mobile-lite-mode .magic-button,
+    body.theme-neon.mobile-lite-mode .theme-indicator {
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Super optimized cube */
+    body.theme-neon.mobile-lite-mode .cube-face {
+        animation: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ff00ff !important;
+    }
+    
+    /* Disable all animations globally in lite mode */
+    body.theme-neon.mobile-lite-mode * {
+        transition-duration: 0s !important;
+        animation: none !important;
+    }
+}
+
+/* iPhone-specific optimizations for cube */
+@media (max-width: 768px) {
+    .cube-wrapper {
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+    }
+    
+    .cube {
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+        transition: none !important;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg) translateZ(0) !important;
+    }
+    
+    .cube.spinning {
+        transition: transform 0.1s linear !important;
+    }
+    
+    .cube-face {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+    }
+}
+
+</style><style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
 @media (max-width: 768px) {
     /* Optimize Dark Mode: disable heavy animations and shorten transitions */
     body.theme-dark .profile-container::before,
@@ -4114,103 +4664,115 @@ body, body * {
          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
     }
 }
-
-/* Mobile Neon Theme Optimizations - Preserves Visual Style */
+/* Ultra-lite Neon theme for mobile */
 @media (max-width: 768px) {
-    /* Optimize background effects without removing them */
-    body.theme-neon {
-        background-attachment: scroll !important; /* Better scroll performance */
+    /* Create a simple static version for mobile */
+    body.theme-neon.mobile-lite-mode {
+        background: #000066 !important; /* Static background */
+        background-image: none !important;
     }
     
-    body.theme-neon::before {
-        /* Keep grid but reduce animation frequency */
-        animation-duration: 30s !important; 
-        opacity: 0.1 !important; /* Reduce opacity for better performance */
+    /* Remove heavy background effects */
+    body.theme-neon.mobile-lite-mode::before,
+    body.theme-neon.mobile-lite-mode::after {
+        display: none !important;
     }
     
-    /* Reduce animation complexity but keep main effects */
-    body.theme-neon .header-content {
-        animation: borderGlow 8s infinite !important; /* Slower animation */
+    /* Simplify header */
+    body.theme-neon.mobile-lite-mode .header-content {
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
     }
     
-    body.theme-neon .header-content::before {
-        opacity: 0.2 !important; /* Reduce gradient effect intensity */
-        animation: sweep 10s linear infinite !important; /* Slower animation */
+    /* Static logo */
+    body.theme-neon.mobile-lite-mode .logo {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
     }
     
-    /* Keep profile pic effects but optimize them */
-    body.theme-neon .profile-pic {
-        animation: neonPulse 4s infinite alternate !important; /* Slower pulse */
-        box-shadow: 0 0 15px #ff00ff !important; /* Reduced shadow intensity */
+    /* Simple profile pic */
+    body.theme-neon.mobile-lite-mode .profile-pic {
+        background: transparent !important;
+        border: 2px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 10px #ff00ff !important;
     }
     
-    /* Optimize but keep container effects */
-    body.theme-neon .profile-container::before,
-    body.theme-neon .profile-container::after {
-        animation: pulseAndRotate 8s linear infinite !important; /* Slower animation */
+    /* Remove profile container effects */
+    body.theme-neon.mobile-lite-mode .profile-container::before,
+    body.theme-neon.mobile-lite-mode .profile-container::after {
+        display: none !important;
     }
     
-    /* Reduce card animation complexity */
-    body.theme-neon .section-content,
-    body.theme-neon .project-card {
-        animation: borderGlow 8s infinite !important; /* Slower animation */
-        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    /* Static content cards */
+    body.theme-neon.mobile-lite-mode .section-content,
+    body.theme-neon.mobile-lite-mode .project-card {
+        background-color: rgba(0, 0, 30, 0.7) !important;
+        border: 1px solid #ff00ff !important;
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
     }
     
-    /* Simplify text glow effects but keep them visible */
-    body.theme-neon .logo,
-    body.theme-neon h1,
-    body.theme-neon .section-title {
-        animation: glow 4s ease-in-out infinite !important; /* Slower glow */
+    /* Static headings */
+    body.theme-neon.mobile-lite-mode h1,
+    body.theme-neon.mobile-lite-mode .section-title {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+        animation: none !important;
+    }
+    
+    /* Static social links & buttons */
+    body.theme-neon.mobile-lite-mode .social-link,
+    body.theme-neon.mobile-lite-mode .theme-button,
+    body.theme-neon.mobile-lite-mode .magic-button,
+    body.theme-neon.mobile-lite-mode .theme-indicator {
+        animation: none !important;
+        box-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    /* Super optimized cube */
+    body.theme-neon.mobile-lite-mode .cube-face {
+        animation: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ff00ff !important;
+    }
+    
+    /* Disable all animations globally in lite mode */
+    body.theme-neon.mobile-lite-mode * {
+        transition-duration: 0s !important;
+        animation: none !important;
     }
 }
 
-/* iPhone-specific cube optimizations */
+/* iPhone-specific optimizations for cube */
 @media (max-width: 768px) {
-    /* Optimize cube rendering performance */
     .cube-wrapper {
-        transform: translateZ(0) !important; /* Force GPU acceleration */
-        backface-visibility: hidden !important;
-        -webkit-backface-visibility: hidden !important;
-        -webkit-transform: translateZ(0) !important;
-        -webkit-perspective: 1000 !important;
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
     }
     
     .cube {
-        will-change: transform !important; /* Tell browser to optimize this element */
-        transform-style: preserve-3d !important;
-        -webkit-transform-style: preserve-3d !important;
-        transition: none !important; /* Remove transitions for smoother direct manipulation */
-    }
-    
-    /* When being rotated, simplify cube appearance */
-    .cube.dragging {
-        /* Remove animated effects while dragging for better performance */
-        animation: none !important;
-    }
-    
-    .cube.dragging .cube-face {
-        /* Simplify cube faces during rotation */
-        box-shadow: none !important;
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
         transition: none !important;
-        animation: none !important;
+        transform: translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg) translateZ(0) !important;
     }
     
-    /* All cube faces optimization */
+    .cube.spinning {
+        transition: transform 0.1s linear !important;
+    }
+    
     .cube-face {
-        backface-visibility: hidden !important;
-        -webkit-backface-visibility: hidden !important;
-        transform-style: preserve-3d !important;
-        -webkit-transform-style: preserve-3d !important;
-        will-change: transform !important;
-    }
-    
-    /* Optimize theme-specific cube faces */
-    body.theme-neon .cube-face {
-        animation: none !important; /* Disable animations during interaction */
-        box-shadow: 0 0 5px rgba(255, 0, 255, 0.3) !important; /* Lighter shadow */
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
     }
 }
+
 </style></head>
 <body>
 <header>
@@ -4823,26 +5385,30 @@ body, body * {
 		showTooltip(e.touches[0], "Drag to rotate!");
 	});
     
-    // Optimized touch move
+    // Optimized touchmove for mobile
     document.addEventListener('touchmove', function(e) {
         if (isDragging) {
             e.preventDefault();
             
+            // Get touch coords
             let touch = e.touches[0];
             let deltaX = touch.clientX - previousX;
             let deltaY = touch.clientY - previousY;
             
+            // Update velocity with minimal calculations
             velocityX = deltaX * 0.5;
             velocityY = deltaY * 0.5;
             
+            // Update rotation
             rotateY += deltaX * 0.5;
             rotateX -= deltaY * 0.5;
             
-            // Use requestAnimationFrame for smooth updates
+            // Apply transform with requestAnimationFrame for better performance
             requestAnimationFrame(function() {
-                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
             });
             
+            // Update previous position
             previousX = touch.clientX;
             previousY = touch.clientY;
         }
@@ -5363,79 +5929,115 @@ body, body * {
             setTheme(currentThemeIndex);
         });
     
-    // Combined mobile optimizations
+    // Mobile performance optimization with lite mode toggle
     (function() {
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            console.log("Applying mobile optimizations");
+        // Check if device is mobile
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            console.log("Mobile device detected");
             
-            // Get elements
+            // Add a performance toggle button
+            const performanceButton = document.createElement('button');
+            performanceButton.id = 'performance-mode';
+            performanceButton.className = 'theme-button';
+            performanceButton.style.position = 'fixed';
+            performanceButton.style.bottom = '150px';
+            performanceButton.style.right = '20px';
+            performanceButton.style.zIndex = '1000';
+            performanceButton.innerHTML = 'Lite Mode: OFF';
+            document.body.appendChild(performanceButton);
+            
+            // Check if we're in Neon theme
+            function checkAndOptimizeNeon() {
+                if (document.body.classList.contains('theme-neon')) {
+                    console.log("Optimizing Neon theme");
+                    
+                    // Apply more aggressive optimizations for iOS
+                    if (isIOS) {
+                        // Get all animation elements
+                        const animatedElements = document.querySelectorAll(
+                            '.profile-container, .profile-pic, .section-content, ' +
+                            '.project-card, .header-content, h1, .section-title, ' +
+                            '.social-link, .contact-icon, .cube-face'
+                        );
+                        
+                        // Simplify animations
+                        animatedElements.forEach(element => {
+                            element.style.animationDuration = '10s';
+                            element.style.transitionDuration = '0.1s';
+                        });
+                    }
+                }
+            }
+            
+            // Run optimization on page load
+            checkAndOptimizeNeon();
+            
+            // Optimize cube performance for all themes
             const cube = document.querySelector('.cube');
             const cubeFaces = document.querySelectorAll('.cube-face');
             
-            // Apply optimizations
-            function applyOptimizations() {
-                // Force hardware acceleration
-                document.body.style.transform = 'translateZ(0)';
-                document.body.style.webkitTransform = 'translateZ(0)';
-                
-                if (cube) {
-                    // Optimize cube
-                    cube.style.willChange = 'transform';
-                    cube.style.webkitBackfaceVisibility = 'hidden';
-                    cube.style.webkitTransformStyle = 'preserve-3d';
-                    
-                    // Optimize cube faces
-                    cubeFaces.forEach(face => {
-                        face.style.webkitBackfaceVisibility = 'hidden';
-                        face.style.webkitTransformStyle = 'preserve-3d';
-                    });
-                }
-                
-                // Neon theme specific optimizations
-                if (document.body.classList.contains('theme-neon')) {
-                    console.log("Applying Neon theme optimizations");
-                    
-                    // Optimize heavy elements
-                    document.querySelectorAll('.profile-container::before, .profile-container::after').forEach(el => {
-                        if (el) el.style.animationDuration = '8s';
-                    });
-                }
-            }
-            
-            // Apply optimizations immediately
-            applyOptimizations();
-            
-            // Update mouse/touch events for cube
             if (cube) {
-                // Add class during dragging for performance
-                const originalMouseDown = cube.onmousedown;
-                cube.addEventListener('mousedown', function(e) {
-                    this.classList.add('dragging');
-                    if (originalMouseDown) originalMouseDown.call(this, e);
+                // Apply performance attributes
+                cube.style.willChange = 'transform';
+                cube.style.webkitBackfaceVisibility = 'hidden';
+                cube.style.webkitTransform = 'translateZ(0)';
+                
+                // Apply to cube faces
+                cubeFaces.forEach(face => {
+                    face.style.webkitBackfaceVisibility = 'hidden';
                 });
                 
+                // Force simpler transforms during rotation
                 const originalTouchStart = cube.ontouchstart;
                 cube.addEventListener('touchstart', function(e) {
-                    this.classList.add('dragging');
-                    if (originalTouchStart) originalTouchStart.call(this, e);
-                });
-                
-                // Remove class when done
-                document.addEventListener('mouseup', function() {
-                    cube.classList.remove('dragging');
+                    this.classList.add('touch-active');
+                    if (typeof originalTouchStart === 'function') originalTouchStart(e);
                 });
                 
                 document.addEventListener('touchend', function() {
-                    cube.classList.remove('dragging');
+                    cube.classList.remove('touch-active');
                 });
             }
             
-            // Re-apply when themes change
-            const themeButton = document.getElementById('theme-button');
-            if (themeButton) {
-                themeButton.addEventListener('click', function() {
-                    setTimeout(applyOptimizations, 100);
-                });
+            // Toggle performance mode
+            performanceButton.addEventListener('click', function() {
+                const isLiteMode = document.body.classList.toggle('mobile-lite-mode');
+                this.innerHTML = isLiteMode ? 'Lite Mode: ON' : 'Lite Mode: OFF';
+                
+                // Force refresh the rendering
+                document.body.style.opacity = '0.99';
+                setTimeout(() => { document.body.style.opacity = '1'; }, 50);
+            });
+            
+            // Apply lite mode automatically on iOS if in Neon theme
+            if (isIOS) {
+                const checkNeonTheme = function() {
+                    if (document.body.classList.contains('theme-neon')) {
+                        document.body.classList.add('mobile-lite-mode');
+                        performanceButton.innerHTML = 'Lite Mode: ON';
+                    }
+                };
+                
+                // Run check when theme changes
+                const themeButton = document.getElementById('theme-button');
+                if (themeButton) {
+                    themeButton.addEventListener('click', function() {
+                        setTimeout(checkNeonTheme, 100);
+                    });
+                }
+                
+                const themeIndicator = document.getElementById('theme-indicator');
+                if (themeIndicator) {
+                    themeIndicator.addEventListener('click', function() {
+                        setTimeout(checkNeonTheme, 100);
+                    });
+                }
+                
+                // Initial check
+                checkNeonTheme();
             }
         }
     })();
