@@ -798,7 +798,7 @@
         /* Tooltip */
         .tooltip {
 			position: fixed;
-			padding: 8px 12px;
+			padding: 6px 12px;
 			pointer-events: none;
 			opacity: 0;
 			visibility: hidden;
@@ -806,21 +806,22 @@
 			z-index: 9999;
 			text-align: center;
 			
-			/* Width fixes */
-			width: auto;           /* Allow automatic width */
-			max-width: 200px;      /* Prevent excessive width */
-			white-space: normal;   /* Allow text wrapping */
+			/* Single line fixes */
+			white-space: nowrap;    /* Prevent wrapping */
+			width: auto;            /* Auto-adjust to content */
+			min-width: fit-content; /* Ensure it fits content */
+			max-width: none;        /* Remove max-width constraint */
 			
 			/* Positioning */
 			transform: translateX(-50%);
 			
 			/* Default styling */
-			background-color: rgba(0, 0, 0, 0.8);
-			color: white;
-			border: 1px solid rgba(255, 255, 255, 0.2);
+			background-color: rgba(22, 28, 45, 0.9); /* Match theme background */
+			color: #38bdf8;                          /* Match theme color */
+			border: 1px solid rgba(56, 189, 248, 0.3);
 			border-radius: 4px;
-			font-family: inherit;
-			font-size: 0.9rem;
+			font-size: 0.85rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 		}
 		/* Arrow styling for more precise positioning */
 		.tooltip::after {
