@@ -803,24 +803,31 @@
 			opacity: 0;
 			visibility: hidden;
 			transition: opacity 0.2s, visibility 0.2s;
-			white-space: nowrap;
 			z-index: 9999;
-			transform: translateX(-50%);
 			text-align: center;
-			max-width: 250px;
 			
-			/* Default styling (will be overridden by theme) */
+			/* Width fixes */
+			width: auto;           /* Allow automatic width */
+			max-width: 200px;      /* Prevent excessive width */
+			white-space: normal;   /* Allow text wrapping */
+			
+			/* Positioning */
+			transform: translateX(-50%);
+			
+			/* Default styling */
 			background-color: rgba(0, 0, 0, 0.8);
 			color: white;
 			border: 1px solid rgba(255, 255, 255, 0.2);
 			border-radius: 4px;
 			font-family: inherit;
+			font-size: 0.9rem;
 		}
 		/* Arrow styling for more precise positioning */
 		.tooltip::after {
 			content: '';
 			position: absolute;
 			border: 6px solid transparent;
+			display: inline-block;
 		}
 		
 		/* Default theme */
