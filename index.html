@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 
 <html lang="en">
 <head>
@@ -17,34 +13,7 @@
       body {
           transition: background-color 0.5s ease !important;
       }
-    
-/* Improved cube touch handling for mobile while preserving desktop */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        touch-action: none !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .cube {
-        touch-action: none !important;
-        will-change: transform;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        
-        /* Make transitions super responsive on mobile */
-        transition: none !important;
-    }
-    
-    /* Spinning animation should be smooth */
-    .cube.spinning {
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-}
-
-</style>
+    </style>
 <!-- Smooth Transitions and Fade-In Animation -->
 <style id="layout-animations">
       @keyframes fadeInDrop {
@@ -55,68 +24,14 @@
           transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, opacity 0.5s ease, transform 0.5s ease !important;
           animation: fadeInDrop 0.5s ease forwards !important;
       }
-    
-/* Improved cube touch handling for mobile while preserving desktop */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        touch-action: none !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .cube {
-        touch-action: none !important;
-        will-change: transform;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        
-        /* Make transitions super responsive on mobile */
-        transition: none !important;
-    }
-    
-    /* Spinning animation should be smooth */
-    .cube.spinning {
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-}
-
-</style>
+    </style>
 <!-- Preserve Interactive Button Positioning -->
 <style id="button-reset">
       .magic-button, #theme-button, .theme-indicator {
           transition: none !important;
           animation: none !important;
       }
-    
-/* Improved cube touch handling for mobile while preserving desktop */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        touch-action: none !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .cube {
-        touch-action: none !important;
-        will-change: transform;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        
-        /* Make transitions super responsive on mobile */
-        transition: none !important;
-    }
-    
-    /* Spinning animation should be smooth */
-    .cube.spinning {
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-}
-
-</style>
+    </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Meet Ram Erlikh</title>
@@ -881,162 +796,76 @@
         }
 
         /* Tooltip */
+        
+        /* Tooltip styles */
         .tooltip {
-			position: fixed;
-			padding: 6px 12px;
-			pointer-events: none;
-			opacity: 0;
-			visibility: hidden;
-			transition: opacity 0.2s, visibility 0.2s;
-			z-index: 9999;
-			text-align: center;
-			
-			/* Single line fixes */
-			white-space: nowrap;    /* Prevent wrapping */
-			width: auto;            /* Auto-adjust to content */
-			min-width: fit-content; /* Ensure it fits content */
-			max-width: none;        /* Remove max-width constraint */
-			
-			/* Positioning */
-			transform: translateX(-50%);
-			
-			/* Default styling */
-			background-color: rgba(22, 28, 45, 0.9); /* Match theme background */
-			color: #38bdf8;                          /* Match theme color */
-			border: 1px solid rgba(56, 189, 248, 0.3);
-			border-radius: 4px;
-			font-size: 0.85rem;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-		}
-		/* Arrow styling for more precise positioning */
-		.tooltip::after {
-			content: '';
-			position: absolute;
-			border: 6px solid transparent;
-			display: inline-block;
-		}
-		
-		/* Default theme */
-		body .tooltip {
-			background-color: rgba(0, 0, 0, 0.8);
-			color: #3b82f6;
-			border: 1px solid #3b82f6;
-			border-radius: 4px;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-		}
+            position: fixed;
+            padding: 6px 12px;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            z-index: 9999;
+            text-align: center;
+            white-space: nowrap;
+            width: auto;
+            min-width: fit-content;
+            max-width: none;
+            transform: translateX(-50%);
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+        
+        /* Theme-specific tooltip styles */
+        body .tooltip {
+            background-color: rgba(33, 37, 41, 0.9);
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.theme-dark .tooltip {
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
+        }
+        
+        body.theme-neon .tooltip {
+            background-color: rgba(0, 0, 50, 0.8);
+            color: #00ffff;
+            border: 2px solid #ff00ff;
+            font-family: 'VT323', monospace, 'Segoe UI', Roboto;
+        }
+        
+        body.theme-terminal .tooltip {
+            background-color: #000000;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            border-radius: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        body.theme-terminal .tooltip::before {
+            content: '> ';
+        }
+        
+        body.theme-xp .tooltip {
+            background: linear-gradient(to bottom, #2860b1, #5888e0);
+            color: white;
+            border: 1px solid #1541a4;
+            border-radius: 3px;
+            font-family: 'Tahoma', sans-serif;
+        }
+        
+        body.theme-modern-tech .tooltip {
+            background: rgba(17, 34, 64, 0.8);
+            color: #64ffda;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 4px;
+        }
 
-		/* Dark theme */
-		body.theme-dark .tooltip {
-			background-color: rgba(15, 23, 42, 0.9);
-			color: #60a5fa;
-			border: 1px solid rgba(96, 165, 250, 0.3);
-			border-radius: 8px;
-			box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
-		}
-
-		/* Neon theme */
-		body.theme-neon .tooltip {
-			background-color: rgba(0, 0, 50, 0.8);
-			color: #00ffff;
-			border: 2px solid #ff00ff;
-			animation: borderGlow 4s infinite;
-			box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-			font-family: 'VT323', monospace, 'Segoe UI', Roboto;
-		}
-
-		/* Terminal theme */
-		body.theme-terminal .tooltip {
-			background-color: #000000;
-			color: #00ff00;
-			border: 1px solid #00ff00;
-			border-radius: 0;
-			font-family: 'Courier New', Courier, monospace;
-		}
-		body.theme-terminal .tooltip::before {
-			content: '> ';
-		}
-
-		/* Windows XP theme */
-		body.theme-xp .tooltip {
-			background: linear-gradient(to bottom, #2860b1, #5888e0);
-			color: white;
-			border: 1px solid #1541a4;
-			border-radius: 3px;
-			font-family: 'Tahoma', sans-serif;
-			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-		}
-
-		/* Modern Tech theme */
-		body.theme-modern-tech .tooltip {
-			background: rgba(17, 34, 64, 0.8);
-			color: #64ffda;
-			border: 1px solid rgba(100, 255, 218, 0.3);
-			border-radius: 4px;
-			backdrop-filter: blur(5px);
-		}
-
-		/* Cyberpunk theme */
-		body.theme-cyberpunk .tooltip {
-			--cyber-neon-pink: #ff2b8c;
-			--cyber-neon-blue: #00b3ff;
-			background-color: rgba(0, 0, 50, 0.7);
-			color: var(--cyber-neon-pink);
-			border: 1px solid var(--cyber-neon-pink);
-			box-shadow: 0 0 10px var(--cyber-neon-pink);
-			font-family: 'Courier New', monospace;
-		}
-
-		/* Minimalist theme */
-		body.theme-minimalist .tooltip {
-			background-color: #222222;
-			color: white;
-			border: none;
-			border-radius: 0;
-			font-family: 'Helvetica Neue', Arial, sans-serif;
-		}
-
-		/* Creative Agency theme */
-		body.theme-agency .tooltip {
-			background-color: white;
-			color: #ff3e55;
-			border: none;
-			border-radius: 5px;
-			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-			font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-		}
-
-		/* Portfolio theme */
-		body.theme-portfolio .tooltip {
-			background-color: rgba(26, 32, 44, 0.8);
-			color: #e2e8f0;
-			border: 1px solid rgba(66, 153, 225, 0.3);
-			border-radius: 6px;
-			backdrop-filter: blur(10px);
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-		}
-		/* Arrow pointing up (for tooltips below elements) */
-		.tooltip.top::after {
-			content: '';
-			position: absolute;
-			top: -10px;
-			left: 50%;
-			margin-left: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
-		}
-
-        /* Add a triangle pointer to the tooltip */
-		.tooltip.bottom::after {
-			content: '';
-			position: absolute;
-			bottom: -10px;
-			left: 50%;
-			margin-left: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
-		}
 
         .tooltip.left::after {
             border-left-color: rgba(33, 37, 41, 0.9);
@@ -4161,34 +3990,7 @@
             color: white;
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
-    
-/* Improved cube touch handling for mobile while preserving desktop */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        touch-action: none !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .cube {
-        touch-action: none !important;
-        will-change: transform;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        
-        /* Make transitions super responsive on mobile */
-        transition: none !important;
-    }
-    
-    /* Spinning animation should be smooth */
-    .cube.spinning {
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-}
-
-</style>
+    </style>
 <style id="body-opacity-rule">/* Ensure all elements under body always have opacity 1, with smooth transitions on other properties */
 body, body * {
     opacity: 1 !important;
@@ -4196,34 +3998,7 @@ body, body * {
                 color 0.5s ease, 
                 border-color 0.5s ease, 
                 transform 0.5s ease !important;
-}
-/* Improved cube touch handling for mobile while preserving desktop */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        touch-action: none !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .cube {
-        touch-action: none !important;
-        will-change: transform;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        
-        /* Make transitions super responsive on mobile */
-        transition: none !important;
-    }
-    
-    /* Spinning animation should be smooth */
-    .cube.spinning {
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-}
-
-</style><style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
+}</style><style id="mobile-optimization">/* Mobile optimization for Neon and Dark Mode themes */
 @media (max-width: 768px) {
     /* Optimize Dark Mode: disable heavy animations and shorten transitions */
     body.theme-dark .profile-container::before,
@@ -4252,34 +4027,7 @@ body, body * {
          animation: none !important;
          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
     }
-}
-/* Improved cube touch handling for mobile while preserving desktop */
-@media (max-width: 768px) {
-    .cube-wrapper {
-        touch-action: none !important;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .cube {
-        touch-action: none !important;
-        will-change: transform;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        
-        /* Make transitions super responsive on mobile */
-        transition: none !important;
-    }
-    
-    /* Spinning animation should be smooth */
-    .cube.spinning {
-        transition: transform 8s cubic-bezier(0.2, 0.9, 0.3, 0.7) !important;
-    }
-}
-
-</style></head>
+}</style></head>
 <body>
 <header>
 <div class="container">
@@ -4814,23 +4562,30 @@ body, body * {
             // Initialize cube rotation
             cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(0deg) rotateY(0deg)`;
 
+            
             // Mouse down event
             cube.addEventListener('mousedown', function(e) {
-				e.preventDefault(); 
-				isDragging = true;
-				previousX = e.clientX;
-				previousY = e.clientY;
-				cube.style.cursor = 'grabbing';
-				cancelAnimationFrame(animationFrame);
-				
-				// Show tooltip for mouse
-				showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
-			});
+                e.preventDefault(); // Prevent default behavior including page scrolling
+                isDragging = true;
+                previousX = e.clientX;
+                previousY = e.clientY;
+                cube.style.cursor = 'grabbing';
+                cancelAnimationFrame(animationFrame);
+                
+                // Show tooltip
+                showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
+            });
 
+
+            
             // Mouse move event
             document.addEventListener('mousemove', function(e) {
                 if (isDragging) {
                     e.preventDefault(); // Prevent default behavior including page scrolling
+                    
+                    // Keep tooltip visible during drag
+                    showTooltip(e, "Drag to rotate! Hold and throw for spin effect!");
+                    
                     const deltaX = e.clientX - previousX;
                     const deltaY = e.clientY - previousY;
                     
@@ -4847,35 +4602,42 @@ body, body * {
                 }
             });
 
+
+            
             // Mouse up event - start physics-based spinning
-            document.addEventListener('mouseup', function(e) {
-				if (isDragging) {
-					isDragging = false;
-					cube.style.cursor = 'grab';
-					cube.classList.add('spinning');
-					
-					function animateCube() {
-						velocityX *= 0.95;
-						velocityY *= 0.95;
-						
-						rotateY += velocityX;
-						rotateX -= velocityY;
-						
-						cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-						
-						if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-							animationFrame = requestAnimationFrame(animateCube);
-						} else {
-							cube.classList.remove('spinning');
-						}
-					}
-					
-					animationFrame = requestAnimationFrame(animateCube);
-				}
-				
-				// Always hide the tooltip on mouseup
-				hideTooltip();
-			});
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    cube.style.cursor = 'grab';
+                    
+                    // Add spinning class for smooth animation
+                    cube.classList.add('spinning');
+                    
+                    // Start the physics-based animation
+                    function animateCube() {
+                        // Apply friction
+                        velocityX *= 0.95;
+                        velocityY *= 0.95;
+                        
+                        rotateY += velocityX;
+                        rotateX -= velocityY;
+                        
+                        cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        
+                        if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+                            animationFrame = requestAnimationFrame(animateCube);
+                        } else {
+                            cube.classList.remove('spinning');
+                        }
+                    }
+                    
+                    animationFrame = requestAnimationFrame(animateCube);
+                }
+                
+                // Always hide the tooltip on mouseup
+                hideTooltip();
+            });
+
 
 
             
@@ -5419,122 +5181,6 @@ body, body * {
             // Set initial theme
             setTheme(currentThemeIndex);
         });
-    
-    // Improved mobile touch handling while preserving desktop functionality
-    function initImprovedMobileTouch() {
-        const cube = document.querySelector('.cube');
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        
-        if (!cube || !isMobile) return; // Only apply to mobile devices
-        
-        console.log("Applying improved mobile touch handling");
-        
-        // Prevent browser handling that could cause glitching
-        cube.style.touchAction = 'none';
-        
-        // Better touch start handling
-        cube.addEventListener('touchstart', function(e) {
-            // Stop any existing animation
-            cancelAnimationFrame(animationFrame);
-            cube.classList.remove('spinning');
-            
-            // Prevent browser handling
-            e.preventDefault();
-            
-            // Set up dragging state with clean coordinates
-            isDragging = true;
-            previousX = e.touches[0].clientX;
-            previousY = e.touches[0].clientY;
-            
-            // Show tooltip
-            if (typeof showTooltip === 'function') {
-                showTooltip(e.touches[0], "Drag to rotate!");
-            }
-        }, { passive: false });
-        
-        // Improved touch move handling
-        const originalTouchMove = document.ontouchmove;
-        document.addEventListener('touchmove', function(e) {
-            if (!isDragging) return;
-            
-            // Prevent scrolling while dragging cube
-            e.preventDefault();
-            
-            // Get current touch position
-            const touch = e.touches[0];
-            const currentX = touch.clientX;
-            const currentY = touch.clientY;
-            
-            // Calculate movement
-            const deltaX = currentX - previousX;
-            const deltaY = currentY - previousY;
-            
-            // Update cube rotation right away
-            velocityX = deltaX * 0.5;
-            velocityY = deltaY * 0.5;
-            rotateY += deltaX * 0.5;
-            rotateX -= deltaY * 0.5;
-            
-            // Direct transform without waiting for next frame
-            cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            
-            // Update position for next move event
-            previousX = currentX;
-            previousY = currentY;
-            
-            // Update tooltip position if it exists
-            if (typeof showTooltip === 'function') {
-                showTooltip(e.touches[0], "Drag to rotate!");
-            }
-        }, { passive: false });
-        
-        // Improved touch end handling
-        document.addEventListener('touchend', function(e) {
-            if (!isDragging) return;
-            
-            // No longer dragging
-            isDragging = false;
-            
-            // Start smooth spinning with momentum
-            cube.classList.add('spinning');
-            
-            function betterAnimateCubeTouch() {
-                // Apply gentle friction
-                velocityX *= 0.95;
-                velocityY *= 0.95;
-                
-                // Update rotation based on velocity
-                rotateY += velocityX;
-                rotateX -= velocityY;
-                
-                // Apply transform
-                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                
-                // Continue animation until velocity is very small
-                if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-                    animationFrame = requestAnimationFrame(betterAnimateCubeTouch);
-                } else {
-                    cube.classList.remove('spinning');
-                }
-            }
-            
-            // Start the animation
-            animationFrame = requestAnimationFrame(betterAnimateCubeTouch);
-            
-            // Hide tooltip
-            if (typeof hideTooltip === 'function') {
-                hideTooltip();
-            }
-        }, { passive: true });
-    }
-    
-    // Call the function after DOM loaded
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initImprovedMobileTouch);
-    } else {
-        initImprovedMobileTouch();
-    }
-
-</script>
+    </script>
 </body>
 </html>
