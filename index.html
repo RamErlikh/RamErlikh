@@ -4163,42 +4163,52 @@ body, body * {
     body.theme-neon .section-title {
         animation: glow 4s ease-in-out infinite !important; /* Slower glow */
     }
-    
-    /* Simplify cube face effects */
-    body.theme-neon .cube-face {
-        animation: borderGlow 6s infinite !important; /* Slower animation */
-        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5) !important; /* Reduced shadow */
-    }
-    
-    /* Optimize keyframes for mobile */
-    @keyframes glow {
-        0%, 100% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff; }
-        50% { text-shadow: 0 0 8px #ff00ff, 0 0 15px #ff00ff; }
-    }
-    
-    @keyframes borderGlow {
-        0%, 100% { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; }
-        50% { border-color: #00ffff; box-shadow: 0 0 8px #00ffff; }
-    }
 }
 
-/* Additional mobile cube optimizations for Neon theme - Preserves Visual Style */
+/* iPhone-specific cube optimizations */
 @media (max-width: 768px) {
-    body.theme-neon .cube-wrapper {
+    /* Optimize cube rendering performance */
+    .cube-wrapper {
         transform: translateZ(0) !important; /* Force GPU acceleration */
-        will-change: transform !important;
-    }
-    
-    body.theme-neon .cube {
-        /* Keep 3D effect but optimize rendering */
-        will-change: transform !important;
         backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+        -webkit-transform: translateZ(0) !important;
+        -webkit-perspective: 1000 !important;
     }
     
-    /* Keep colors but optimize animation */
+    .cube {
+        will-change: transform !important; /* Tell browser to optimize this element */
+        transform-style: preserve-3d !important;
+        -webkit-transform-style: preserve-3d !important;
+        transition: none !important; /* Remove transitions for smoother direct manipulation */
+    }
+    
+    /* When being rotated, simplify cube appearance */
+    .cube.dragging {
+        /* Remove animated effects while dragging for better performance */
+        animation: none !important;
+    }
+    
+    .cube.dragging .cube-face {
+        /* Simplify cube faces during rotation */
+        box-shadow: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* All cube faces optimization */
+    .cube-face {
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+        transform-style: preserve-3d !important;
+        -webkit-transform-style: preserve-3d !important;
+        will-change: transform !important;
+    }
+    
+    /* Optimize theme-specific cube faces */
     body.theme-neon .cube-face {
-        animation-duration: 6s !important;
-        transition: transform 0.2s ease !important;
+        animation: none !important; /* Disable animations during interaction */
+        box-shadow: 0 0 5px rgba(255, 0, 255, 0.3) !important; /* Lighter shadow */
     }
 }
 </style></head>
@@ -4812,21 +4822,32 @@ body, body * {
 		// Simpler message for mobile
 		showTooltip(e.touches[0], "Drag to rotate!");
 	});
+    
+    // Optimized touch move
     document.addEventListener('touchmove', function(e) {
         if (isDragging) {
             e.preventDefault();
+            
             let touch = e.touches[0];
             let deltaX = touch.clientX - previousX;
             let deltaY = touch.clientY - previousY;
+            
             velocityX = deltaX * 0.5;
             velocityY = deltaY * 0.5;
+            
             rotateY += deltaX * 0.5;
             rotateX -= deltaY * 0.5;
-            cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            
+            // Use requestAnimationFrame for smooth updates
+            requestAnimationFrame(function() {
+                cube.style.transform = `translateX(-50%) translateY(-50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
             previousX = touch.clientX;
             previousY = touch.clientY;
         }
-    });
+    }, { passive: false });
+
     document.addEventListener('touchend', function() {
 		if (isDragging) {
 			isDragging = false;
@@ -5342,49 +5363,78 @@ body, body * {
             setTheme(currentThemeIndex);
         });
     
-    // Enhanced Neon Theme mobile optimization that preserves visual appearance
-    (function optimizeNeonForMobile() {
+    // Combined mobile optimizations
+    (function() {
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Check if Neon theme is active
-            function optimizeIfNeon() {
+            console.log("Applying mobile optimizations");
+            
+            // Get elements
+            const cube = document.querySelector('.cube');
+            const cubeFaces = document.querySelectorAll('.cube-face');
+            
+            // Apply optimizations
+            function applyOptimizations() {
+                // Force hardware acceleration
+                document.body.style.transform = 'translateZ(0)';
+                document.body.style.webkitTransform = 'translateZ(0)';
+                
+                if (cube) {
+                    // Optimize cube
+                    cube.style.willChange = 'transform';
+                    cube.style.webkitBackfaceVisibility = 'hidden';
+                    cube.style.webkitTransformStyle = 'preserve-3d';
+                    
+                    // Optimize cube faces
+                    cubeFaces.forEach(face => {
+                        face.style.webkitBackfaceVisibility = 'hidden';
+                        face.style.webkitTransformStyle = 'preserve-3d';
+                    });
+                }
+                
+                // Neon theme specific optimizations
                 if (document.body.classList.contains('theme-neon')) {
-                    console.log("Applying Neon theme mobile optimizations");
+                    console.log("Applying Neon theme optimizations");
                     
-                    // Force hardware acceleration for better performance
-                    document.body.style.transform = 'translateZ(0)';
-                    document.body.style.backfaceVisibility = 'hidden';
-                    
-                    // Optimize cube rendering
-                    const cube = document.querySelector('.cube');
-                    if (cube) {
-                        // Use hardware acceleration for cube
-                        cube.style.willChange = 'transform';
-                        cube.style.backfaceVisibility = 'hidden';
-                        
-                        // Smooth animations for cube faces
-                        document.querySelectorAll('.cube-face').forEach(face => {
-                            face.style.willChange = 'transform';
-                            face.style.backfaceVisibility = 'hidden';
-                        });
-                    }
+                    // Optimize heavy elements
+                    document.querySelectorAll('.profile-container::before, .profile-container::after').forEach(el => {
+                        if (el) el.style.animationDuration = '8s';
+                    });
                 }
             }
             
-            // Run optimization immediately if Neon theme is active
-            optimizeIfNeon();
+            // Apply optimizations immediately
+            applyOptimizations();
             
-            // Re-apply optimizations when theme changes
-            const themeButton = document.getElementById('theme-button');
-            if (themeButton) {
-                themeButton.addEventListener('click', function() {
-                    setTimeout(optimizeIfNeon, 100);
+            // Update mouse/touch events for cube
+            if (cube) {
+                // Add class during dragging for performance
+                const originalMouseDown = cube.onmousedown;
+                cube.addEventListener('mousedown', function(e) {
+                    this.classList.add('dragging');
+                    if (originalMouseDown) originalMouseDown.call(this, e);
+                });
+                
+                const originalTouchStart = cube.ontouchstart;
+                cube.addEventListener('touchstart', function(e) {
+                    this.classList.add('dragging');
+                    if (originalTouchStart) originalTouchStart.call(this, e);
+                });
+                
+                // Remove class when done
+                document.addEventListener('mouseup', function() {
+                    cube.classList.remove('dragging');
+                });
+                
+                document.addEventListener('touchend', function() {
+                    cube.classList.remove('dragging');
                 });
             }
             
-            const themeIndicator = document.getElementById('theme-indicator');
-            if (themeIndicator) {
-                themeIndicator.addEventListener('click', function() {
-                    setTimeout(optimizeIfNeon, 100);
+            // Re-apply when themes change
+            const themeButton = document.getElementById('theme-button');
+            if (themeButton) {
+                themeButton.addEventListener('click', function() {
+                    setTimeout(applyOptimizations, 100);
                 });
             }
         }
