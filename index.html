@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <!-- Fallback for browsers that don't support SVG favicons -->
-<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link href="/favicon.png" rel="alternate icon" type="image/png"/>
 <!-- Apple Touch Icon for iOS/iPadOS -->
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
 <!-- Smooth Background Transition -->
 <style id="background-transition">
       body {
@@ -3990,7 +3990,867 @@
             color: white;
             box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
         }
-    </style>
+    
+/* Skills Section Styles */
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.skill-category h3 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #3b82f6;
+}
+
+.skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.skill-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.skill-bar {
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background-color: #3b82f6;
+    border-radius: 5px;
+    position: relative;
+    width: 0;
+    transition: width 1.5s ease-in-out;
+}
+
+/* Animation for skill bars */
+@keyframes skillAnimation {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Add theme-specific skill bar styles */
+body.theme-dark .skill-bar {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.theme-dark .skill-progress {
+    background-color: #60a5fa;
+}
+
+body.theme-neon .skill-bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ff00ff;
+}
+
+body.theme-neon .skill-progress {
+    background-color: #00ffff;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+body.theme-terminal .skill-bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px dashed #00aa00;
+}
+
+body.theme-terminal .skill-progress {
+    background-color: #00ff00;
+}
+
+body.theme-xp .skill-bar {
+    background-color: #e1e1e1;
+    border: 1px solid #919b9c;
+}
+
+body.theme-xp .skill-progress {
+    background: linear-gradient(to bottom, #2860b1, #5888e0);
+}
+
+body.theme-modern-tech .skill-bar {
+    background-color: rgba(17, 34, 64, 0.5);
+}
+
+body.theme-modern-tech .skill-progress {
+    background-color: #64ffda;
+}
+
+body.theme-cyberpunk .skill-bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ff2b8c;
+}
+
+body.theme-cyberpunk .skill-progress {
+    background-color: #00b3ff;
+    box-shadow: 0 0 10px #00b3ff;
+}
+
+body.theme-minimalist .skill-bar {
+    background-color: #f5f5f5;
+    height: 5px;
+}
+
+body.theme-minimalist .skill-progress {
+    background-color: #000000;
+}
+
+body.theme-agency .skill-bar {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 8px;
+}
+
+body.theme-agency .skill-progress {
+    background-color: #ff3e55;
+}
+
+body.theme-portfolio .skill-bar {
+    background-color: rgba(26, 32, 44, 0.4);
+}
+
+body.theme-portfolio .skill-progress {
+    background: linear-gradient(135deg, #3b82f6, #805ad5);
+}
+
+/* New theme skill styles */
+body.theme-vaporwave .skill-bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ff6ad5;
+}
+
+body.theme-vaporwave .skill-progress {
+    background: linear-gradient(90deg, #ff6ad5, #8795e8);
+}
+
+body.theme-vaporwave .skill-category h3 {
+    color: #45e9ff;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-glass .skill-bar {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.theme-glass .skill-progress {
+    background-color: rgba(59, 130, 246, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+body.theme-retro .skill-bar {
+    background-color: #000;
+    border: 2px solid #39ff14;
+    height: 15px;
+}
+
+body.theme-retro .skill-progress {
+    background-color: #39ff14;
+    box-shadow: 0 0 10px #39ff14;
+}
+
+body.theme-retro .skill-category h3 {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+body.theme-brutalist .skill-bar {
+    background-color: #fff;
+    border: 5px solid #000;
+    height: 30px;
+}
+
+body.theme-brutalist .skill-progress {
+    background-color: #000;
+}
+
+body.theme-brutalist .skill-category h3 {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 5px solid #000;
+    padding-bottom: 10px;
+}
+
+body.theme-gradient .skill-bar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.theme-gradient .skill-progress {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8));
+}
+
+/* Timeline Section Styles */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background-color: #3b82f6;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    z-index: 1;
+}
+
+.timeline-date {
+    position: absolute;
+    left: calc(50% - 90px);
+    top: 9px;
+    transform: translateX(-100%);
+    width: 70px;
+    text-align: right;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+.timeline-content {
+    width: calc(50% - 50px);
+    margin-left: 50%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-content h3 {
+    margin-bottom: 10px;
+    color: #3b82f6;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: 0;
+    margin-right: calc(50% + 50px);
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+    left: calc(50% + 90px);
+    transform: translateX(0);
+    text-align: left;
+}
+
+/* Timeline animations */
+.timeline-item {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.timeline-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Timeline theme-specific styles */
+body.theme-dark .timeline::before {
+    background-color: #60a5fa;
+}
+
+body.theme-dark .timeline-dot {
+    background-color: #60a5fa;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.7);
+}
+
+body.theme-dark .timeline-date {
+    color: #60a5fa;
+}
+
+body.theme-dark .timeline-content {
+    background-color: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+body.theme-neon .timeline::before {
+    background-color: #ff00ff;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+body.theme-neon .timeline-dot {
+    background-color: #00ffff;
+    box-shadow: 0 0 15px #00ffff;
+    animation: neonPulse 2s infinite alternate;
+}
+
+body.theme-neon .timeline-date {
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+body.theme-neon .timeline-content {
+    background-color: rgba(0, 0, 50, 0.7);
+    border: 2px solid #ff00ff;
+    animation: borderGlow 4s infinite;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5), inset 0 0 10px rgba(255, 0, 255, 0.2);
+}
+
+body.theme-neon .timeline-content h3 {
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+/* Timeline responsiveness */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .timeline-dot {
+        left: 30px;
+    }
+    
+    .timeline-date {
+        left: 30px;
+        top: -25px;
+        transform: translateX(0);
+        text-align: left;
+    }
+    
+    .timeline-content {
+        width: calc(100% - 80px);
+        margin-left: 80px;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 80px;
+        margin-right: 0;
+        text-align: left;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-date {
+        left: 30px;
+        top: -25px;
+    }
+}
+
+/* Additional theme styles for timeline */
+body.theme-vaporwave .timeline::before {
+    background: linear-gradient(to bottom, #ff6ad5, #8795e8);
+}
+
+body.theme-vaporwave .timeline-dot {
+    background-color: #45e9ff;
+    box-shadow: 0 0 15px #45e9ff;
+}
+
+body.theme-vaporwave .timeline-date {
+    color: #45e9ff;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-vaporwave .timeline-content {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ff6ad5;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-vaporwave .timeline-content h3 {
+    color: #ff6ad5;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-glass .timeline::before {
+    background-color: rgba(59, 130, 246, 0.5);
+}
+
+body.theme-glass .timeline-dot {
+    background-color: rgba(59, 130, 246, 0.7);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.theme-glass .timeline-content {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, -0.4);
+}
+
+body.theme-retro .timeline::before {
+    background-color: #39ff14;
+    box-shadow: 0 0 10px #39ff14;
+}
+
+body.theme-retro .timeline-dot {
+    background-color: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+body.theme-retro .timeline-date {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 12px;
+}
+
+body.theme-retro .timeline-content {
+    background-color: #000;
+    border: 2px solid #39ff14;
+    box-shadow: 0 0 10px #39ff14;
+}
+
+body.theme-retro .timeline-content h3 {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 14px;
+}
+
+body.theme-brutalist .timeline::before {
+    background-color: #000;
+    width: 5px;
+}
+
+body.theme-brutalist .timeline-dot {
+    background-color: #000;
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+}
+
+body.theme-brutalist .timeline-date {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+body.theme-brutalist .timeline-content {
+    border: 5px solid #000;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+body.theme-brutalist .timeline-content h3 {
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+body.theme-gradient .timeline::before {
+    background: linear-gradient(to bottom, var(--grad-start), var(--grad-mid), var(--grad-end));
+}
+
+body.theme-gradient .timeline-dot {
+    background: radial-gradient(circle, var(--grad-mid), var(--grad-start));
+}
+
+body.theme-gradient .timeline-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Particles Container */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Hide particles for certain themes where they don't fit */
+body.theme-terminal .particles-container,
+body.theme-xp .particles-container,
+body.theme-brutalist .particles-container {
+    display: none;
+}
+
+    /* Typing Animation */
+    .typing-text {
+        border-right: 2px solid #3b82f6;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: #3b82f6 }
+    }
+    
+    /* Theme-specific typing animations */
+    body.theme-dark .typing-text {
+        border-right-color: #60a5fa;
+    }
+    
+    body.theme-neon .typing-text {
+        border-right-color: #00ffff;
+        text-shadow: 0 0 5px #00ffff;
+    }
+    
+    body.theme-terminal .typing-text {
+        border-right-color: #00ff00;
+    }
+    
+    body.theme-vaporwave .typing-text {
+        border-right-color: #ff6ad5;
+    }
+    
+    body.theme-glass .typing-text {
+        border-right-color: #3b82f6;
+    }
+    
+    body.theme-retro .typing-text {
+        border-right-color: #39ff14;
+        text-shadow: 0 0 5px #39ff14;
+    }
+    
+    body.theme-brutalist .typing-text {
+        border-right-color: #000;
+        border-right-width: 5px;
+    }
+    
+    body.theme-gradient .typing-text {
+        border-right-color: #fff;
+    }
+    
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a192f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #3b82f6;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: white;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+/* Theme-specific loading screens */
+body.theme-dark .loading-screen {
+    background-color: #0f172a;
+}
+
+body.theme-dark .loader {
+    border-top-color: #60a5fa;
+}
+
+body.theme-neon .loading-screen {
+    background-color: #000066;
+}
+
+body.theme-neon .loader {
+    border: 5px solid rgba(0, 0, 0, 0.5);
+    border-top-color: #ff00ff;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+body.theme-neon .loading-text {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+body.theme-terminal .loading-screen {
+    background-color: #000000;
+}
+
+body.theme-terminal .loader {
+    border-top-color: #00ff00;
+}
+
+body.theme-terminal .loading-text {
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body.theme-terminal .loading-text::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+}
+
+/* Enhanced theme distinctions to ensure visual differences */
+body.theme-vaporwave {
+    --vw-pink: #ff6ad5;
+    --vw-blue: #8795e8;
+    --vw-teal: #45e9ff;
+    background: linear-gradient(to bottom, #2b0a3d, #4824b3) !important;
+    color: white !important;
+}
+
+body.theme-vaporwave::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(255, 106, 213, 0.1) 0px,
+        rgba(255, 106, 213, 0.1) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.theme-vaporwave .profile-pic {
+    background: linear-gradient(135deg, #ff6ad5, #8795e8) !important;
+}
+
+body.theme-vaporwave .hero h1 {
+    color: white !important;
+    text-shadow: 3px 3px 0 #8795e8, 6px 6px 0 #ff6ad5 !important;
+}
+
+body.theme-vaporwave .section-content,
+body.theme-vaporwave .project-card {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border: 2px solid #ff6ad5 !important;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5) !important;
+}
+
+body.theme-glass {
+    --glass-bg: #f0f9ff;
+    --glass-text: #1e293b;
+    --glass-primary: #3b82f6;
+    --glass-secondary: #0ea5e9;
+    --glass-border: rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #a5f3fc, #ede9fe, #bae6fd) !important;
+    color: var(--glass-text) !important;
+}
+
+body.theme-glass::before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23ffffff10' /%3E%3C/svg%3E");
+    background-size: 20%;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.theme-glass header,
+body.theme-glass .section-content,
+body.theme-glass .project-card,
+body.theme-glass .theme-indicator {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-glass .profile-pic {
+    background: linear-gradient(135deg, #3b82f6, #0ea5e9) !important;
+    border: 3px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+body.theme-retro {
+    --retro-bg: #000;
+    --retro-green: #39ff14;
+    --retro-alt: #ff00ff;
+    --retro-text: #ffffff;
+    background-color: var(--retro-bg) !important;
+    color: var(--retro-green) !important;
+    text-shadow: 0 0 5px var(--retro-green) !important;
+}
+
+body.theme-retro::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(57, 255, 20, 0.15),
+        rgba(57, 255, 20, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    animation: scanline 10s linear infinite;
+    z-index: -1;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+body.theme-retro .section-content,
+body.theme-retro .project-card {
+    border: 2px solid var(--retro-green) !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+body.theme-retro .profile-pic {
+    background-color: var(--retro-alt) !important;
+    border: 2px solid var(--retro-green) !important;
+    box-shadow: 0 0 10px var(--retro-alt) !important;
+}
+
+body.theme-brutalist {
+    --brutalist-bg: #ffffff;
+    --brutalist-text: #000000;
+    --brutalist-accent: #ff0000;
+    background-color: var(--brutalist-bg) !important;
+    color: var(--brutalist-text) !important;
+}
+
+body.theme-brutalist * {
+    border-radius: 0 !important;
+}
+
+body.theme-brutalist header {
+    border-bottom: 5px solid #000 !important;
+}
+
+body.theme-brutalist .profile-pic {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    animation: none !important;
+}
+
+body.theme-brutalist .section-title {
+    font-size: 36px !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    color: var(--brutalist-text) !important;
+    border-top: 5px solid #000 !important;
+    border-bottom: 5px solid #000 !important;
+}
+
+body.theme-brutalist .section-content,
+body.theme-brutalist .project-card {
+    border: 5px solid #000 !important;
+    box-shadow: none !important;
+    background-color: var(--brutalist-bg) !important;
+}
+
+body.theme-gradient {
+    --grad-start: #4158D0;
+    --grad-mid: #C850C0;
+    --grad-end: #FFCC70;
+    --grad-text: #fff;
+    --grad-dark: #1a1a2e;
+    background: linear-gradient(-45deg, var(--grad-start), var(--grad-mid), var(--grad-end)) !important;
+    background-size: 400% 400% !important;
+    animation: gradientBG 15s ease infinite !important;
+    color: var(--grad-text) !important;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body.theme-gradient header {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(5px) !important;
+    border-bottom: none !important;
+}
+
+body.theme-gradient .profile-pic {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(5px) !important;
+    border: 3px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+body.theme-gradient .section-content,
+body.theme-gradient .project-card {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+</style>
 <style id="body-opacity-rule">/* Ensure all elements under body always have opacity 1, with smooth transitions on other properties */
 body, body * {
     opacity: 1 !important;
@@ -4027,8 +4887,25 @@ body, body * {
          animation: none !important;
          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease !important;
     }
-}</style></head>
-<body>
+}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script></head>
+<body><div class="loading-screen" id="loading-screen"><div class="loading-content"><div class="loader"></div><div class="loading-text">Loading Ram's Portfolio...</div></div></div><script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    if (loadingScreen) {
+        // Show loading screen for minimum time
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.visibility = 'hidden';
+            
+            // Remove from DOM after fade out
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 500);
+        }, 1500);
+    }
+});
+</script><div class="particles-container" id="particles-js"></div>
 <header>
 <div class="container">
 <div class="header-content">
@@ -4043,7 +4920,7 @@ body, body * {
 <div class="profile-pic" data-text="RAM">R</div>
 </div>
 <h1 data-text="Ram Erlikh">Ram Erlikh</h1>
-<p class="hero-description">Innovative tech Dev with artistic vision.</p>
+<p class="hero-description"><span class="typing-text" id="typing-text"></span></p>
 <div class="social-links">
 <a class="social-link" href="https://github.com/RamErlikh" target="_blank" title="GitHub">
 <i class="fab fa-github"></i>
@@ -4078,7 +4955,122 @@ body, body * {
 <p>Whether it's crafting clean code or developing creative concepts, I'm dedicated to excellence in everything I do.</p>
 </div>
 </section>
-<section class="section" data-title="PROJECTS">
+<section class="section" data-title="SKILLS"><h2 class="section-title">Skills &amp; Expertise</h2><div class="section-content">
+<div class="skills-container">
+<div class="skill-category">
+<h3>Front-End Development</h3>
+<div class="skill-bars">
+<div class="skill-item">
+<span class="skill-name">HTML5/CSS3</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 95%;"></div>
+</div>
+</div>
+<div class="skill-item">
+<span class="skill-name">JavaScript</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 90%;"></div>
+</div>
+</div>
+<div class="skill-item">
+<span class="skill-name">React</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 85%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="skill-category">
+<h3>Back-End Development</h3>
+<div class="skill-bars">
+<div class="skill-item">
+<span class="skill-name">Node.js</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 80%;"></div>
+</div>
+</div>
+<div class="skill-item">
+<span class="skill-name">Python</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 85%;"></div>
+</div>
+</div>
+<div class="skill-item">
+<span class="skill-name">API Development</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 88%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="skill-category">
+<h3>Design &amp; Creative</h3>
+<div class="skill-bars">
+<div class="skill-item">
+<span class="skill-name">UI/UX Design</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 82%;"></div>
+</div>
+</div>
+<div class="skill-item">
+<span class="skill-name">Creative Direction</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 91%;"></div>
+</div>
+</div>
+<div class="skill-item">
+<span class="skill-name">Visual Communication</span>
+<div class="skill-bar">
+<div class="skill-progress" style="width: 89%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></section><section class="section" data-title="JOURNEY"><h2 class="section-title">My Journey</h2><div class="section-content">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2025</div>
+<div class="timeline-content">
+<h3>Current Projects</h3>
+<p>Working on innovative web applications and creative digital experiences.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2023</div>
+<div class="timeline-content">
+<h3>Senior Developer</h3>
+<p>Led development team on several high-profile projects, focusing on cutting-edge web technologies.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2021</div>
+<div class="timeline-content">
+<h3>Belletty Arts</h3>
+<p>Launched creative platform showcasing artistic projects and design work.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2019</div>
+<div class="timeline-content">
+<h3>Full Stack Developer</h3>
+<p>Expanded skillset to include backend technologies and database management.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2017</div>
+<div class="timeline-content">
+<h3>Front-End Specialist</h3>
+<p>Started career focusing on creating beautiful, responsive user interfaces.</p>
+</div>
+</div>
+</div>
+</div></section><section class="section" data-title="PROJECTS">
 <h2 class="section-title">Projects &amp; Websites</h2>
 <div class="projects-grid">
 <a class="project-card" href="https://bellettyarts.com" target="_blank">
@@ -4134,15 +5126,15 @@ body, body * {
 </div>
 </div>
 <!-- Contact Form -->
-<form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form">
-<input type="hidden" name="access_key" value="db45ba6c-b7e9-4818-946b-2a1d99d035db">
+<form action="https://api.web3forms.com/submit" class="contact-form" id="contact-form" method="POST">
+<input name="access_key" type="hidden" value="db45ba6c-b7e9-4818-946b-2a1d99d035db"/>
 <div class="form-group">
 <label for="name">Your Name</label>
-<input type="text" name="name" id="name" required>
+<input id="name" name="name" required="" type="text"/>
 </div>
 <div class="form-group">
 <label for="email">Email Address</label>
- <input type="email" name="email" id="email" required>
+<input id="email" name="email" required="" type="email"/>
 </div>
 <div class="form-group">
 <label for="subject">Subject</label>
@@ -4150,11 +5142,11 @@ body, body * {
 </div>
 <div class="form-group">
 <label for="message">Message</label>
-<textarea name="message" id="message" required></textarea>
+<textarea id="message" name="message" required=""></textarea>
 </div>
 <!-- Honeypot Spam Protection -->
-<input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-<button type="submit" class="submit">Send Message</button>
+<input class="hidden" name="botcheck" style="display: none;" type="checkbox"/>
+<button class="submit" type="submit">Send Message</button>
 </form>
 </div>
 </section>
@@ -4202,7 +5194,12 @@ body, body * {
                 { name: 'Minimalist', class: 'theme-minimalist' },
                 { name: 'Creative Agency', class: 'theme-agency' },
                 { name: 'Portfolio', class: 'theme-portfolio' }
-            ];
+            ,
+                { name: 'Vaporwave', class: 'theme-vaporwave' },
+                { name: 'Glassmorphism', class: 'theme-glass' },
+                { name: 'Retro', class: 'theme-retro' },
+                { name: 'Brutalist', class: 'theme-brutalist' },
+                { name: 'Gradient', class: 'theme-gradient' }];
             
             // Generate random theme index for initial load
             let currentThemeIndex = Math.floor(Math.random() * themes.length);
@@ -5238,5 +6235,272 @@ body, body * {
             setTheme(currentThemeIndex);
         });
     </script>
-</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Activate skill bar animations
+    function animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+            const targetWidth = bar.style.width;
+            bar.style.width = '0';
+            
+            setTimeout(() => {
+                bar.style.width = targetWidth;
+            }, 500);
+        });
+    }
+    
+    // Activate timeline animations
+    function animateTimeline() {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        function showTimelineItems() {
+            timelineItems.forEach(item => {
+                const position = item.getBoundingClientRect();
+                
+                // If the item is in the viewport
+                if (position.top < window.innerHeight * 0.8) {
+                    item.classList.add('show');
+                }
+            });
+        }
+        
+        // Initial check
+        showTimelineItems();
+        
+        // Check on scroll
+        window.addEventListener('scroll', showTimelineItems);
+    }
+    
+    // Initialize animations
+    setTimeout(() => {
+        animateSkillBars();
+        animateTimeline();
+    }, 500);
+});
+</script><script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize particles if the library is loaded and element exists
+    if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
+        // Configure particles based on current theme
+        function configureParticles() {
+            const bodyClasses = document.body.classList;
+            let particleColor = '#3b82f6';
+            let lineColor = '#3b82f6';
+            let particleNumber = 50;
+            
+            // Set different configurations based on theme
+            if (bodyClasses.contains('theme-dark')) {
+                particleColor = '#60a5fa';
+                lineColor = '#60a5fa';
+            } else if (bodyClasses.contains('theme-neon')) {
+                particleColor = '#ff00ff';
+                lineColor = '#00ffff';
+                particleNumber = 80;
+            } else if (bodyClasses.contains('theme-modern-tech')) {
+                particleColor = '#64ffda';
+                lineColor = '#64ffda';
+            } else if (bodyClasses.contains('theme-cyberpunk')) {
+                particleColor = '#ff2b8c';
+                lineColor = '#00b3ff';
+            } else if (bodyClasses.contains('theme-portfolio')) {
+                particleColor = '#4299e1';
+                lineColor = '#805ad5';
+            } else if (bodyClasses.contains('theme-vaporwave')) {
+                particleColor = '#ff6ad5';
+                lineColor = '#45e9ff';
+            } else if (bodyClasses.contains('theme-glass')) {
+                particleColor = '#3b82f6';
+                lineColor = '#0ea5e9';
+                particleNumber = 30;
+            } else if (bodyClasses.contains('theme-gradient')) {
+                particleColor = '#ffffff';
+                lineColor = '#ffffff';
+            }
+            
+            // Particle.js configuration
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": particleNumber,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": particleColor
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": lineColor,
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+        
+        // Initial configuration
+        configureParticles();
+        
+        // Reconfigure particles when theme changes
+        const themeButton = document.getElementById('theme-button');
+        if (themeButton) {
+            themeButton.addEventListener('click', function() {
+                // Delay to allow theme to change first
+                setTimeout(configureParticles, 100);
+            });
+        }
+    }
+});
+</script><script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Multiple text options for typing animation
+        const textOptions = [
+            "Innovative tech Dev with artistic vision.",
+            "Creating digital experiences with passion.",
+            "Bridging technology and creativity.",
+            "Transforming ideas into digital reality.",
+            "Building the future, one pixel at a time."
+        ];
+        
+        const typingElement = document.getElementById('typing-text');
+        
+        if (typingElement) {
+            let currentTextIndex = 0;
+            
+            // Function to start a new typing animation
+            function startTypingAnimation() {
+                const currentText = textOptions[currentTextIndex];
+                let i = 0;
+                
+                // Clear previous text
+                typingElement.textContent = '';
+                
+                // Set typing interval
+                const typingInterval = setInterval(() => {
+                    if (i < currentText.length) {
+                        typingElement.textContent += currentText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typingInterval);
+                        
+                        // Wait before erasing
+                        setTimeout(() => {
+                            startErasingAnimation();
+                        }, 3000);
+                    }
+                }, 100);
+            }
+            
+            // Function to erase the current text
+            function startErasingAnimation() {
+                let currentText = typingElement.textContent;
+                
+                const erasingInterval = setInterval(() => {
+                    if (currentText.length > 0) {
+                        currentText = currentText.substring(0, currentText.length - 1);
+                        typingElement.textContent = currentText;
+                    } else {
+                        clearInterval(erasingInterval);
+                        
+                        // Move to next text option
+                        currentTextIndex = (currentTextIndex + 1) % textOptions.length;
+                        
+                        // Start typing the next text after a short delay
+                        setTimeout(() => {
+                            startTypingAnimation();
+                        }, 500);
+                    }
+                }, 50);
+            }
+            
+            // Start the initial typing animation
+            startTypingAnimation();
+        }
+    });
+    </script></body>
 </html>
