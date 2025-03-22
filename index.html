@@ -6502,10 +6502,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     </script>
-
-
-
-
 <style id="journey-fix">
 /* Beautifully styled timeline */
 .timeline {
@@ -6898,7 +6894,6 @@ body.theme-modern-tech .stars {
     display: block !important;
 }
 </style>
-
 <script id="theme-switching-fix">
 // Fix theme switching to prevent bleeding between themes
 document.addEventListener('DOMContentLoaded', function() {
@@ -6987,7 +6982,6 @@ document.addEventListener('DOMContentLoaded', function() {
     cleanupThemes();
 });
 </script>
-
 <style id="timeline-specific-themes-fix">
 /* ======= SPECIFIC THEME FIXES FOR TIMELINE CONTENT ======= */
 
@@ -7203,5 +7197,62 @@ body.theme-modern-tech .timeline-date {
     opacity: 0.9 !important;
 }
 </style>
-</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Helper to remove duplicates of .theme-decoration.cyber-decor, keeping only the first
+    function removeDuplicateDecor() {
+        var decoElements = document.querySelectorAll('div.theme-decoration.cyber-decor');
+        if (decoElements.length > 1) {
+            // Keep the first instance, remove subsequent
+            for (var i = 1; i < decoElements.length; i++) {
+                if (decoElements[i].parentNode) {
+                    decoElements[i].parentNode.removeChild(decoElements[i]);
+                }
+            }
+        }
+    }
+
+    var themeButton = document.getElementById('theme-button');
+    if (themeButton) {
+        themeButton.addEventListener('click', function() {
+            // Wait a bit for the theme change to complete, then remove duplicates
+            setTimeout(function() {
+                if (document.body.classList.contains('theme-modern-tech')) {
+                    removeDuplicateDecor();
+                }
+            }, 500);
+        }, false);
+    }
+
+    // Set up a MutationObserver to remove duplicates if more appear dynamically
+    var observer = new MutationObserver(function(mutationsList, obs) {
+        if (document.body.classList.contains('theme-modern-tech')) {
+            removeDuplicateDecor();
+        }
+    });
+
+    // Observe the entire document body for child additions
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script><script>
+document.addEventListener('DOMContentLoaded', function() {
+    var themeButton = document.getElementById('theme-button');
+    var themeIndicator = document.getElementById('theme-indicator');
+    
+    if (themeButton && themeIndicator) {
+        // Remove any inline onclick attribute
+        themeButton.removeAttribute('onclick');
+        
+        // Remove previously attached event listeners by cloning the node and replacing it
+        var newThemeButton = themeButton.cloneNode(true);
+        themeButton.parentNode.replaceChild(newThemeButton, themeButton);
+        
+        // Bind a new click event that mimics pressing the theme indicator button
+        newThemeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('theme-indicator').click();
+        });
+    }
+});
+</script></body>
 </html>
