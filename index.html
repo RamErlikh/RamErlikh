@@ -6502,5 +6502,707 @@ document.addEventListener('DOMContentLoaded', function() {
             startTypingAnimation();
         }
     });
-    </script></body>
+    </script>
+
+
+
+
+<style id="journey-fix">
+/* Beautifully styled timeline */
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: #3b82f6;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+    z-index: 1;
+}
+
+.timeline-item {
+    padding: 15px 30px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    top: 22px;
+    border-radius: 50%;
+    z-index: 2;
+    background: #3b82f6;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.timeline-item:nth-child(even)::after {
+    left: -10px;
+}
+
+.timeline-content {
+    padding: 20px 25px;
+    background: white;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.timeline-content h3 {
+    margin: 0 0 10px;
+    color: #3b82f6;
+    font-size: 1.2rem;
+}
+
+.timeline-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+.timeline-date {
+    position: absolute;
+    top: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #3b82f6;
+}
+
+.timeline-item:nth-child(odd) .timeline-date {
+    right: -140px;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+    left: -140px;
+}
+
+/* Make timeline responsive */
+@media screen and (max-width: 768px) {
+    .timeline::before {
+        left: 31px;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        padding-left: 80px;
+        padding-right: 25px;
+    }
+    
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+    
+    .timeline-item:nth-child(odd)::after,
+    .timeline-item:nth-child(even)::after {
+        left: 21px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-date,
+    .timeline-item:nth-child(even) .timeline-date {
+        right: auto;
+        left: -10px;
+        top: -30px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Theme-specific timeline styles */
+body.theme-dark .timeline::before {
+    background: #60a5fa;
+}
+
+body.theme-dark .timeline-item::after {
+    background: #60a5fa;
+    border-color: #0f172a;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
+}
+
+body.theme-dark .timeline-content {
+    background: rgba(30, 41, 59, 0.8);
+    color: #e2e8f0;
+}
+
+body.theme-dark .timeline-content h3 {
+    color: #60a5fa;
+}
+
+body.theme-dark .timeline-content p {
+    color: #cbd5e1;
+}
+
+body.theme-dark .timeline-date {
+    color: #60a5fa;
+}
+
+body.theme-neon .timeline::before {
+    background: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+body.theme-neon .timeline-item::after {
+    background: #00ffff;
+    border-color: #000033;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+body.theme-neon .timeline-content {
+    background: rgba(0, 0, 50, 0.7);
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+body.theme-neon .timeline-content h3 {
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+body.theme-neon .timeline-content p {
+    color: #ffffff;
+}
+
+body.theme-neon .timeline-date {
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+body.theme-terminal .timeline::before {
+    background: #00ff00;
+}
+
+body.theme-terminal .timeline-item::after {
+    background: #00ff00;
+    border-color: #000;
+}
+
+body.theme-terminal .timeline-content {
+    background: #000;
+    border: 1px dashed #00ff00;
+    font-family: 'Courier New', monospace;
+}
+
+body.theme-terminal .timeline-content h3 {
+    color: #00ff00;
+}
+
+body.theme-terminal .timeline-content p {
+    color: #00ff00;
+}
+
+body.theme-terminal .timeline-date {
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+}
+
+/* Additional theme styles for timeline */
+body.theme-vaporwave .timeline::before {
+    background: linear-gradient(to bottom, #ff6ad5, #8795e8);
+}
+
+body.theme-vaporwave .timeline-item::after {
+    background: #45e9ff;
+    border-color: #2b0a3d;
+    box-shadow: 0 0 10px #45e9ff;
+}
+
+body.theme-vaporwave .timeline-content {
+    background: rgba(43, 10, 61, 0.7);
+    border: 2px solid #ff6ad5;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-vaporwave .timeline-content h3 {
+    color: #ff6ad5;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-vaporwave .timeline-content p {
+    color: white;
+}
+
+body.theme-vaporwave .timeline-date {
+    color: #45e9ff;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+body.theme-glass .timeline::before {
+    background: rgba(59, 130, 246, 0.5);
+}
+
+body.theme-glass .timeline-item::after {
+    background: rgba(59, 130, 246, 0.7);
+    border-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+body.theme-glass .timeline-content {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.theme-glass .timeline-content h3 {
+    color: #3b82f6;
+}
+
+body.theme-glass .timeline-content p {
+    color: #1e293b;
+}
+
+body.theme-retro .timeline::before {
+    background: #39ff14;
+    box-shadow: 0 0 5px #39ff14;
+}
+
+body.theme-retro .timeline-item::after {
+    background: #ff00ff;
+    border-color: #000;
+    box-shadow: 0 0 5px #ff00ff;
+}
+
+body.theme-retro .timeline-content {
+    background: #000;
+    border: 2px solid #39ff14;
+    box-shadow: 0 0 8px #39ff14;
+}
+
+body.theme-retro .timeline-content h3 {
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+body.theme-retro .timeline-content p {
+    color: #39ff14;
+    text-shadow: 0 0 3px #39ff14;
+}
+
+body.theme-retro .timeline-date {
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+body.theme-brutalist .timeline::before {
+    background: #000;
+    width: 4px;
+}
+
+body.theme-brutalist .timeline-item::after {
+    background: #000;
+    border-color: #fff;
+    border-radius: 0;
+    width: 15px;
+    height: 15px;
+}
+
+body.theme-brutalist .timeline-content {
+    background: #fff;
+    border: 5px solid #000;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+body.theme-brutalist .timeline-content h3 {
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+body.theme-brutalist .timeline-content p {
+    color: #000;
+}
+
+body.theme-brutalist .timeline-date {
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+body.theme-gradient .timeline::before {
+    background: linear-gradient(to bottom, #4158D0, #C850C0, #FFCC70);
+}
+
+body.theme-gradient .timeline-item::after {
+    background: #C850C0;
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(200, 80, 192, 0.5);
+}
+
+body.theme-gradient .timeline-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.theme-gradient .timeline-content h3 {
+    color: white;
+    font-weight: 600;
+}
+
+body.theme-gradient .timeline-content p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body.theme-gradient .timeline-date {
+    color: white;
+    font-weight: 600;
+}
+
+/* Fix for theme decorations */
+.theme-decoration,
+.tech-badges,
+.cyber-decor,
+.agency-shapes,
+.stars,
+.particles-container {
+    display: none !important;
+}
+
+body.theme-modern-tech .tech-badges {
+    display: block !important;
+}
+
+body.theme-cyberpunk .cyber-decor {
+    display: block !important;
+}
+
+body.theme-agency .agency-shapes {
+    display: block !important;
+}
+
+body.theme-modern-tech .stars {
+    display: block !important;
+}
+</style>
+
+<script id="theme-switching-fix">
+// Fix theme switching to prevent bleeding between themes
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the theme button and indicator
+    const themeButton = document.getElementById('theme-button');
+    const themeIndicator = document.getElementById('theme-indicator');
+    
+    if (themeButton) {
+        // Replace the click handler to ensure proper theme switching
+        themeButton.addEventListener('click', function() {
+            // This will invoke the original theme switching behavior
+            const event = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            
+            // Dispatch the event
+            themeButton.dispatchEvent(event);
+            
+            // Additional cleanup to prevent theme bleeding
+            setTimeout(function() {
+                cleanupThemes();
+            }, 50);
+        }, true);
+    }
+    
+    // Also fix the theme indicator if it exists
+    if (themeIndicator) {
+        themeIndicator.addEventListener('click', function() {
+            setTimeout(function() {
+                cleanupThemes();
+            }, 50);
+        }, true);
+    }
+    
+    // Function to clean up theme bleeding
+    function cleanupThemes() {
+        // Get current theme
+        const bodyClasses = document.body.classList;
+        let currentTheme = null;
+        
+        for (let i = 0; i < bodyClasses.length; i++) {
+            if (bodyClasses[i].startsWith('theme-')) {
+                currentTheme = bodyClasses[i];
+                break;
+            }
+        }
+        
+        // Hide all theme-specific decorations
+        document.querySelectorAll('.theme-decoration, .tech-badges, .cyber-decor, .agency-shapes, .stars, .particles-container').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Only show decorations for current theme
+        if (currentTheme === 'theme-modern-tech') {
+            document.querySelectorAll('.tech-badges').forEach(el => {
+                el.style.display = 'block';
+            });
+        } else if (currentTheme === 'theme-cyberpunk') {
+            document.querySelectorAll('.cyber-decor').forEach(el => {
+                el.style.display = 'block';
+            });
+        } else if (currentTheme === 'theme-agency') {
+            document.querySelectorAll('.agency-shapes').forEach(el => {
+                el.style.display = 'block';
+            });
+        }
+        
+        // Force all timeline elements to be visible and properly styled
+        const timeline = document.querySelector('.timeline');
+        if (timeline) {
+            timeline.style.display = 'block';
+            timeline.style.visibility = 'visible';
+            timeline.style.opacity = '1';
+        }
+        
+        document.querySelectorAll('.timeline-item, .timeline-content').forEach(el => {
+            el.style.display = 'block';
+            el.style.visibility = 'visible';
+            el.style.opacity = '1';
+        });
+    }
+    
+    // Run cleanup on page load
+    cleanupThemes();
+});
+</script>
+
+<style id="timeline-specific-themes-fix">
+/* ======= SPECIFIC THEME FIXES FOR TIMELINE CONTENT ======= */
+
+/* Portfolio Theme - Sleek, gradient-based design */
+body.theme-portfolio .timeline::before {
+    background: linear-gradient(to bottom, #3b82f6, #805ad5) !important;
+    width: 3px !important;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+body.theme-portfolio .timeline-item::after {
+    background: linear-gradient(135deg, #3b82f6, #805ad5) !important;
+    border: 3px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5) !important;
+}
+
+body.theme-portfolio .timeline-content {
+    background: rgba(26, 32, 44, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(0) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+body.theme-portfolio .timeline-content:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.theme-portfolio .timeline-content h3 {
+    color: #4299e1 !important;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px !important;
+    position: relative !important;
+    display: inline-block !important;
+}
+
+body.theme-portfolio .timeline-content h3::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -5px !important;
+    left: 0 !important;
+    width: 40px !important;
+    height: 2px !important;
+    background: linear-gradient(to right, #4299e1, rgba(66, 153, 225, 0)) !important;
+}
+
+body.theme-portfolio .timeline-content p {
+    color: #a0aec0 !important;
+    line-height: 1.6 !important;
+}
+
+body.theme-portfolio .timeline-date {
+    color: #63b3ed !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    text-shadow: 0 0 5px rgba(99, 179, 237, 0.5) !important;
+}
+
+/* Cyberpunk Theme - Neon, glitchy, futuristic */
+body.theme-cyberpunk .timeline::before {
+    background: #ff2b8c !important;
+    box-shadow: 0 0 15px #ff2b8c, 0 0 30px rgba(255, 43, 140, 0.5) !important;
+    width: 2px !important;
+    animation: neonPulse 2s infinite alternate !important;
+}
+
+@keyframes neonPulse {
+    0% { box-shadow: 0 0 15px #ff2b8c, 0 0 30px rgba(255, 43, 140, 0.5); }
+    100% { box-shadow: 0 0 25px #ff2b8c, 0 0 50px rgba(255, 43, 140, 0.7); }
+}
+
+body.theme-cyberpunk .timeline-item::after {
+    background: #00b3ff !important;
+    border: 2px solid #000033 !important;
+    box-shadow: 0 0 15px #00b3ff, 0 0 30px rgba(0, 179, 255, 0.5) !important;
+}
+
+body.theme-cyberpunk .timeline-content {
+    background: rgba(0, 0, 33, 0.8) !important;
+    border: 2px solid #ff2b8c !important;
+    box-shadow: 0 0 20px rgba(255, 43, 140, 0.3) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 5px !important;
+}
+
+body.theme-cyberpunk .timeline-content::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(45deg, rgba(255, 43, 140, 0.1), transparent, rgba(0, 179, 255, 0.1)) !important;
+    z-index: -1 !important;
+}
+
+body.theme-cyberpunk .timeline-content::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    animation: cyberscan 4s infinite !important;
+    z-index: 1 !important;
+}
+
+@keyframes cyberscan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+body.theme-cyberpunk .timeline-content h3 {
+    color: #00b3ff !important;
+    text-transform: uppercase !important;
+    font-size: 1.2rem !important;
+    letter-spacing: 1px !important;
+    text-shadow: 0 0 10px rgba(0, 179, 255, 0.7) !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+body.theme-cyberpunk .timeline-content p {
+    color: #ffffff !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+body.theme-cyberpunk .timeline-date {
+    color: #ff2b8c !important;
+    text-shadow: 0 0 10px rgba(255, 43, 140, 0.7) !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+}
+
+/* Modern Tech Theme - Clean, minimal, with accent colors */
+body.theme-modern-tech .timeline::before {
+    background: #64ffda !important;
+    width: 2px !important;
+    opacity: 0.7 !important;
+}
+
+body.theme-modern-tech .timeline-item::after {
+    background: #64ffda !important;
+    border: 3px solid #112240 !important;
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.5) !important;
+}
+
+body.theme-modern-tech .timeline-content {
+    background: rgba(17, 34, 64, 0.8) !important;
+    border: 1px solid rgba(100, 255, 218, 0.2) !important;
+    border-radius: 5px !important;
+    padding: 25px !important;
+    box-shadow: 0 10px 30px rgba(2, 12, 27, 0.3) !important;
+    position: relative !important;
+}
+
+body.theme-modern-tech .timeline-content::before {
+    content: '</' !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    color: rgba(100, 255, 218, 0.3) !important;
+    font-family: monospace !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+body.theme-modern-tech .timeline-content::after {
+    content: '>' !important;
+    position: absolute !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    color: rgba(100, 255, 218, 0.3) !important;
+    font-family: monospace !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+body.theme-modern-tech .timeline-content h3 {
+    color: #64ffda !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 15px !important;
+    position: relative !important;
+    padding-left: 20px !important;
+}
+
+body.theme-modern-tech .timeline-content h3::before {
+    content: '>' !important;
+    position: absolute !important;
+    left: 0 !important;
+    color: #64ffda !important;
+    font-family: monospace !important;
+}
+
+body.theme-modern-tech .timeline-content p {
+    color: #a8b2d1 !important;
+    line-height: 1.7 !important;
+    padding-left: 20px !important;
+}
+
+body.theme-modern-tech .timeline-date {
+    color: #64ffda !important;
+    font-family: monospace !important;
+    font-weight: 600 !important;
+    opacity: 0.9 !important;
+}
+</style>
+</body>
 </html>
