@@ -6224,10 +6224,27 @@ body.theme-terminal * {
 </style>
 <style id="mobile-timeline-fix">
     @media (max-width: 768px) {
-        body.theme-gradient .timeline-content {
-            background: rgba(255, 255, 255, 0.1) !important;
-            backdrop-filter: blur(5px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        
+			body.theme-gradient .timeline::before {
+    background: linear-gradient(to bottom, #4158D0, #C850C0, #FFCC70);
+}
+
+body.theme-gradient .timeline-item::after {
+    background: #C850C0;
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(200, 80, 192, 0.5);
+}
+
+body.theme-gradient .timeline-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.theme-gradient .timeline-content h3 {
+    color: white;
+    font-weight: 600;
+}
         }
     }
     </style></head>
