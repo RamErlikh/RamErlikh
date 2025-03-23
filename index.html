@@ -6645,6 +6645,96 @@ body.theme-gradient .timeline-content h3 {
 }
 
 </style>
+<style id="vaporwave-gradient-fixes">
+
+/* ===== Vaporwave and Gradient Theme Fixes for Mobile ===== */
+@media (max-width: 768px) {
+    /* ===== VAPORWAVE THEME FIXES ===== */
+    /* Fix pink borders and backgrounds */
+    body.theme-vaporwave .timeline::before {
+        background: linear-gradient(to bottom, #ff6ad5, #8795e8) !important;
+        box-shadow: 0 0 15px rgba(255, 106, 213, 0.5) !important;
+        opacity: 1 !important;
+    }
+    
+    body.theme-vaporwave .timeline-dot {
+        background-color: #ff6ad5 !important; /* Pink */
+        border: 4px solid #1a0033 !important; /* Dark purple background */
+        box-shadow: 0 0 15px rgba(255, 106, 213, 0.7) !important;
+    }
+    
+    body.theme-vaporwave .timeline-date {
+        color: #45e9ff !important; /* Cyan */
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5) !important;
+        font-weight: bold !important;
+    }
+    
+    /* KEY FIX: Ensure proper background color and PINK BORDERS */
+    body.theme-vaporwave .timeline-content {
+        background-color: rgba(26, 0, 51, 0.7) !important; /* Dark purple */
+        border: 2px solid #ff6ad5 !important; /* Pink border */
+        box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 106, 213, 0.3) !important;
+        backdrop-filter: blur(5px) !important;
+    }
+    
+    body.theme-vaporwave .timeline-content h3 {
+        color: #ff6ad5 !important; /* Pink */
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5) !important;
+        font-weight: bold !important;
+    }
+    
+    body.theme-vaporwave .timeline-content p {
+        color: #c8f7ff !important; /* Light cyan */
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    /* ===== GRADIENT THEME FIXES ===== */
+    /* Fix gradient backgrounds instead of white backgrounds */
+    body.theme-gradient .timeline::before {
+        background: linear-gradient(to bottom, #4158D0, #C850C0, #FFCC70) !important;
+        opacity: 1 !important;
+        box-shadow: 0 0 10px rgba(200, 80, 192, 0.5) !important;
+    }
+    
+    body.theme-gradient .timeline-dot {
+        background-color: #C850C0 !important; /* Magenta */
+        border: 4px solid rgba(255, 255, 255, 0.7) !important;
+        box-shadow: 0 0 10px rgba(200, 80, 192, 0.5) !important;
+    }
+    
+    body.theme-gradient .timeline-date {
+        color: #4158D0 !important; /* Blue */
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    /* KEY FIX: Gradient background instead of white */
+    body.theme-gradient .timeline-content {
+        background: linear-gradient(135deg, rgba(65, 88, 208, 0.15), rgba(200, 80, 192, 0.15), rgba(255, 204, 112, 0.15)) !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    body.theme-gradient .timeline-content h3 {
+        color: #C850C0 !important; /* Magenta */
+        font-weight: 600 !important;
+    }
+    
+    body.theme-gradient .timeline-content p {
+        color: #333 !important;
+    }
+    
+    /* Force specific elements to be visible and properly styled */
+    body.theme-vaporwave .timeline-content *,
+    body.theme-gradient .timeline-content * {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+</style>
 </head>
 <body><div class="refresh-indicator" id="refresh-indicator"><i class="fas fa-sync-alt"></i><span>Pull down to refresh</span></div><div class="loading-screen" id="loading-screen"><div class="loading-content"><div class="loader"></div><div class="loading-text">Loading Ram's Portfolio...</div><div class="progress-container"><div class="progress-bar" id="loading-progress-bar"></div></div><div class="loading-percentage" id="loading-percentage">0%</div></div></div><script>
 document.addEventListener('DOMContentLoaded', function() {
