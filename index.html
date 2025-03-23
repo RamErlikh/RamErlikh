@@ -6292,39 +6292,86 @@ body.theme-gradient .timeline-content h3 {
     }
 }
 
-/* ===== FIX FOR GRADIENT THEME TIMELINE ON MOBILE ===== */
+/* Previous gradient fixes removed */
+</style>
+
+<style id="gradient-timeline-box-fix">
+/* Super-specific targeting of gradient theme timeline boxes on mobile */
 @media (max-width: 768px) {
-    /* Fix timeline content boxes */
-    body.theme-gradient .timeline-content {
-        background: rgba(255, 255, 255, 0.1) !important;
-        background-color: rgba(255, 255, 255, 0.1) !important;
+    /* Direct targeting with maximum specificity */
+    html body.theme-gradient .timeline .timeline-item .timeline-content,
+    body.theme-gradient .timeline-content,
+    body.theme-gradient .section-content .timeline .timeline-content,
+    body.theme-gradient .timeline-item:nth-child(odd) .timeline-content,
+    body.theme-gradient .timeline-item:nth-child(even) .timeline-content {
+        /* Semi-transparent light pinkish/orange background to match desktop */
+        background: rgba(255, 200, 200, 0.1) !important;
+        background-color: rgba(255, 200, 200, 0.1) !important;
+        
+        /* Add blur effect for glass effect */
         backdrop-filter: blur(5px) !important;
         -webkit-backdrop-filter: blur(5px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        box-shadow: none !important;
+        
+        /* Light border */
+        border: 1px solid rgba(255, 200, 200, 0.3) !important;
+        
+        /* Remove any box-shadow that might make it look solid */
+        box-shadow: 0 5px 15px rgba(255, 150, 200, 0.1) !important;
+        
+        /* Text colors */
         color: white !important;
+        
+        /* Ensure proper border radius */
+        border-radius: 8px !important;
+        
+        /* Override any padding */
+        padding: 20px !important;
+        
+        /* Ensure proper position and display */
+        position: relative !important;
+        display: block !important;
+        overflow: visible !important;
+        
+        /* Transition for smooth theme changes */
+        transition: background-color 0.3s ease !important;
     }
     
-    /* Fix text colors */
+    /* Timeline headings */
     body.theme-gradient .timeline-content h3 {
         color: white !important;
         font-weight: 600 !important;
+        margin-bottom: 10px !important;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.2) !important;
     }
     
+    /* Timeline paragraph text */
     body.theme-gradient .timeline-content p {
         color: rgba(255, 255, 255, 0.9) !important;
+        margin-bottom: 0 !important;
     }
     
-    /* Fix timeline line and dots */
+    /* Ensure timeline line has gradient */
     body.theme-gradient .timeline::before {
         background: linear-gradient(to bottom, #4158D0, #C850C0, #FFCC70) !important;
+        width: 2px !important;
     }
     
-    body.theme-gradient .timeline-item::after {
+    /* Ensure timeline dots match */
+    body.theme-gradient .timeline-item::after,
+    body.theme-gradient .timeline-dot {
         background: #C850C0 !important;
         border-color: rgba(255, 255, 255, 0.7) !important;
         box-shadow: 0 0 10px rgba(200, 80, 192, 0.5) !important;
+    }
+    
+    /* Fix for any background override in container */
+    body.theme-gradient .section-content .timeline {
+        background: transparent !important;
+    }
+    
+    /* Prevent any white background */
+    body.theme-gradient .timeline-item {
+        background-color: transparent !important;
     }
 }
 </style>
