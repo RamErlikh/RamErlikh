@@ -6328,10 +6328,11 @@ body.theme-gradient .timeline-content h3 {
     }
 }
 </style>
-<style id="mobile-timeline-fixes">
+<style id="enhanced-mobile-timeline-fixes">
 
-/* Mobile Timeline Fixes - Apply to portfolio.html */
+/* Enhanced Mobile Timeline Fixes - Apply to portfolio.html */
 @media (max-width: 768px) {
+    /* ===== CORE TIMELINE FIXES ===== */
     /* Fix timeline container */
     .timeline {
         width: 100% !important;
@@ -6339,6 +6340,8 @@ body.theme-gradient .timeline-content h3 {
         margin: 0 auto !important;
         position: relative !important;
         display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     /* Fix timeline center line */
@@ -6349,10 +6352,11 @@ body.theme-gradient .timeline-content h3 {
         top: 0 !important;
         bottom: 0 !important;
         width: 2px !important;
-        background-color: #3b82f6 !important;
+        background-color: #3b82f6 !important; /* Default blue */
         z-index: 1 !important;
         display: block !important;
         opacity: 1 !important;
+        visibility: visible !important;
     }
     
     /* Fix timeline items */
@@ -6363,6 +6367,7 @@ body.theme-gradient .timeline-content h3 {
         margin-bottom: 30px !important;
         position: relative !important;
         opacity: 1 !important;
+        visibility: visible !important;
         transform: none !important;
         left: 0 !important;
     }
@@ -6375,10 +6380,11 @@ body.theme-gradient .timeline-content h3 {
         width: 20px !important;
         height: 20px !important;
         border-radius: 50% !important;
-        background-color: #3b82f6 !important;
+        background-color: #3b82f6 !important; /* Default blue */
         z-index: 2 !important;
         border: 4px solid #fff !important;
         opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
     }
     
@@ -6388,8 +6394,9 @@ body.theme-gradient .timeline-content h3 {
         left: 70px !important;
         top: -25px !important;
         font-weight: bold !important;
-        color: #3b82f6 !important;
+        color: #3b82f6 !important; /* Default blue */
         opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
     }
     
@@ -6400,16 +6407,20 @@ body.theme-gradient .timeline-content h3 {
         border-radius: 8px !important;
         box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08) !important;
         opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
         margin-top: 15px !important;
+        background-color: inherit !important; /* Inherit from theme */
+        border: inherit !important; /* Inherit from theme */
     }
     
     /* Fix text in content box */
     .timeline-content h3 {
         margin: 0 0 10px !important;
-        color: #3b82f6 !important;
+        color: #3b82f6 !important; /* Default blue */
         font-size: 1.2rem !important;
         opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
     }
     
@@ -6417,50 +6428,219 @@ body.theme-gradient .timeline-content h3 {
         margin: 0 !important;
         font-size: 0.95rem !important;
         line-height: 1.5 !important;
-        color: #555 !important;
+        color: inherit !important; /* Inherit from theme */
         opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
     }
     
-    /* Specific fixes for Gradient theme */
+    /* Remove any unwanted elements */
+    .timeline-item::before,
+    .timeline-item::after {
+        display: none !important;
+    }
+    
+    /* ===== DARK BLUE THEME (Image 1) ===== */
+    body.theme-dark .timeline::before,
+    body.theme-dark-blue .timeline::before {
+        background-color: #60a5fa !important; /* Lighter blue */
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.5) !important;
+    }
+    
+    body.theme-dark .timeline-dot,
+    body.theme-dark-blue .timeline-dot {
+        background-color: #60a5fa !important;
+        border-color: #0f172a !important; /* Dark blue background */
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.5) !important;
+    }
+    
+    body.theme-dark .timeline-date,
+    body.theme-dark-blue .timeline-date {
+        color: #60a5fa !important;
+    }
+    
+    body.theme-dark .timeline-content,
+    body.theme-dark-blue .timeline-content {
+        background-color: rgba(30, 41, 59, 0.8) !important;
+        border: 1px solid rgba(96, 165, 250, 0.2) !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+        color: #e2e8f0 !important;
+    }
+    
+    body.theme-dark .timeline-content h3,
+    body.theme-dark-blue .timeline-content h3 {
+        color: #60a5fa !important;
+    }
+    
+    body.theme-dark .timeline-content p,
+    body.theme-dark-blue .timeline-content p {
+        color: #cbd5e1 !important;
+    }
+    
+    /* ===== NEON/CYBERPUNK THEME (Image 2) ===== */
+    body.theme-neon .timeline::before,
+    body.theme-cyberpunk .timeline::before {
+        background-color: #ff00ff !important; /* Neon pink */
+        box-shadow: 0 0 15px #ff00ff, 0 0 30px rgba(255, 0, 255, 0.5) !important;
+    }
+    
+    body.theme-neon .timeline-dot,
+    body.theme-cyberpunk .timeline-dot {
+        background-color: #00ffff !important; /* Cyan */
+        border-color: #000033 !important; /* Dark background */
+        box-shadow: 0 0 15px #00ffff, 0 0 30px rgba(0, 255, 255, 0.5) !important;
+    }
+    
+    body.theme-neon .timeline-date,
+    body.theme-cyberpunk .timeline-date {
+        color: #ff00ff !important; /* Neon pink */
+        text-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    body.theme-neon .timeline-content,
+    body.theme-cyberpunk .timeline-content {
+        background-color: rgba(0, 0, 50, 0.7) !important;
+        border: 2px solid #ff00ff !important;
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.3) !important;
+        color: white !important;
+    }
+    
+    body.theme-neon .timeline-content h3,
+    body.theme-cyberpunk .timeline-content h3 {
+        color: #00ffff !important; /* Cyan */
+        text-shadow: 0 0 5px #00ffff !important;
+    }
+    
+    body.theme-neon .timeline-content p,
+    body.theme-cyberpunk .timeline-content p {
+        color: white !important;
+    }
+    
+    /* ===== GREEN AND PINK NEON THEME (Image 3) ===== */
+    body.theme-neon-alt .timeline::before,
+    body.theme-retro .timeline::before {
+        background-color: #00ff00 !important; /* Neon green */
+        box-shadow: 0 0 15px #00ff00 !important;
+    }
+    
+    body.theme-neon-alt .timeline-dot,
+    body.theme-retro .timeline-dot {
+        background-color: #ff00ff !important; /* Neon pink */
+        border-color: #000000 !important;
+        box-shadow: 0 0 15px #ff00ff !important;
+    }
+    
+    body.theme-neon-alt .timeline-date,
+    body.theme-retro .timeline-date {
+        color: #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    body.theme-neon-alt .timeline-content,
+    body.theme-retro .timeline-content {
+        background-color: rgba(0, 0, 0, 0.7) !important;
+        border: 2px solid #00ff00 !important;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.3) !important;
+    }
+    
+    body.theme-neon-alt .timeline-content h3,
+    body.theme-retro .timeline-content h3 {
+        color: #ff00ff !important; /* Pink */
+        text-shadow: 0 0 5px #ff00ff !important;
+    }
+    
+    body.theme-neon-alt .timeline-content p,
+    body.theme-retro .timeline-content p {
+        color: #00ff00 !important; /* Green */
+        text-shadow: 0 0 3px #00ff00 !important;
+    }
+    
+    /* ===== LIGHT/PEACH THEME (Image 4) ===== */
+    body.theme-light .timeline::before,
     body.theme-gradient .timeline::before {
         background: linear-gradient(to bottom, #4158D0, #C850C0, #FFCC70) !important;
         opacity: 1 !important;
     }
     
+    body.theme-light .timeline-dot,
     body.theme-gradient .timeline-dot {
-        background-color: #C850C0 !important;
+        background-color: #7e3ace !important; /* Purple */
         border-color: rgba(255, 255, 255, 0.7) !important;
-        box-shadow: 0 0 10px rgba(200, 80, 192, 0.5) !important;
-        opacity: 1 !important;
+        box-shadow: 0 0 10px rgba(126, 58, 206, 0.5) !important;
     }
     
+    body.theme-light .timeline-date,
     body.theme-gradient .timeline-date {
-        color: white !important;
+        color: #7e3ace !important; /* Purple */
         font-weight: 600 !important;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2) !important;
     }
     
+    body.theme-light .timeline-content,
     body.theme-gradient .timeline-content {
-        background: rgba(255, 255, 255, 0.85) !important;
+        background-color: rgba(255, 255, 255, 0.85) !important;
         backdrop-filter: blur(5px) !important;
         -webkit-backdrop-filter: blur(5px) !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
     }
     
+    body.theme-light .timeline-content h3,
     body.theme-gradient .timeline-content h3 {
-        color: #333 !important;
+        color: #7e3ace !important; /* Purple */
         font-weight: 600 !important;
     }
     
+    body.theme-light .timeline-content p,
     body.theme-gradient .timeline-content p {
         color: #444 !important;
     }
     
-    /* Fix any oval or unwanted elements */
-    .timeline-item::before {
-        display: none !important;
+    /* ===== DARK PURPLE THEME (Image 5) ===== */
+    body.theme-purple .timeline::before,
+    body.theme-modern-tech .timeline::before {
+        background-color: rgba(203, 213, 225, 0.5) !important; /* Light gray */
+    }
+    
+    body.theme-purple .timeline-dot,
+    body.theme-modern-tech .timeline-dot {
+        background-color: #06b6d4 !important; /* Cyan */
+        border-color: #1e1b4b !important; /* Dark purple */
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.5) !important;
+    }
+    
+    body.theme-purple .timeline-date,
+    body.theme-modern-tech .timeline-date {
+        color: #06b6d4 !important; /* Cyan */
+    }
+    
+    body.theme-purple .timeline-content,
+    body.theme-modern-tech .timeline-content {
+        background-color: rgba(15, 23, 42, 0.6) !important;
+        border: 1px solid rgba(255, 0, 255, 0.3) !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+    }
+    
+    body.theme-purple .timeline-content h3,
+    body.theme-modern-tech .timeline-content h3 {
+        color: #ec4899 !important; /* Pink */
+    }
+    
+    body.theme-purple .timeline-content p,
+    body.theme-modern-tech .timeline-content p {
+        color: #ffffff !important;
+    }
+    
+    /* ===== For any other themes not specifically covered ===== */
+    /* This ensures basic functionality for all theme variations */
+    .timeline-content {
+        color: inherit !important;
+        background-color: inherit !important;
+        border-color: inherit !important;
+    }
+    
+    .timeline-content * {
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }
 
