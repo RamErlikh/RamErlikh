@@ -6198,8 +6198,6 @@ body.theme-terminal * {
     scrollbar-color: #00ff00 rgba(0, 0, 0, 0.5);
 }
 </style>
-
-
 <style id="custom-positioning">
 /* Position audio player at bottom left */
 .audio-player-mini, #audio-player {
@@ -6217,7 +6215,6 @@ body.theme-terminal * {
     z-index: 1000 !important;
 }
 </style>
-
 <!-- Cosmic Space Scrolling Fix -->
 <style id="cosmic-space-scroll-fix">
   body.theme-space {
@@ -6225,8 +6222,15 @@ body.theme-terminal * {
     height: auto !important;
   }
 </style>
-
-</head>
+<style id="mobile-timeline-fix">
+    @media (max-width: 768px) {
+        body.theme-gradient .timeline-content {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(5px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+    }
+    </style></head>
 <body><div class="refresh-indicator" id="refresh-indicator"><i class="fas fa-sync-alt"></i><span>Pull down to refresh</span></div><div class="loading-screen" id="loading-screen"><div class="loading-content"><div class="loader"></div><div class="loading-text">Loading Ram's Portfolio...</div><div class="progress-container"><div class="progress-bar" id="loading-progress-bar"></div></div><div class="loading-percentage" id="loading-percentage">0%</div></div></div><script>
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -9185,7 +9189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 3000);
     });
-    </script><div class="matrix-terminal" id="matrix-terminal"><div class="terminal-header"><div class="terminal-title">Matrix Terminal</div><button class="terminal-close" id="terminal-close" onclick="document.getElementById('matrix-terminal').classList.remove('open');">×</button></div><div class="terminal-content" id="terminal-content"><div class="terminal-output" id="terminal-output"></div><div class="terminal-input-container"><span class="terminal-prompt">&gt;</span><input autocomplete="off" class="terminal-input" id="terminal-input" placeholder="Enter a command..." type="text"/></div></div></div><button class="terminal-toggle" id="terminal-toggle" title="Open Terminal" onclick="document.getElementById('matrix-terminal').classList.add('open'); setTimeout(function() { document.getElementById('terminal-input').focus(); }, 100);"><i class="fas fa-terminal"></i></button><script id="matrix-terminal-script">
+    </script><div class="matrix-terminal" id="matrix-terminal"><div class="terminal-header"><div class="terminal-title">Matrix Terminal</div><button class="terminal-close" id="terminal-close" onclick="document.getElementById('matrix-terminal').classList.remove('open');">×</button></div><div class="terminal-content" id="terminal-content"><div class="terminal-output" id="terminal-output"></div><div class="terminal-input-container"><span class="terminal-prompt">&gt;</span><input autocomplete="off" class="terminal-input" id="terminal-input" placeholder="Enter a command..." type="text"/></div></div></div><button class="terminal-toggle" id="terminal-toggle" onclick="document.getElementById('matrix-terminal').classList.add('open'); setTimeout(function() { document.getElementById('terminal-input').focus(); }, 100);" title="Open Terminal"><i class="fas fa-terminal"></i></button><script id="matrix-terminal-script">
     document.addEventListener('DOMContentLoaded', function() {
         const terminal = document.getElementById('matrix-terminal');
         const terminalToggle = document.getElementById('terminal-toggle');
@@ -10627,8 +10631,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 })();
 </script>
-
-
 <script id="critical-fixes">
 // Initialize when document is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -11238,8 +11240,6 @@ if (document.readyState === 'loading') {
     document.dispatchEvent(new Event('DOMContentLoaded'));
 }
 </script>
-
-
 <script id="standalone-audio-player">
 // Wait for page to be fully loaded
 window.addEventListener('load', function() {
@@ -11522,7 +11522,6 @@ window.addEventListener('load', function() {
 
 
 </script>
-
 <!-- Music Player Fix -->
 <script id="music-player-fix">
 if (!window.__musicPlayerInjected) {
@@ -11619,6 +11618,5 @@ if (!window.__musicPlayerInjected) {
   });
 }
 </script>
-
 </body>
 </html>
