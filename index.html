@@ -6328,6 +6328,143 @@ body.theme-gradient .timeline-content h3 {
     }
 }
 </style>
+<style id="mobile-timeline-fixes">
+
+/* Mobile Timeline Fixes - Apply to portfolio.html */
+@media (max-width: 768px) {
+    /* Fix timeline container */
+    .timeline {
+        width: 100% !important;
+        padding: 20px 0 !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        display: block !important;
+    }
+    
+    /* Fix timeline center line */
+    .timeline::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 31px !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 2px !important;
+        background-color: #3b82f6 !important;
+        z-index: 1 !important;
+        display: block !important;
+        opacity: 1 !important;
+    }
+    
+    /* Fix timeline items */
+    .timeline-item {
+        width: 100% !important;
+        padding-left: 70px !important;
+        padding-right: 15px !important;
+        margin-bottom: 30px !important;
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        left: 0 !important;
+    }
+    
+    /* Fix dot positioning and display */
+    .timeline-dot {
+        position: absolute !important;
+        left: 21px !important;
+        top: 10px !important;
+        width: 20px !important;
+        height: 20px !important;
+        border-radius: 50% !important;
+        background-color: #3b82f6 !important;
+        z-index: 2 !important;
+        border: 4px solid #fff !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+    
+    /* Fix date display */
+    .timeline-date {
+        position: absolute !important;
+        left: 70px !important;
+        top: -25px !important;
+        font-weight: bold !important;
+        color: #3b82f6 !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+    
+    /* Fix content box */
+    .timeline-content {
+        background: white !important;
+        padding: 20px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08) !important;
+        opacity: 1 !important;
+        display: block !important;
+        margin-top: 15px !important;
+    }
+    
+    /* Fix text in content box */
+    .timeline-content h3 {
+        margin: 0 0 10px !important;
+        color: #3b82f6 !important;
+        font-size: 1.2rem !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+    
+    .timeline-content p {
+        margin: 0 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        color: #555 !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+    
+    /* Specific fixes for Gradient theme */
+    body.theme-gradient .timeline::before {
+        background: linear-gradient(to bottom, #4158D0, #C850C0, #FFCC70) !important;
+        opacity: 1 !important;
+    }
+    
+    body.theme-gradient .timeline-dot {
+        background-color: #C850C0 !important;
+        border-color: rgba(255, 255, 255, 0.7) !important;
+        box-shadow: 0 0 10px rgba(200, 80, 192, 0.5) !important;
+        opacity: 1 !important;
+    }
+    
+    body.theme-gradient .timeline-date {
+        color: white !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2) !important;
+    }
+    
+    body.theme-gradient .timeline-content {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    body.theme-gradient .timeline-content h3 {
+        color: #333 !important;
+        font-weight: 600 !important;
+    }
+    
+    body.theme-gradient .timeline-content p {
+        color: #444 !important;
+    }
+    
+    /* Fix any oval or unwanted elements */
+    .timeline-item::before {
+        display: none !important;
+    }
+}
+
+</style>
 </head>
 <body><div class="refresh-indicator" id="refresh-indicator"><i class="fas fa-sync-alt"></i><span>Pull down to refresh</span></div><div class="loading-screen" id="loading-screen"><div class="loading-content"><div class="loader"></div><div class="loading-text">Loading Ram's Portfolio...</div><div class="progress-container"><div class="progress-bar" id="loading-progress-bar"></div></div><div class="loading-percentage" id="loading-percentage">0%</div></div></div><script>
 document.addEventListener('DOMContentLoaded', function() {
